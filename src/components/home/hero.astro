@@ -1,0 +1,23 @@
+---
+import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
+---
+
+<section class="relative max-w-screen-2xl mx-auto font-sans">
+    <img src="/images/home/banner.png" alt="Banner" class="size-full object-cover rounded-lg" />
+    <div class="absolute top-1/2 -translate-y-1/4 right-28 flex flex-col gap-6 text-primary-lotion">
+        <h2 class="text-d-title-1">
+            Where confidence <br /> meets care.
+        </h2>
+        <ButtonSlide 
+          text="SHOP NOW"
+          href="/shop"
+          normalBackground="transparent"
+          normalColor="#FAFAFA"
+          hoverBackground="#FAFAFA"
+          hoverColor="#3B3B3B"
+          borderColor="#FAFAFA"
+          hoverBorderColor="#3B3B3B"
+          transitionDuration="0.5s"
+        />
+    </div>
+</section>

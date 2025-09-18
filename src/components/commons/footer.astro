@@ -1,0 +1,145 @@
+---
+import AnimatedLink from "../ui/buttons/AnimatedLink"
+import ButtonSlide from "../ui/buttons/ButtonSlide"
+const explore = [
+    {
+        text: "SHOP",
+        href: "#"
+    },  
+    {
+        text: "ABOUT",
+        href: "#"
+    },
+    {
+        text: "INGREDIENTS",
+        href: "#"
+    },
+    {
+        text: "TESTIMONIALS",
+        href: "#"
+    },
+    {
+        text: "FAQS",
+        href: "#"
+    },
+    {
+        text: "LEARN",
+        href: "#"
+    }
+]
+
+const follow = [
+
+    {
+        text: "INSTAGRAM",
+        href: "#"
+    },
+    {
+        text: "FACEBOOK",
+        href: "#"
+    },
+]
+
+const contact = [
+    {
+        text: "(+506) 142 89556",
+    },
+    {
+        text: "support@dibruno.us",
+    }
+    
+]
+---
+<footer class="relative max-w-screen-2xl mx-auto font-sans flex flex-col gap-12 pt-[200px]">
+    <img src="/images/home/footer.png" alt="Footer" class="w-full h-full object-cover" />
+    <div class="flex flex-col px-section-d-gap-x gap-10 w-[755px]">
+        <img src="/images/home/logo.svg" alt="Logo" class="w-[187px] h-[31px]" />
+        <div class="flex flex-row justify-between">
+            <div>
+                <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                    <span class="text-primary-granite">EXPLORE</span>
+                    <ul class="flex flex-col gap-4">
+                        {
+                            explore.map((item): {text: string, href: string} => (
+                                <li>
+                                    <AnimatedLink text={item.text} href={item.href} />
+                                </li>
+                            ))
+                        }
+                        
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                    <span class="text-primary-granite">FOLLOW US</span>
+                    <ul class="flex flex-col gap-4">
+                        {
+                            follow.map((item): {text: string, href: string} => (
+                                <li>
+                                    <AnimatedLink text={item.text} href={item.href} />
+                                </li>
+                            ))
+                        }
+                        
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                    <span class="text-primary-granite">CONTACT US</span>
+                    <ul class="flex flex-col gap-4">
+                        {
+                            contact.map((item): {text: string, href: string} => (
+                                <li>
+                                    {item.text}
+                                </li>
+                            ))
+                        }
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute top-[440px] right-16 bg-primary-bright p-10 w-[529px] h-[577px] flex flex-col gap-10">
+        <h2 class="text-d-title-1 text-primary-olive">
+            HEAR MORE <br /> FROM OUR
+        </h2>
+        <p class="text-d-secondary text-primary-olive text-lg">
+            Subscribe to receive special offers, giveaways, and be the first to know about new releases and news.
+        </p>
+        <div class="flex flex-col gap-4">
+            <input type="email" placeholder="Enter your email" class="text-d-secondary text-primary-olive w-full h-10 border-0 border-b border-b-olive p-2 bg-primary-bright focus:outline-none focus:ring-0 focus:border-b-olive" />
+            <ButtonSlide
+                text="SUBSCRIBE"
+                href="#"
+                normalBackground="transparent"
+                normalColor="#3B3B3B"
+                hoverBackground="#3B3B3B"
+                hoverColor="#FAFAFA"
+                borderColor="#3B3B3B"
+                hoverBorderColor="#FAFAFA"
+                transitionDuration="0.5s"
+                className="w-full flex justify-center"
+            />
+        </div>  
+    </div>
+    <div class="flex flex-row justify-between text-d-footer text-[#A9A9A9] pt-10 px-section-d-gap-x">
+        <span class="">
+            &copy; 2025 Di bruno All rights reserved.
+        </span>
+        <div class="flex flex-row gap-16 ">
+            <a href="#" class="hover:text-primary-olive">
+                Terms of Service
+            </a>
+            <a href="#" class="hover:text-primary-olive">
+                Privacy Policy
+            </a>
+            <a href="#" class="hover:text-primary-olive">
+                Refund Policy
+            </a>
+        </div>
+    </div>
+
+</footer>

@@ -1,0 +1,26 @@
+/* Estilos globales para el proyecto dibruno */
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Variables CSS personalizadas */
+:root {
+  --font-family-primary: "Geist", sans-serif;
+}
+
+/* Estilos base del documento */
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  padding: 8px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

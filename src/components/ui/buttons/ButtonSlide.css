@@ -1,0 +1,41 @@
+/* Estilos base del botón con animación de deslizamiento */
+.btn-slide {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--normalBg);
+  color: var(--normalCol);
+  border-color: var(--borderCol);
+  transition: all var(--duration) ease-in-out;
+}
+
+/* Pseudo-elemento que crea el efecto de deslizamiento */
+.btn-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--hoverBg);
+  transform: translateX(-100%);
+  transition: transform var(--duration) ease-in-out;
+  z-index: 1;
+}
+
+/* Animación del fondo al hacer hover */
+.btn-slide:hover::before {
+  transform: translateX(0);
+}
+
+/* Estilos del texto del botón */
+.btn-slide span {
+  position: relative;
+  z-index: 2;
+  transition: color var(--duration) ease-in-out;
+}
+
+/* Cambio de color del texto al hacer hover */
+.btn-slide:hover span {
+  color: var(--hoverCol);
+}
+

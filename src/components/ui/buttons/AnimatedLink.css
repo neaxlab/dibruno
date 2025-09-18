@@ -1,0 +1,22 @@
+.animated-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.animated-link::after {
+  content: '';
+  position: absolute;
+  bottom: var(--line-position, -8px);
+  left: 0;
+  width: 0;
+  height: var(--line-height, 2px);
+  background-color: var(--line-color, currentColor);
+  transition: width var(--animation-duration, 0.5s) ease;
+}
+
+.animated-link:hover::after {
+  width: 100%;
+}
