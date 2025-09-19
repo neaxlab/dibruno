@@ -2,10 +2,13 @@
 import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 ---
 
-<section class="flex flex-row gap-24 max-w-screen-2xl mx-auto font-sans pb-section-d-gap-y px-section-d-gap-x max-h-screen-850">
-    <div class="flex flex-col justify-between items-start w-full gap-8 h-fit">
-        <h2 class="text-d-title-1 text-primary-olive">REAL INGREDIENTS <br /> REAL RESULTS</h2>
-        <p class="text-d-primary text-primary-granite">
+<section class="flex sm:flex-row flex-col-reverse sm:gap-24 gap-6 sm:max-w-screen-2xl w-full mx-auto font-sans sm:pb-section-d-gap-y pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x max-h-screen-850">
+    <div class="flex flex-col justify-between items-start w-full sm:gap-8 gap-6 h-fit">
+        <h2 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">
+            REAL INGREDIENTS <br /> 
+            REAL <div class="inline-block relative w-fit">RESULTS<span class="absolute -bottom-1 left-0 w-full bg-[#94B1B7] h-1/2 z-[-1]"></span></div>
+        </h2>
+        <p class="sm:text-d-primary text-d-secondary text-primary-granite">
             We’ve spent years perfecting organic, effective and innovative formulas for hair regrowth and healthier skin.
         </p>
         <ButtonSlide
@@ -20,7 +23,7 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
             transitionDuration="0.5s"
         />
     </div>
-    <div class="min-h-screen-850 w-full overflow-hidden">
-        <img src="/images/home/ingredientsResults.png" alt="Ingredients Results" class="min-h-screen-850  object-cover hover:scale-110 transition-all duration-500" />
+    <div class="sm:min-h-screen-850 w-full overflow-hidden">
+        <img src="/images/home/ingredientsResults.png" alt="Ingredients Results" class="sm:min-h-screen-850  object-cover hover:scale-110 transition-all duration-500 -translate-y-10 sm:translate-y-0" />
     </div>
 </section>

@@ -2,10 +2,23 @@
 import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 ---
 
-<section class="relative max-w-screen-2xl mx-auto font-sans">
-    <img src="/images/home/banner.png" alt="Banner" class="size-full object-cover rounded-lg" />
-    <div class="absolute top-1/2 -translate-y-1/4 right-28 flex flex-col gap-6 text-primary-lotion">
-        <h2 class="text-d-title-1">
+<section class="relative w-full sm:max-w-screen-2xl h-[613px] sm:h-auto mx-auto font-sans overflow-hidden rounded-lg">
+    <img src="/images/home/banner.png" alt="Banner" class="h-[720px] sm:size-full object-cover  object-[7%_-50%] sm:object-center -translate-y-6 sm:translate-y-0" />
+    <!-- Gradientes para móvil -->
+    <div class="absolute inset-0 sm:hidden pointer-events-none z-10">
+        <!-- Gradiente de arriba hacia abajo (negro a transparente 40%) -->
+        <div 
+            class="absolute top-0 left-0 right-0 h-1/2" 
+            style="background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.2), transparent);"
+        ></div>
+        <!-- Gradiente de abajo hacia arriba (negro a transparente 60%) -->
+        <div 
+            class="absolute bottom-0 left-0 right-0 h-1/2" 
+            style="background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.3), transparent);"
+        ></div>
+    </div>
+    <div class="absolute z-10 left-6 right-0 bottom-6 sm:top-1/2 sm:-translate-y-1/4 sm:right-28 sm:bottom-auto sm:left-auto flex flex-col gap-6 text-primary-lotion">
+        <h2 class="sm:text-d-title-1 text-d-title-2">
             Where confidence <br /> meets care.
         </h2>
         <ButtonSlide 

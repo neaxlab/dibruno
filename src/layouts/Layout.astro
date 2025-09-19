@@ -15,7 +15,9 @@ import Footer from '../components/commons/footer.astro';
 		<meta name="description" content="Proyecto desarrollado con Astro y Tailwind CSS" />
 	</head>
 	<body >
-		<slot />
+		<div class="p-1 sm:p-2">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>
