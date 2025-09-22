@@ -70,6 +70,7 @@ const customFontSizes = {
   "d-title-1": ["48px", { lineHeight: "120%", fontWeight: "600", letterSpacing: "0.96px"}],
   "d-title-2": ["32px", { lineHeight: "120%", fontWeight: "500", letterSpacing: "0.8px"}],
   "d-primary": ["20px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "2%"}],
+  "d-products": ["20px", { lineHeight: "100%", fontWeight: "500", letterSpacing: "2%", style: "medium"}],
   "d-secondary": ["18px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.36px"}],
   "d-tertiary": ["14px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.32px"}],
   "m-tertiary": ["12px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.32px"}],
