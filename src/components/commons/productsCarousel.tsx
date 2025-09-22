@@ -7,7 +7,7 @@ import 'swiper/css/scrollbar';
 
 
 import type { Product } from '../../types/products';
-import ProductCard from '../products/cards/ProductCard';
+import ProductCard from '../cards/ProductCard';
 
 
 const products: Product[] = [

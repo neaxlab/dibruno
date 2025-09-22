@@ -1,7 +1,7 @@
 import React from 'react';
-import type { Product } from '../../../types/products';
-import { getDiscount } from '../../../hooks/discounts';
-import ButtonSlide from '../../ui/buttons/ButtonSlide';
+import type { Product } from '../../types/products';
+import { getDiscount } from '../../hooks/discounts';
+import ButtonSlide from '../ui/buttons/ButtonSlide';
 
 type ProductCardProps = {
     product: Product;
