@@ -56,7 +56,7 @@ const products: Product[] = [
 ]
 export default function ProductsCarousel() {
     return (
-        <section className="w-full h-full">
+        <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
