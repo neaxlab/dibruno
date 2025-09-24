@@ -1,6 +1,8 @@
-export const instructions: Record<string, { url: string, instructions: { title: string, description: string }[] }> = {
+export const instructions: Record<string, { url: string, image: string, alt: string, instructions: { title: string, description: string }[] }> = {
     1: {
         url: "#",
+        image: "/images/products/dibrunoShampoo.png",
+        alt: "Dibruno Shampoo",
         instructions: [
             {
                 title: "Start with a Clean Scalp 1",
@@ -22,6 +24,8 @@ export const instructions: Record<string, { url: string, instructions: { title: 
     },
     2: {
         url: "#",
+        image: "/images/products/dibrunoShampoo.png",
+        alt: "Dibruno Shampoo",
         instructions: [
             {
                 title: "Start with a Clean Scalp 2",
@@ -42,7 +46,9 @@ export const instructions: Record<string, { url: string, instructions: { title: 
         ] ,
     },
     3: {
-        url: "#",
+        url: "#",   
+        image: "/images/products/dibrunoShampoo.png",   
+        alt: "Dibruno Shampoo",
         instructions: [
             {
                 title: "Start with a Clean Scalp 3",
@@ -64,6 +70,8 @@ export const instructions: Record<string, { url: string, instructions: { title: 
     },
     4: {
         url: "#",
+        image: "/images/products/dibrunoShampoo.png",
+        alt: "Dibruno Shampoo",
         instructions: [
             {
                 title: "Start with a Clean Scalp 4",

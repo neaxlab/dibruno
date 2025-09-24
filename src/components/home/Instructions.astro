@@ -2,6 +2,10 @@
 import { Bullet } from '../ui/buttons/Bullet';
 import { instructions } from '../../constants/instructions';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
+import { Swiper } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import InstructionsCarousel from '../commons/instructionsCarousel';
 ---
 
 <script define:vars={{ instructions }}>
@@ -9,7 +13,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide';
 </script>
 
 
-<section class="relative max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex flex-col gap-10">
+<>
+<section class="sm:flex hidden relative max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex-col gap-10">
     <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" />
     <div class="absolute top-[220px] left-[445px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="1">
         <Bullet />
@@ -51,6 +56,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide';
 
 </section>
 
+<InstructionsCarousel client:load />
+</>
 <script>
     (function registerDelegation() {
         // Importar las instrucciones desde el contexto de Astro
