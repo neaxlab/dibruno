@@ -1,0 +1,125 @@
+---
+import { Bullet } from '../ui/buttons/Bullet';
+import { instructions } from '../../constants/instructions';
+import ButtonSlide from '../ui/buttons/ButtonSlide';
+---
+
+<script define:vars={{ instructions }}>
+    window.instructions = instructions;
+</script>
+
+
+<section class="relative max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex flex-col gap-10">
+    <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" />
+    <div class="absolute top-[220px] left-[445px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="1">
+        <Bullet />
+    </div>
+    <div class="absolute top-[275px] left-[612px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="2">
+        <Bullet />
+    </div>
+    <div class="absolute top-[160px] right-[560px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="3">
+        <Bullet />
+    </div>
+    <div class="absolute top-[395px] right-[410px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="4">
+        <Bullet />
+    </div>
+    <div class="absolute top-0 left-0 w-[1456px] translate-x-[-8px] h-full z-10 hidden ingredients">
+        <div class="size-full bg-primary-olive opacity-20 ingredients-fill "></div>
+        <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10">
+            <div class="flex flex-row justify-between items-center">
+                <h1 class="text-d-title-1">HOW TO USE?</h1>
+                <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer size-11 hover:rotate-90 transition-all duration-500 ingredients-close" />
+            </div>
+            <div class="flex flex-col gap-10" id="instructions-content">
+                <!-- El contenido se renderizará dinámicamente aquí -->
+            </div>
+            <ButtonSlide
+                text="LEARN MORE ABOUT THE PRODUCT"
+                href="#"
+                normalBackground="transparent"
+                normalColor="#3B3B3B"
+                hoverBackground="#3B3B3B"
+                hoverColor="#FAFAFA"
+                borderColor="#3B3B3B"
+                hoverBorderColor="#FAFAFA"
+                transitionDuration="0.5s"
+                className="w-full flex justify-center instructions-btn"
+            />
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    (function registerDelegation() {
+        // Importar las instrucciones desde el contexto de Astro
+        const instructions = (window as any).instructions || [];
+
+        const renderInstructions = (index: number) => {
+            const instructionsContent = document.getElementById('instructions-content');
+            if (!instructionsContent || !instructions[index]) return;
+
+            const instructionsData = instructions[index];
+            instructionsContent.innerHTML = instructionsData.instructions.map((instruction: any, instructionIndex: number) => `
+                <div class="flex flex-row gap-5 items-center">
+                    <h1 class="text-[88px] font-bold text-[#D0CFCE] leading-none">${instructionIndex + 1}</h1>
+                    <div class="flex flex-col gap-1">
+                        <h1 class="text-2xl font-medium">${instruction.title}</h1>
+                        <p class="text-d-products text-primary-granite font-normal">${instruction.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        const init = () => {
+            document.addEventListener('click', (event) => {
+                const target = event.target;
+                if (!(target instanceof Element)) return;
+                const wrapper = target.closest('.bullet');
+                const wrapperIngredients = target.closest('.ingredients-fill');
+                const wrapperIngredientsClose = target.closest('.ingredients-close');
+                const ingredients = document.querySelector('.ingredients');
+                
+                if (wrapper) {
+                    // Obtener el data-index del elemento clickeado
+                    const dataIndex = wrapper.getAttribute('data-index');
+                    if (dataIndex !== null) {
+                        const index = parseInt(dataIndex); 
+                                    
+                        renderInstructions(index);
+                        
+                        // Actualizar href del botón con la URL correspondiente
+                        const instructionsData = instructions[index];
+                        const button = document.querySelector('.instructions-btn') as HTMLAnchorElement | null;
+                        if (button && instructionsData?.url) {
+                            button.setAttribute('href', instructionsData.url);
+                        }
+                        
+                        // Mostrar el modal
+                        ingredients?.classList.remove('hidden');
+                        ingredients?.classList.add('flex');
+                    }
+                }
+                
+                if (wrapperIngredients) {
+                    ingredients?.classList.add('hidden');
+                    ingredients?.classList.remove('flex');
+                }
+                if (wrapperIngredientsClose) {
+                    ingredients?.classList.add('hidden');
+                    ingredients?.classList.remove('flex');
+                }
+            });
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init, { once: true });
+        } else {
+            init();
+        }
+
+        document.addEventListener('astro:page-load', init, { once: true });
+        document.addEventListener('astro:after-swap', init, { once: true });
+    })();
+</script></script>

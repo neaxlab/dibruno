@@ -96,14 +96,14 @@ const testimonials: Testimonial[] = [
 
 export default function TestimonialsCarousel() {
     return (
-        <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x">
+        <section className="w-full h-full sm:pl-section-d-gap-x px-section-m-gap-x">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
                 loop={false}
-                slidesPerView={1.15}
+                slidesPerView={1}
                 spaceBetween={12}
-                breakpoints={{ 640: { slidesPerView: 2, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } }}
+                breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } }}
                 className='w-full h-full overflow-visible relative'
             >
                 {testimonials.map((testimonial) => (

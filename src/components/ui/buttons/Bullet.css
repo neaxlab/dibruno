@@ -1,0 +1,18 @@
+/* Animación: reduce ancho a 27px por 0.5s, vuelve a 40px por 0.5s, loop */
+@keyframes widthPulse27 {
+  /* 0.5s en 40px */
+  0% { width: 40px; height: 40px; }
+  25% { width: 40px; height: 40px; }
+  /* transición a 27px (0.25s) y mantener 0.5s total en 27px */
+  37.5% { width: 27px; height: 27px;}
+  62.5% { width: 27px; height: 27px;}
+  /* volver a 40px (0.25s) y mantener 0.5s total en 40px */
+  75% { width: 40px; height: 40px;}
+  100% { width: 40px; height: 40px;}
+}
+
+.animate-width-pulse-27 {
+  animation: widthPulse27 3s infinite ease-in-out;
+}
+
+
