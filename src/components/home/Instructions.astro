@@ -1,10 +1,7 @@
 ---
 import { Bullet } from '../ui/buttons/Bullet';
-import { instructions } from '../../constants/instructions';
+import { instructions } from '../../constants/home/instructions';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
-import { Swiper } from 'swiper/react';
-import { SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import InstructionsCarousel from '../commons/instructionsCarousel';
 ---
 
@@ -30,7 +27,7 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
     </div>
     <div class="absolute top-0 left-0 w-[1456px] translate-x-[-8px] h-full z-10 hidden ingredients">
         <div class="size-full bg-primary-olive opacity-20 ingredients-fill "></div>
-        <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10">
+        <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
             <div class="flex flex-row justify-between items-center">
                 <h1 class="text-d-title-1">HOW TO USE?</h1>
                 <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer size-11 hover:rotate-90 transition-all duration-500 ingredients-close" />
@@ -60,7 +57,6 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 </>
 <script>
     (function registerDelegation() {
-        // Importar las instrucciones desde el contexto de Astro
         const instructions = (window as any).instructions || [];
 
         const renderInstructions = (index: number) => {
@@ -87,6 +83,8 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
                 const wrapperIngredients = target.closest('.ingredients-fill');
                 const wrapperIngredientsClose = target.closest('.ingredients-close');
                 const ingredients = document.querySelector('.ingredients');
+                const ingredientsPanel = document.querySelector('.ingredients-panel');
+                const ingredientsFill = document.querySelector('.ingredients-fill');
                 
                 if (wrapper) {
                     // Obtener el data-index del elemento clickeado
@@ -103,19 +101,33 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
                             button.setAttribute('href', instructionsData.url);
                         }
                         
-                        // Mostrar el modal
+                        // Mostrar el modal con animación
                         ingredients?.classList.remove('hidden');
                         ingredients?.classList.add('flex');
+                        
+                        // Trigger de la animación de entrada
+                        setTimeout(() => {
+                            ingredientsPanel?.classList.add('ingredients-panel-enter');
+                            ingredientsFill?.classList.add('ingredients-fill-enter');
+                        }, 10);
                     }
                 }
                 
-                if (wrapperIngredients) {
-                    ingredients?.classList.add('hidden');
-                    ingredients?.classList.remove('flex');
-                }
-                if (wrapperIngredientsClose) {
-                    ingredients?.classList.add('hidden');
-                    ingredients?.classList.remove('flex');
+                if (wrapperIngredients || wrapperIngredientsClose) {
+                    // Trigger de la animación de salida
+                    ingredientsPanel?.classList.remove('ingredients-panel-enter');
+                    ingredientsPanel?.classList.add('ingredients-panel-exit');
+                    ingredientsFill?.classList.remove('ingredients-fill-enter');
+                    ingredientsFill?.classList.add('ingredients-fill-exit');
+                    
+                    // Ocultar el modal después de la animación
+                    setTimeout(() => {
+                        ingredients?.classList.add('hidden');
+                        ingredients?.classList.remove('flex');
+                        // Limpiar las clases de animación
+                        ingredientsPanel?.classList.remove('ingredients-panel-enter', 'ingredients-panel-exit');
+                        ingredientsFill?.classList.remove('ingredients-fill-enter', 'ingredients-fill-exit');
+                    }, 500);
                 }
             });
         };

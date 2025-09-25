@@ -6,93 +6,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-import type { Testimonial } from '../../types/testimonials';
 import TestimonialsCard from '../cards/TestimonialsCard';
+import { testimonials } from '../../constants/home/testimonials';
 
 
-const testimonials: Testimonial[] = [
-    {
-        image: "/images/testimonials/testimonials-1.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-2.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-3.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-4.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-5.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-1.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-6.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-7.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    },
-    {
-        image: "/images/testimonials/testimonials-8.png",
-        product: {
-            image: "/images/products/product-testimonials.png",
-            name: "Perfect Combo",
-            price: 258.28,
-            discount: 10
-        }
-    }
-]
+
 
 export default function TestimonialsCarousel() {
     return (
@@ -106,8 +24,8 @@ export default function TestimonialsCarousel() {
                 breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } }}
                 className='w-full h-full overflow-visible relative'
             >
-                {testimonials.map((testimonial) => (
-                    <SwiperSlide key={testimonial.product.name}>
+                {testimonials.map((testimonial, index) => (
+                    <SwiperSlide key={`${testimonial.image}-${index}`}>
                         <TestimonialsCard testimonial={testimonial} />
                     </SwiperSlide>
                 ))}

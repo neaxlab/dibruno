@@ -6,54 +6,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-import type { Product } from '../../types/products';
 import ProductCard from '../cards/ProductCard';
+import { products } from '../../constants/home/products';
 
 
-const products: Product[] = [
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 265.85,
-        image: "images/products/product.png",
-        discount: 15
-    },
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 55.99,
-        image: "images/products/product.png",
-        size: ["8 Oz", "15 Oz", "20 Oz"]
-    },
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 55.99,
-        image: "images/products/product.png",
-        size: ["8 Oz", "15 Oz"]
-    },
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 265.85,
-        image: "images/products/product.png",
-        discount: 15
-    },
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 55.99,
-        image: "images/products/product.png",
-        size: ["8 Oz", "15 Oz", "20 Oz"]
-    },
-    {
-        name: "Anti Hair Loss Alopecia",
-        category: "Shampoo",
-        price: 55.99,
-        image: "images/products/product.png",
-        size: ["8 Oz", "15 Oz"]
-    }
-]
+
 export default function ProductsCarousel() {
     return (
         <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x">
@@ -67,8 +24,8 @@ export default function ProductsCarousel() {
                 scrollbar={{ el: '.custom-scrollbar', draggable: true, hide: false }}
                 className='w-full h-full overflow-visible relative'
             >
-                {products.map((product) => (
-                    <SwiperSlide key={product.name}>
+                {products.map((product, index) => (
+                    <SwiperSlide key={`${product.name}-${index}`}>
                         <ProductCard product={product} />
                     </SwiperSlide>
                 ))}

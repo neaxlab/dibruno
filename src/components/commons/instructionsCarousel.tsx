@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import {instructions} from '../../constants/instructions';
+import {instructions} from '../../constants/home/instructions';
 const instructionsData = Object.values(instructions);
 
 
@@ -33,7 +33,7 @@ export default function TestimonialsCarousel() {
                             <h1 className="text-d-title-2">HOW TO USE?</h1>
                             <div className="flex flex-col gap-4" id="instructions-content">
                                 {instruction.instructions.map((instruction, instructionIndex) => (
-                                <div className="flex flex-row gap-2 items-center">
+                                <div key={instructionIndex} className="flex flex-row gap-2 items-center">
                                     <div className="flex flex-col gap-1">
                                         <h1 className="text-2xl font-medium">{`${instructionIndex + 1}. ${instruction.title}`}</h1>
                                             <p className="text-d-products text-primary-granite font-normal">{instruction.description}</p>
