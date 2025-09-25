@@ -1,6 +1,7 @@
 ---
 // Importar estilos globales
 import '../styles/global.css';
+import Navbar from '../components/commons/navbar.astro';
 import Footer from '../components/commons/footer.astro';
 ---
 
@@ -15,6 +16,7 @@ import Footer from '../components/commons/footer.astro';
 		<meta name="description" content="Proyecto desarrollado con Astro y Tailwind CSS" />
 	</head>
 	<body >
+		<Navbar />
 		<div class="p-1 sm:p-2">
 			<slot />
 		</div>
