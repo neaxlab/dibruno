@@ -71,3 +71,18 @@ export const slides: { imageLeft: string, product: Product }[] = [
         }
     }
 ]
+
+export const aboutIngredients: { image: string, name: string }[] = [
+    {
+        image: "/images/about/organic-aloe-vera.png",
+        name: "Organic Aloe Vera"
+    },
+    {
+        image: "/images/about/blueberry-extract.png",
+        name: "Blueberry Extract"
+    },
+    {
+        image: "/images/about/rosemary-extract.png",
+        name: "Rosemary Extract"
+    },
+]
