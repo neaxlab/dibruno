@@ -1,4 +1,6 @@
 ---
+// Obtener la ruta actual
+const currentPath = Astro.url.pathname;
 ---
 <header id="navbar" class="fixed top-0 left-0 right-0 z-50 p-2 transition-transform duration-300 ease-in-out">
     <div class="w-full h-fit flex flex-row justify-between items-center max-w-screen-2xl mx-auto p-5 text-primary-lotion text-d-nav">
@@ -6,42 +8,42 @@
             <img src="/images/home/logo-white.svg" alt="Logo" class="w-[187px] h-[31px]"/>
         </a>
         <div class="flex flex-row gap-10">
-            <a href="/" class="nav-link group relative">
+            <a href="/shop" class={`nav-link group relative ${currentPath === '/shop' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>SHOP</span>
                 </span>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
             </a>
-            <a href="/about" class="nav-link group relative">
+            <a href="/about" class={`nav-link group relative ${currentPath === '/about' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>ABOUT</span>
                 </span>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
             </a>
-            <a href="/" class="nav-link group relative">
+            <a href="/ingredients" class={`nav-link group relative ${currentPath === '/ingredients' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>OUR INGREDIENTS</span>
                 </span>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
             </a>
-            <a href="/" class="nav-link group relative">
+            <a href="/testimonials" class={`nav-link group relative ${currentPath === '/testimonials' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>TESTIMONIALS</span>
                 </span>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
             </a>
-            <a href="/" class="nav-link group relative">
+            <a href="/faqs" class={`nav-link group relative ${currentPath === '/faqs' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>FAQS</span>
                 </span>
                 <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
             </a>
-            <a href="/" class="nav-link group relative">
+            <a href="/learn" class={`nav-link group relative ${currentPath === '/learn' ? 'active' : ''}`}>
                 <span class="flex items-center gap-2">
                     <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
                     <span>LEARN</span>
@@ -89,8 +91,6 @@
 
     // Handle active navigation links
     function handleNavClick(event: Event) {
-        event.preventDefault(); // Prevent default link behavior for demo
-        
         // Remove active class from all nav links
         const allNavLinks = document.querySelectorAll('.nav-link');
         allNavLinks.forEach(link => link.classList.remove('active'));
@@ -99,6 +99,8 @@
         if (event.currentTarget) {
             (event.currentTarget as HTMLElement).classList.add('active');
         }
+        
+        // Allow normal navigation behavior
     }
 
     // Add click listeners to all nav links

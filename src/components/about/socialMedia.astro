@@ -4,9 +4,9 @@ import { socialMediaAbout } from '../../constants/home/testimonials';
 <style>
   @import './socialMedia.css';
 </style>
-<section class="flex flex-col gap-10 w-full sm:max-w-screen-2xl mx-auto font-sans overflow-hidden sm:px-section-d-gap-x px-section-m-gap-x sm:pt-section-d-gap-y pt-section-m-gap-y">
+<section class="flex flex-col gap-10 w-full sm:max-w-screen-2xl mx-auto font-sans overflow-hidden sm:px-section-d-gap-x px-section-m-gap-x sm:pt-section-d-gap-y pt-section-m-gap-y pb-6">
     <h1 class="text-d-title-1 text-primary-olive leading-none text-center">JOIN US ON <div class="inline-block relative w-fit">SOCIAL<span class="absolute -bottom-1 left-0 w-full bg-[#94B1B7] h-1/2 z-[-1]"></span></div></h1>
-    <div class="w-full h-full grid grid-cols-3 gap-10">
+    <div class="w-full h-full grid grid-cols-3 sm:gap-10 gap-4">
         {socialMediaAbout.map((socialMedia, index) => (
             <div class="social-media-item w-full h-full">
                 <img src={socialMedia.image} alt={socialMedia.alt} class="social-media-image" />
