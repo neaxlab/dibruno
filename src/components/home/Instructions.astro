@@ -11,44 +11,61 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 
 
 <>
-<section class="sm:flex hidden relative max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex-col gap-10">
-    <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" />
-    <div class="absolute top-[220px] left-[445px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="1">
-        <Bullet />
-    </div>
-    <div class="absolute top-[275px] left-[612px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="2">
-        <Bullet />
-    </div>
-    <div class="absolute top-[160px] right-[560px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="3">
-        <Bullet />
-    </div>
-    <div class="absolute top-[395px] right-[410px] flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" data-index="4">
-        <Bullet />
-    </div>
-    <div class="absolute top-0 left-0 w-[1456px] translate-x-[-8px] h-full z-10 hidden ingredients">
-        <div class="size-full bg-primary-olive opacity-20 ingredients-fill "></div>
-        <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
-            <div class="flex flex-row justify-between items-center">
-                <h1 class="text-d-title-1">HOW TO USE?</h1>
-                <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer size-11 hover:rotate-90 transition-all duration-500 ingredients-close" />
-            </div>
-            <div class="flex flex-col gap-10" id="instructions-content">
-                <!-- El contenido se renderizará dinámicamente aquí -->
-            </div>
-            <ButtonSlide
-                text="LEARN MORE ABOUT THE PRODUCT"
-                href="#"
-                normalBackground="transparent"
-                normalColor="#3B3B3B"
-                hoverBackground="#3B3B3B"
-                hoverColor="#FAFAFA"
-                borderColor="#3B3B3B"
-                hoverBorderColor="#FAFAFA"
-                transitionDuration="0.5s"
-                className="w-full flex justify-center instructions-btn"
-            />
+<section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex-col gap-10">
+    <div class="w-full relative" id="instructions-container">
+        <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
+        
+        <!-- Bullet 1 - Posición relativa a la imagen -->
+        <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
+             id="bullet-1"
+             data-index="1">
+            <Bullet />
         </div>
-
+        
+        <!-- Bullet 2 - Posición relativa a la imagen -->
+        <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
+             id="bullet-2"
+             data-index="2">
+            <Bullet />
+        </div>
+        
+        <!-- Bullet 3 - Posición relativa a la imagen -->
+        <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
+             id="bullet-3"
+             data-index="3">
+            <Bullet />
+        </div>
+        
+        <!-- Bullet 4 - Posición relativa a la imagen -->
+        <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
+             id="bullet-4"
+             data-index="4">
+            <Bullet />
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full z-10 hidden ingredients">
+            <div class="w-screen h-full bg-primary-olive opacity-90 ingredients-fill"></div>
+            <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
+                <div class="flex flex-row justify-between items-center">
+                    <h1 class="text-d-title-1">HOW TO USE?</h1>
+                    <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer size-11 hover:rotate-90 transition-all duration-500 ingredients-close" />
+                </div>
+                <div class="flex flex-col gap-10" id="instructions-content">
+                </div>
+                <ButtonSlide
+                    text="LEARN MORE ABOUT THE PRODUCT"
+                    href="#"
+                    normalBackground="transparent"
+                    normalColor="#3B3B3B"
+                    hoverBackground="#3B3B3B"
+                    hoverColor="#FAFAFA"
+                    borderColor="#3B3B3B"
+                    hoverBorderColor="#FAFAFA"
+                    transitionDuration="0.5s"
+                    className="w-full flex justify-center instructions-btn"
+                />
+            </div>
+    
+        </div> 
     </div>
 
 </section>
@@ -58,6 +75,48 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 <script>
     (function registerDelegation() {
         const instructions = (window as any).instructions || [];
+
+        // Posiciones relativas de los bullets (basadas en porcentajes de la imagen original)
+        const bulletPositions = [
+            { top: 28, left: 31.2 }, // Bullet 1
+            { top: 35, left: 43.6 }, // Bullet 2  
+            { top: 21, right: 40 }, // Bullet 3
+            { top: 50, right: 28.5 }  // Bullet 4
+        ];
+
+        const positionBullets = () => {
+            const container = document.getElementById('instructions-container');
+            const image = document.getElementById('instructions-image');
+            
+            if (!container || !image) return;
+
+            const containerRect = container.getBoundingClientRect();
+            const imageRect = image.getBoundingClientRect();
+            
+            // Calcular el offset de la imagen dentro del contenedor
+            const offsetX = imageRect.left - containerRect.left;
+            const offsetY = imageRect.top - containerRect.top;
+            
+            // Aplicar posiciones a cada bullet
+            bulletPositions.forEach((position, index) => {
+                const bullet = document.getElementById(`bullet-${index + 1}`);
+                if (!bullet) return;
+
+                let left, top;
+                
+                if (position.left !== undefined) {
+                    left = offsetX + (imageRect.width * position.left / 100);
+                } else if (position.right !== undefined) {
+                    left = offsetX + imageRect.width - (imageRect.width * position.right / 100);
+                }
+                
+                top = offsetY + (imageRect.height * position.top / 100);
+                
+                bullet.style.left = `${left}px`;
+                bullet.style.top = `${top}px`;
+                bullet.style.transform = 'translate(-50%, -50%)';
+            });
+        };
 
         const renderInstructions = (index: number) => {
             const instructionsContent = document.getElementById('instructions-content');
@@ -76,6 +135,19 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
         };
 
         const init = () => {
+            // Esperar a que la imagen se cargue completamente
+            const image = document.getElementById('instructions-image') as HTMLImageElement;
+            if (image) {
+                if (image.complete) {
+                    positionBullets();
+                } else {
+                    image.addEventListener('load', positionBullets);
+                }
+            }
+            
+            // Reposicionar bullets en resize
+            window.addEventListener('resize', positionBullets);
+            
             document.addEventListener('click', (event) => {
                 const target = event.target;
                 if (!(target instanceof Element)) return;

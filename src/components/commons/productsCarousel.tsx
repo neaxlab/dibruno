@@ -20,7 +20,7 @@ export default function ProductsCarousel() {
                 loop={false}
                 slidesPerView={1.15}
                 spaceBetween={12}
-                breakpoints={{ 640: { slidesPerView: 2, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } }}
+                breakpoints={{ 640: { slidesPerView: 2, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24, }, 1536: { slidesPerView: 4.2, spaceBetween: 24 } }}
                 scrollbar={{ el: '.custom-scrollbar', draggable: true, hide: false }}
                 className='w-full h-full overflow-visible relative'
             >
