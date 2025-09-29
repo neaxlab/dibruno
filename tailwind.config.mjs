@@ -57,8 +57,7 @@ const screens = {
   md: "768px",
   lg: "1024px",
   xl: "1280px",
-  "2xl": "1440px",
-  "3xl": "1536px",
+  "2xl": "1920px",
   foo: {
     raw: "(max-height: 850px)",
   },
@@ -95,10 +94,10 @@ export default {
         sans: ["Geist", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
-        "screen-2xl": "1440px",
+        "screen-2xl": "1920px",
       },
       width: {
-        macbook: "1440px",
+        macbook: "1920px",
         max_desktop: "1044px",
         max_laptop: "960px",
       },

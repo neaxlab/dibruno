@@ -1,7 +1,14 @@
 ---
 import IngredientsCarousel from '../commons/ingredientsCarousel.tsx';
+import IngredientsCarouselMobile from '../commons/ingredientsCarouselMobile.tsx';
 ---
 
-<section class="w-full max-w-screen-2xl mx-auto flex sm:flex-row flex-col gap-6 pt-section-d-gap-y">
-    <IngredientsCarousel client:load />
+<section class=" flex sm:flex-row flex-col gap-6">
+    <div class="sm:block hidden w-full max-w-screen-2xl mx-auto h-full">
+
+        <IngredientsCarousel client:load />
+    </div>
+    <div class="sm:hidden block px-section-m-gap-x pb-section-m-gap-y">
+        <IngredientsCarouselMobile client:load />
+    </div>
 </section>
