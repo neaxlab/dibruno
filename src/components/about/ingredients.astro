@@ -3,8 +3,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 import AboutIngredientsCarouesel from '../commons/aboutIngredientsCarouesel';
 ---
 
-<section class="w-full sm:max-w-screen-2xl mx-auto font-sans overflow-hidden flex flex-col sm:flex-row items-center justify-between sm:px-[70px] px-0 sm:py-section-d-gap-y">
-    <div class="flex flex-col gap-10">
+<section class="grid grid-cols-5 w-full sm:max-w-screen-2xl mx-auto font-sans overflow-hidden sm:px-[70px] px-0 sm:py-section-d-gap-y items-center">
+    <div class="flex flex-col gap-10 col-span-2">
         <h1 class="text-d-title-1 text-primary-olive">Pure Ingredients</h1>
         <p class="text-d-primary text-primary-granite">DiBruno is crafted with 100% organic, vegan ingredients. Always cruelty-free, always sustainable. No harmful chemicals, no unnecessary fillers. </p>
         <ButtonSlide
@@ -19,5 +19,7 @@ import AboutIngredientsCarouesel from '../commons/aboutIngredientsCarouesel';
             transitionDuration="0.5s"
         />
     </div>
+    <div class="col-span-3">            
     <AboutIngredientsCarouesel client:load />
+    </div>
 </section>

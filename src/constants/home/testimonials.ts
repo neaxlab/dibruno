@@ -83,3 +83,24 @@ export const testimonials: Testimonial[] = [
         }
     }
 ]
+
+export const socialMediaAbout: { image: string, icon: string, url: string, alt: string }[] = [
+    {
+        image: "/images/about/social-media-1.png",
+        icon: "/images/about/social-media-icon-2.png",
+        url: "#",
+        alt: "Instagram"
+    },
+    {
+        image: "/images/about/social-media-2.png",
+        icon: "/images/about/social-media-icon-2.png",
+        url: "#",
+        alt: "Instagram"
+    },
+    {
+        image: "/images/about/social-media-3.png",
+        icon: "/images/about/social-media-icon-2.png",
+        url: "#",
+        alt: "Instagram"
+    }
+]

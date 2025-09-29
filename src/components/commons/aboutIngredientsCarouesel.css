@@ -1,0 +1,6 @@
+/* Estilos para el carrusel de ingredientes con animación JavaScript */
+.carousel-container {
+  display: flex;
+  will-change: transform; /* Optimización para la animación */
+  transition: none; /* Evitar transiciones CSS que interfieran */
+}

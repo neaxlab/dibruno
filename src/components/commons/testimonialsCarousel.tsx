@@ -14,7 +14,7 @@ import { testimonials } from '../../constants/home/testimonials';
 
 export default function TestimonialsCarousel() {
     return (
-        <section className="w-full h-full sm:pl-section-d-gap-x px-section-m-gap-x">
+        <section className="w-full h-full">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'

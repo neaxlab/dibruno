@@ -1,0 +1,48 @@
+/* Estilos para el componente socialMedia */
+.social-media-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.social-media-item:hover .social-media-image {
+  transform: scale(1.25);
+}
+
+.social-media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-media-item:hover .social-media-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.social-media-icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.social-media-item:hover .social-media-icon {
+  opacity: 1;
+}
+
+.social-media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
