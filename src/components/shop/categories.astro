@@ -1,0 +1,46 @@
+---
+import CategoriesCarousel from '../commons/categoriesCarousel';
+const categories = [
+    "SHOP ALL",
+    "KIT AND COMBOS",
+    "SHAMPOO",
+    "LEAVE IN",
+    "OIL",
+]
+---
+<section class="w-full h-full py-10">
+    <div class="hidden flex-row gap-10 justify-center items-center sm:flex">
+        {categories.map((category) => (
+            <div class="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300">
+                {category}
+            </div>
+        ))}
+    </div>
+    <div class="flex flex-row gap-10 justify-center items-center sm:hidden">
+        <CategoriesCarousel categories={categories} client:load />
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function(this: HTMLElement) {
+                // Remover clase active de todos los botones
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.remove('bg-primary-granite');
+                    btn.classList.remove('text-primary-lotion');
+                    btn.classList.add('text-primary-granite');
+                });
+                
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                this.classList.add('bg-primary-granite');
+                this.classList.add('text-primary-lotion');
+                this.classList.remove('text-primary-granite');
+            });
+        });
+    });
+</script>

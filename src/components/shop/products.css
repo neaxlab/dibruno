@@ -1,0 +1,101 @@
+/* Estilos para el select de ordenamiento */
+.sort-select {
+    width: 190px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #67645E;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 30px 8px 8px;
+    background-image: url('/images/shop/dropdown.svg');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px 16px;
+}
+
+.sort-select, ::picker(select) {
+    appearance: base-select;
+    border: none ;
+    border-radius: 24px ;
+    padding: 24px 16px ;
+}
+
+.sort-select::after {
+    width: 190px;
+}
+
+.sort-select::picker-icon {
+    display: none ;
+}
+
+
+option::checkmark {
+    display: none ;
+}
+
+.sort-select:focus {
+    border: none ;
+    box-shadow: none ;
+    outline: none ;
+    border: none ;
+}
+
+.sort-select:hover {
+    border: none ;
+    box-shadow: none ;
+    outline: none ;
+    border: none ;
+    background-color: transparent ;
+    cursor: pointer ;
+}
+
+.sort-select:active {
+    border: none ;
+    box-shadow: none ;
+    outline: none ;
+}
+
+.sort-select option {
+    background-color: white ;
+    color: #67645E ;
+    border: none ;
+    padding: 8px ;
+    font-size: 18px ;
+    font-weight: 500;
+    width: 155px;
+}
+
+
+.sort-select option:checked {
+    background-color: #EAEAEA ;
+    border-radius: 6px;
+    width: 155px;
+}
+
+.sort-select option:hover {
+    background-color: #e5e7eb ;
+    border-radius: 6px;
+    padding: 8px ;
+    width: 155px;
+
+
+}
+
+@media (max-width: 768px) {
+    .sort-select {
+        font-size: 14px;
+        width: 120px;
+    }
+    .sort-select option {
+        font-size: 14px;
+        width: 120px;
+    }
+    .sort-select option:checked {
+        font-size: 14px;
+        width: 120px;
+    }
+}
+
+
+

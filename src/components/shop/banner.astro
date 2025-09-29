@@ -1,0 +1,33 @@
+---
+import { products } from '../../constants/home/products';
+import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
+const product  = products[0];
+---
+<section class="w-full h-full relative">
+    <img src="/images/shop/banner.png" alt="Banner" class="w-full h-full object-cover rounded-lg sm:block hidden" />
+    <img src="/images/shop/banner-responsive.png" alt="Banner" class="w-full h-full object-cover rounded-lg sm:hidden block" />
+    <div class="absolute sm:bottom-14 bottom-6 sm:right-14 right-0 left-6 sm:left-0 w-fit flex flex-col justify-start items-start sm:gap-4 gap-2">
+        {
+            product.discount && (
+                <div class="w-fit bg-primary-discount p-2 text-d-products text-2xl text-primary-lotion rounded-md">
+                    -{product.discount}% OFF
+                </div>
+            )
+        }
+        <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">
+            {product.name}
+        </h1>
+        <ButtonSlide
+            text="EXPLORE MORE"
+            href="#"
+            normalBackground="transparent"
+            normalColor="#3B3B3B"
+            hoverBackground="#3B3B3B"
+            hoverColor="#FAFAFA"
+            borderColor="#3B3B3B"
+            hoverBorderColor="#FAFAFA"
+            transitionDuration="0.5s"
+            className="sm:w-fit w-full justify-center items-center sm:flex hidden"
+        />
+    </div>
+</section>

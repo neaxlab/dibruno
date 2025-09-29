@@ -42,6 +42,41 @@ export const products: Product[] = [
         price: 55.99,
         image: "images/products/product.png",
         size: ["8 Oz", "15 Oz"]
+    },
+    {
+        name: "Anti Hair Loss Alopecia",
+        category: "Shampoo",
+        price: 55.99,
+        image: "images/products/product.png",
+        size: ["8 Oz", "15 Oz", "20 Oz"]
+    },
+    {
+        name: "Anti Hair Loss Alopecia",
+        category: "Shampoo",
+        price: 55.99,
+        image: "images/products/product.png",
+        size: ["8 Oz", "15 Oz"]
+    },
+    {
+        name: "Anti Hair Loss Alopecia",
+        category: "Shampoo",
+        price: 265.85,
+        image: "images/products/product.png",
+        discount: 15
+    },
+    {
+        name: "Anti Hair Loss Alopecia",
+        category: "Shampoo",
+        price: 55.99,
+        image: "images/products/product.png",
+        size: ["8 Oz", "15 Oz", "20 Oz"]
+    },
+    {
+        name: "Anti Hair Loss Alopecia",
+        category: "Shampoo",
+        price: 55.99,
+        image: "images/products/product.png",
+        size: ["8 Oz", "15 Oz"]
     }
 ]
 

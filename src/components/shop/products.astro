@@ -1,0 +1,90 @@
+---
+import { products } from '../../constants/home/products';
+import ProductCard from '../cards/ProductCard.tsx';
+import './products.css';
+---
+<section class="max-w-screen-2xl mx-auto w-fit h-full font-sans">
+    <div class="w-full h-full flex flex-row justify-between items-center">
+        <div class="w-full h-full flex flex-row justify-start items-center">
+            <div class="flex flex-row items-center gap-2">
+                <label class="text-d-secondary sm:text-[18px] text-[14px] text-nowrap text-primary-granite font-medium">Sort by</label>
+                <select class="sort-select">
+                    <option value="featured">Featured</option>
+                    <option value="newest">Newest</option>
+                    <option value="name-az">Name AZ</option>
+                    <option value="name-za">Name ZA</option>
+                    <option value="highest-price">Highest Price</option>
+                    <option value="lowest-price">Lowest Price</option>
+                </select>
+            </div>
+        </div>
+        <div class="w-full h-full flex flex-row justify-end items-center gap-4">
+            <span class="text-d-button sm:text-[18px] text-[14px] text-primary-granite">
+                {products.length} Products
+            </span>
+            <div class="flex flex-row justify-between items-center gap-2">
+                <div class="view-btn active grid grid-cols-1 sm:grid-cols-3 gap-[2px] w-fit cursor-pointer">
+                    <span class="bg-primary-granite sm:size-2 size-[18px] rounded-[2px]"></span>
+                    <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
+                    <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
+                    <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
+                    <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
+                    <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
+                </div>
+                <div class="view-btn grid grid-cols-2 gap-[2px] w-fit cursor-pointer">
+                    <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
+                    <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
+                    <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
+                    <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div id="products-grid" class="grid sm:grid-cols-3 grid-cols-1 gap-x-6 gap-y-10">
+         {products.map((product) => (
+             <ProductCard product={product} />
+         ))}
+     </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const productsGrid = document.getElementById('products-grid');
+        
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function(this: HTMLElement) {
+                // Remover clase active de todos los botones
+                viewButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    // Remover color primary-granite de todos los spans
+                    const spans = btn.querySelectorAll('span');
+                    spans.forEach(span => {
+                        span.classList.remove('bg-primary-granite');
+                        span.classList.add('bg-[#D8D7D6]');
+                    });
+                });
+                
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                // Cambiar color de todos los spans del botón clickeado
+                const spans = this.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.classList.remove('bg-[#D8D7D6]');
+                    span.classList.add('bg-primary-granite');
+                });
+                
+                // Cambiar el grid según el botón activo
+                if (this.classList.contains('grid-cols-3')) {
+                    // Si es el primer botón (grid 3x2), usar 3 columnas
+                    productsGrid?.classList.remove('grid-cols-2');
+                    productsGrid?.classList.add('sm:grid-cols-3');
+                } else {
+                    // Si es el segundo botón (grid 2x2), usar 2 columnas
+                    productsGrid?.classList.remove('sm:grid-cols-3');
+                    productsGrid?.classList.add('grid-cols-2');
+                }
+            });
+        });
+    });
+</script>
