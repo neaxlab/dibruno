@@ -1,0 +1,28 @@
+/* Animaciones para FAQs */
+.faq-icon {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.faq-icon.rotated {
+    transform: rotate(45deg);
+}
+
+/* Estilos para el contenido expandible */
+.faq-content {
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.faq-content.expanded {
+    max-height: 500px;
+    opacity: 1;
+    visibility: visible;
+    padding: 16px 8px;
+}
+
+.faq-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+}

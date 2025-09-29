@@ -1,0 +1,91 @@
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { useState, useEffect } from 'react';
+import './faqs.css';
+
+import { faqs, categories } from '../../constants/faqs/faqs';
+
+export default function CategoriesCarousel() {
+    const [openFAQs, setOpenFAQs] = useState({});
+
+    const toggleFAQ = (index) => {
+        setOpenFAQs(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
+
+    useEffect(() => {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.remove('bg-primary-granite');
+                    btn.classList.remove('text-primary-lotion');
+                    btn.classList.add('text-primary-granite');
+                });
+                
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                this.classList.add('bg-primary-granite');
+                this.classList.add('text-primary-lotion');
+                this.classList.remove('text-primary-granite');
+            });
+        });
+    }, []);
+
+    return (
+        <div className="w-full h-full">
+            <div className="w-full h-full flex flex-row justify-center items-center sm:py-section-m-gap-y py-10">
+                <Swiper
+                    modules={[Navigation, Pagination, Scrollbar]}
+                    direction='horizontal'
+                    loop={false}
+                    slidesPerView={2}
+                    spaceBetween={16}
+                    allowTouchMove={true}
+                    breakpoints={{ 640: { allowTouchMove: false, }, }}
+                >
+                {categories.map((category, index) => (
+                    <SwiperSlide key={index} className="!w-fit !mx-4">
+                        <div className="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300">
+                            {category}
+                        </div>
+                    </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+            <div className="w-full h-full sm:px-16 px-section-m-gap-x">
+                {faqs.map((faq, index) => {
+                    const isOpen = openFAQs[index] || false;
+                    
+                    return (
+                        <div key={index} className="w-full py-10 border-b border-primary-silver">
+                            <div 
+                                className="flex flex-row justify-between items-center cursor-pointer hover:bg-gray-50 rounded transition-colors duration-200"
+                                onClick={() => toggleFAQ(index)}
+                            >
+                                <h1 className="flex-1 pr-4 text-d-primary font-medium">{faq.question}</h1>
+                                <img 
+                                    src="/images/home/close-icon.svg" 
+                                    alt="Toggle FAQ" 
+                                    className={`faq-icon size-6 ${isOpen ? 'rotated' : ''}`}
+                                />
+                            </div>
+                            <div className={ `faq-content ${isOpen ? 'expanded' : 'collapsed'}`}>
+                                    <p className="text-d-products text-primary-granite font-normal">{faq.answer}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    )
+}
