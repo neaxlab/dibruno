@@ -21,7 +21,7 @@ export default function TestimonialsCarousel() {
                 loop={false}
                 slidesPerView={1}
                 spaceBetween={12}
-                breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } }}
+                breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } , 1536: { slidesPerView: 4.2, spaceBetween: 24 } }}
                 className='w-full h-full overflow-visible relative'
             >
                 {testimonials.map((testimonial, index) => (

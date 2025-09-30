@@ -47,9 +47,13 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
             <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
                 <div class="flex flex-row justify-between items-center">
                     <h1 class="text-d-title-1">HOW TO USE?</h1>
-                    <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer size-11 hover:rotate-90 transition-all duration-500 ingredients-close" />
+                    <img src="/images/home/close-icon.svg" alt="Close" class="cursor-pointer rotate-45 size-11 hover:rotate-[135deg] transition-all duration-500 ingredients-close" />
                 </div>
                 <div class="flex flex-col gap-10" id="instructions-content">
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h1 class="text-d-title-2">RECOMMENDATIONS:</h1>
+                    <p class="text-d-products text-primary-granite font-normal" id="instructions-recomendations"></p>
                 </div>
                 <ButtonSlide
                     text="LEARN MORE ABOUT THE PRODUCT"
@@ -128,10 +132,13 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
                     <h1 class="text-[88px] font-bold text-[#D0CFCE] leading-none">${instructionIndex + 1}</h1>
                     <div class="flex flex-col gap-1">
                         <h1 class="text-2xl font-medium">${instruction.title}</h1>
-                        <p class="text-d-products text-primary-granite font-normal">${instruction.description}</p>
                     </div>
                 </div>
             `).join('');
+            const instructionsRecomendations = document.getElementById('instructions-recomendations');
+            if (instructionsRecomendations) {
+                instructionsRecomendations.innerHTML = instructionsData.recomendations || '';
+            }
         };
 
         const init = () => {

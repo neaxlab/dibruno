@@ -1,24 +1,18 @@
-export const instructions: Record<string, { url: string, image: string, alt: string, instructions: { title: string, description: string }[] }> = {
+export const instructions: Record<string, { url: string, image: string, alt: string, recomendations?: string, instructions: { title: string, description?: string }[] }> = {
     1: {
         url: "#",
         image: "/images/products/dibrunoShampoo.png",
         alt: "Dibruno Shampoo",
+        recomendations: "Use daily for best results. Pair with DiBruno RootPure Shampoo and RootFlourish Mask for enhanced anti-hair loss benefits.",
         instructions: [
             {
-                title: "Start with a Clean Scalp 1",
-                description: "Start with a clean scalp to remove buildup and allow the vitamins and nutrients to penetrate deeply into the hair follicles.",
+                title: "Spray evenly onto clean.",
             },
             {
-                title: "Massage Gently 1",
-                description: "Massage the oil into your scalp in circular motions for 3–5 minutes to boost circulation and help nutrients reach the follicles.",
+                title: "Dry or damp scalp and hair.",
             },
             {
-                title: "Leave to Absorb 1",
-                description: "Leave the oil on overnight or for at least 2–4 hours so vitamins, antioxidants, and fatty acids can nourish and strengthen the roots.",
-            },
-            {
-                title: "Rinse or Style 1",
-                description: "Wash out with a gentle shampoo if desired, or leave a light layer in if your hair type allows, then style as usual.",
+                title: "Massage gently and do not rinse.",
             },
         ] ,
     },
@@ -26,69 +20,60 @@ export const instructions: Record<string, { url: string, image: string, alt: str
         url: "#",
         image: "/images/products/dibrunoShampoo.png",
         alt: "Dibruno Shampoo",
+        recomendations: "Use 2-3 times weekly for best results.",
         instructions: [
             {
-                title: "Start with a Clean Scalp 2",
-                description: "Start with a clean scalp to remove buildup and allow the vitamins and nutrients to penetrate deeply into the hair follicles.",
+                title: "Apply to clean.",
             },
             {
-                title: "Massage Gently 2",
-                description: "Massage the oil into your scalp in circular motions for 3–5 minutes to boost circulation and help nutrients reach the follicles.",
+                title: "Damp hair after using DiBruno RootPure Shampoo.",
             },
             {
-                title: "Leave to Absorb 2",
-                description: "Leave the oil on overnight or for at least 2–4 hours so vitamins, antioxidants, and fatty acids can nourish and strengthen the roots.",
+                title: "Massage into scalp and hair.",
             },
             {
-                title: "Rinse or Style 2",
-                description: "Wash out with a gentle shampoo if desired, or leave a light layer in if your hair type allows, then style as usual.",
+                title: "Leave on for 5-10 minutes.",
+            },
+            {
+                title: "Rinse thoroughly.",
             },
         ] ,
     },
     3: {
-        url: "#",   
-        image: "/images/products/dibrunoShampoo.png",   
+        url: "#",
+        image: "/images/products/dibrunoShampoo.png",
         alt: "Dibruno Shampoo",
+        recomendations: "Use daily for best results. Pair with DiBruno RootFlourish Mask for enhanced hair growth.",
         instructions: [
             {
-                title: "Start with a Clean Scalp 3",
-                description: "Start with a clean scalp to remove buildup and allow the vitamins and nutrients to penetrate deeply into the hair follicles.",
+                title: "Apply to wet hair.",
             },
             {
-                title: "Massage Gently 3",
-                description: "Massage the oil into your scalp in circular motions for 3–5 minutes to boost circulation and help nutrients reach the follicles.",
+                title: "Massage into scalp.",
             },
             {
-                title: "Leave to Absorb 3",
-                description: "Leave the oil on overnight or for at least 2–4 hours so vitamins, antioxidants, and fatty acids can nourish and strengthen the roots.",
+                title: "Rinse thoroughly.",
             },
             {
-                title: "Rinse or Style 3",
-                description: "Wash out with a gentle shampoo if desired, or leave a light layer in if your hair type allows, then style as usual.",
+                title: "Leave for 5 minutes.",
             },
         ] ,
     },
     4: {
-        url: "#",
-        image: "/images/products/dibrunoShampoo.png",
+        url: "#",   
+        image: "/images/products/dibrunoShampoo.png",   
         alt: "Dibruno Shampoo",
+        recomendations: "Use daily for best results. Pair with DiBruno RootPure Shampoo and RootFlourish Mask for enhanced anti-hair loss benefits.",
         instructions: [
             {
-                title: "Start with a Clean Scalp 4",
-                description: "Start with a clean scalp to remove buildup and allow the vitamins and nutrients to penetrate deeply into the hair follicles.",
+                title: "Apply 3-5 drops to clean.",
             },
             {
-                title: "Massage Gently 4",
-                description: "Massage the oil into your scalp in circular motions for 3–5 minutes to boost circulation and help nutrients reach the follicles.",
+                title: "Dry or damp scalp.",
             },
             {
-                title: "Leave to Absorb 4",
-                description: "Leave the oil on overnight or for at least 2–4 hours so vitamins, antioxidants, and fatty acids can nourish and strengthen the roots.",
-            },
-            {
-                title: "Rinse or Style 4",
-                description: "Wash out with a gentle shampoo if desired, or leave a light layer in if your hair type allows, then style as usual.",
+                title: "Massage gently and do not rinse.",
             },
         ] ,
-    }
+    },
 }
