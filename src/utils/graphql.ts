@@ -48,88 +48,6 @@ fragment cartFragment on Cart {
 }
 `;
 
-const PRODUCT_FRAGMENT2 = `#graphql
-fragment productFragment on Product {
-  id
-  title
-  handle
-  dimensions: metafield(namespace: "custom", key: "dimensions") {
-    value
-    type
-  }
-  materials: metafield(namespace: "custom", key: "materials") {
-    value
-    type
-  }
-  product_care: metafield(namespace: "custom", key: "product_care") {
-    value
-    type
-  }
-  priceRange {
-    minVariantPrice {
-      amount
-      currencyCode
-    }
-    maxVariantPrice {
-      amount
-      currencyCode
-    }
-  }
-  compareAtPriceRange {
-    minVariantPrice {
-      amount
-      currencyCode
-    }
-    maxVariantPrice {
-      amount
-      currencyCode
-    }
-  }
-  images (first: 10) {
-    nodes {
-      url
-      width
-      height
-      altText
-    }
-  }
-  variants(first: 10) {
-    nodes {
-      id
-      title
-      availableForSale
-      price {
-        amount
-        currencyCode
-      }
-      compareAtPrice {
-        amount
-        currencyCode
-      }
-      selectedOptions {
-        name
-        value
-      }
-    }
-  }
-  featuredImage {
-    url
-    width
-    height
-    altText
-  }
-  collections(first: 5) {
-    edges {
-      node {
-        id
-        title
-        handle
-      }
-    }
-  }
-}
-`;
-
 const PRODUCT_FRAGMENT = `#graphql
 fragment productFragment on Product {
   id
@@ -185,9 +103,53 @@ fragment productFragment on Product {
       }
     }
   }
-  product_metafield: metafield(namespace: "custom", key: "product_metafield") {
+  active_ingredients: metafield(namespace: "custom", key: "active_ingredients") {
     value
     type
+    references(first: 10) {
+      nodes {
+        ... on Metaobject {
+          fields {
+            reference {
+              ... on MediaImage {
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  how_to_use: metafield(namespace: "custom", key: "how_to_use") {
+    value
+    type
+  }
+  faqs: metafield(namespace: "custom", key: "faqs") {
+    value
+    type
+  }
+  full_description: metafield(namespace: "custom", key: "full_description") {
+    value
+    type
+  }
+  full_image: metafield(namespace: "custom", key: "full_image") {
+    value
+    type
+    reference {
+      ... on MediaImage {
+        image {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
   }
 }
 `;

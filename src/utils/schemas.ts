@@ -69,6 +69,45 @@ export const MetafieldResult = z.object({
   type: z.string(),
 }).nullable().optional();
 
+export const MetafieldFileResult = z.object({
+  value: z.string(),
+  type: z.string(),
+  reference: z.object({
+    image: ImageResult,
+  }).nullable().optional(),
+}).nullable().optional();
+
+export const MetaobjectFieldResult = z.object({
+  reference: z.object({
+    image: ImageResult,
+  }).nullable().optional(),
+});
+
+export const MetaobjectResult = z.object({
+  fields: z.array(MetaobjectFieldResult),
+});
+
+export const MetafieldListMetaobjectResult = z.object({
+  value: z.string(),
+  type: z.string(),
+  references: z.object({
+    nodes: z.array(MetaobjectResult),
+  }).nullable().optional(),
+}).nullable().optional().transform((data) => {
+  if (!data || !data.references?.nodes) return data;
+  
+  // Extraer todas las imágenes de los campos
+  const images = data.references.nodes
+    .flatMap(node => node.fields)
+    .map(field => field.reference?.image)
+    .filter((img): img is NonNullable<typeof img> => img !== null && img !== undefined);
+  
+  return {
+    ...data,
+    images,
+  };
+});
+
 export const ProductResult = z
   .object({
     id: z.string(),
@@ -94,7 +133,14 @@ export const ProductResult = z
         }),
       })),
     }),
-    product_metafield: MetafieldResult.nullable(),
+    active_ingredients: MetafieldListMetaobjectResult.nullable(),
+    how_to_use: MetafieldResult.nullable(),
+    faqs: MetafieldResult.nullable(),
+    full_description: MetafieldResult.nullable(),
+    full_image: MetafieldFileResult.nullable().transform((data) => {
+      if (!data || !data.reference?.image) return data;
+      return data.reference.image;
+    }),
   })
   .nullable();
 
