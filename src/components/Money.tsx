@@ -25,7 +25,7 @@ const Money: React.FC<Props> = ({ price, showCurrency = false, className }) => {
     currencyDisplay: showCurrency ? 'symbol' : 'narrowSymbol',
   }).formatToParts(0).find(part => part.type === 'currency')?.value || price.currencyCode;
 
-  return <span className={`${className || ''}`}>{formatPrice} {currencySymbol}</span>;
+  return <span className={`${className || ''}`}>{currencySymbol}{formatPrice} </span>;
 };
 
 export default Money;

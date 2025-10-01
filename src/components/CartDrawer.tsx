@@ -101,23 +101,22 @@ const CartDrawer: React.FC = () => {
       <div className="fixed inset-0 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="pointer-events-none fixed inset-y-0 right-0 flex max-w-[400px] pl-6 focus:outline-none"
+            className="pointer-events-none fixed inset-y-0 right-0 flex pl-6 focus:outline-none"
             tabIndex={-1}
             ref={clickOutsideRef}
             onKeyDown={onKeyDown}
           >
-            <div className={`pointer-events-auto w-screen max-w-[80vw] md:max-w-lg max-h-screen bg-white border-l border-gray-200 transition-transform duration-500 ease-in-out transform ${
-              isAnimating 
-                ? 'translate-x-0' 
+            <div className={`pointer-events-auto w-screen max-w-[50vw] max-h-screen bg-white border-l border-gray-200 transition-transform duration-500 ease-in-out transform ${isAnimating
+                ? 'translate-x-0'
                 : 'translate-x-full'
-            }`}>
-              <div className="flex flex-col min-h-full max-h-screen">
+              }`}>
+              <div className="flex flex-col min-h-full max-h-screen bg-primary-bright">
                 <div className="flex items-center justify-between p-5">
                   <h2
                     className="text-2xl flex gap-4 items-center text-black"
                     id="slide-over-title"
                   >
-                    <span className="uppercase text-base font-medium">CARRITO</span>
+                    <span className="text-base font-medium">Cart</span>
                     {isUpdating && (
                       <svg
                         className="animate-spin -ml-1 mr-3 h-4 w-4"
@@ -164,68 +163,58 @@ const CartDrawer: React.FC = () => {
                   <div className="px-6 h-full">
                     {cartData && cartData.lines?.nodes.length > 0 ? (
                       <div
-                        className={`space-y-4 ${cartIsUpdatingClass}`}
+                        className={`gap-10 ${cartIsUpdatingClass}`}
                       >
                         {cartData.lines.nodes.map((item) => (
-                          <div key={item.id} className="flex py-8 gap-6 border-b border-zinc-100 last:border-b-0">
-                            <div className="overflow-hidden w-[120px] h-[120px] flex-shrink-0">
-                              <img
-                                src={item.merchandise.image?.url || ''}
-                                alt={item.merchandise.image?.altText || item.merchandise.product.title}
-                                className="object-cover object-center w-full h-full"
-                              />
-                            </div>
-                            <div className="flex-1 flex flex-col justify-between">
-                              <div className="flex gap-2 flex-col">
-                                <h3 className="text-black text-xl font-medium leading-6">
-                                  {item.merchandise.product.title}
-                                </h3>
-                                {item.merchandise.title && 
-                                 item.merchandise.title !== item.merchandise.product.title && 
-                                 item.merchandise.title !== "Default Title" && 
-                                 item.merchandise.title !== "Default" && (
-                                  <p className="text-sm text-[#666666] font-light">
-                                    Variante: {item.merchandise.title}
-                                  </p>
-                                )}
-                                <Money price={item.cost.amountPerQuantity} className="text-sm text-[#949494]" />
+                          <div key={item.id} className="flex py-8 gap-6 flex-row justify-between items-start">
+                            <div className="flex items-center gap-6 flex-row">
+                              <div className="overflow-hidden w-[136px] h-[136px] flex-shrink-0 rounded-3xl">
+                                <img
+                                  src={item.merchandise.image?.url || ''}
+                                  alt={item.merchandise.image?.altText || item.merchandise.product.title}
+                                  className="object-cover object-center w-full h-full"
+                                />
                               </div>
-                              <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-6 border p-2">
-                                  <button
-                                    onClick={() => decreaseQuantity(item.id, item.quantity)}
-                                    type="button"
-                                    disabled={isUpdating}
-                                    className="w-2 h-2 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                  >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="2" viewBox="0 0 13 2" fill="none">
-                                      <path d="M12.3135 1H0.999768" stroke="#4C4C4C" strokeWidth="1.2" strokeLinecap="square" strokeLinejoin="round" />
-                                    </svg>
-                                  </button>
-                                  <span className="text-sm">
-                                    {item.quantity}
-                                  </span>
-                                  <button
-                                    onClick={() => increaseQuantity(item.id, item.quantity)}
-                                    type="button"
-                                    disabled={isUpdating}
-                                    className="w-2 h-2 flex items-center justify-center disabled:opacity-50 cursor-pointer"
-                                  >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path d="M12.6276 7.00012H1.31385M6.9707 1.34326V12.657" stroke="#4C4C4C" strokeWidth="1.2" strokeLinecap="square" strokeLinejoin="round" />
-                                    </svg>
-                                  </button>
+                              <div className="flex-1 flex flex-col justify-between items-start gap-6">
+                                <div className="flex flex-col gap-2">
+                                  <h3 className="text-d-products">
+                                    {item.merchandise.product.title}
+                                  </h3>
+                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive text-d-products" />
                                 </div>
-                                <button
-                                  onClick={() => removeItem(item.id)}
-                                  type="button"
-                                  disabled={isUpdating}
-                                  className=" disabled:opacity-50 text-sm font-medium underline cursor-pointer"
-                                >
-                                  Quitar
-                                </button>
+                                <div className="flex items-center gap-4">
+                                  <div className="flex items-center gap-6 p-2 rounded-full border border-primary-granite">
+                                    <button
+                                      onClick={() => decreaseQuantity(item.id, item.quantity)}
+                                      type="button"
+                                      disabled={isUpdating}
+                                      className="size-8 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                    >
+                                      <img src="images/home/minus.svg" alt="Minus" className="size-8" />
+                                    </button>
+                                    <span className="text-d-secondary text-primary-granite">
+                                      {item.quantity}
+                                    </span>
+                                    <button
+                                      onClick={() => increaseQuantity(item.id, item.quantity)}
+                                      type="button"
+                                      disabled={isUpdating || item.quantity >= 99}
+                                      className="size-8 flex items-center justify-center disabled:opacity-50 cursor-pointer"
+                                    >
+                                      <img src="images/home/plus.svg" alt="Plus" className="size-8" />
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              type="button"
+                              disabled={isUpdating}
+                              className=" disabled:opacity-50 w-fit text-sm font-medium underline cursor-pointer"
+                            >
+                              <img src="images/home/delete.svg" alt="Trash" className="size-8" />
+                            </button>
                           </div>
                         ))}
                       </div>
