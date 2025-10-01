@@ -24,7 +24,6 @@ const makeShopifyRequest = async (
   const isSSR = import.meta.env.SSR;
   const apiUrl = `https://${config.shopifyShop}/api/${config.apiVersion}/graphql.json`;
 
-
   function getOptions() {
     // If the request is made from the server, we need to pass the private access token and the buyer IP
     isSSR &&
@@ -63,7 +62,6 @@ const makeShopifyRequest = async (
   const requestOptions = getOptions();
   
   const response = await fetch(apiUrl, requestOptions);
-
 
   if (!response.ok) {
     const body = await response.text();
@@ -180,9 +178,9 @@ export const getProductRecommendations = async (options: {
 };
 
 // Create a cart and add a line item to it and return the cart object
-export const createCart = async (id: string, quantity: number) => {
+export const createCart = async (id: string, quantity: number, buyerIP: string = "127.0.0.1") => {
   
-  const data = await makeShopifyRequest(CreateCartMutation, { id, quantity });
+  const data = await makeShopifyRequest(CreateCartMutation, { id, quantity }, buyerIP);
   const { cartCreate } = data;
   const { cart } = cartCreate;
   const parsedCart = CartResult.parse(cart);
@@ -194,14 +192,15 @@ export const createCart = async (id: string, quantity: number) => {
 export const addCartLines = async (
   id: string,
   merchandiseId: string,
-  quantity: number
+  quantity: number,
+  buyerIP: string = "127.0.0.1"
 ) => {
   
   const data = await makeShopifyRequest(AddCartLinesMutation, {
     cartId: id,
     merchandiseId,
     quantity,
-  });
+  }, buyerIP);
   const { cartLinesAdd } = data;
   const { cart } = cartLinesAdd;
 

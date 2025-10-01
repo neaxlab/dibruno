@@ -1,5 +1,7 @@
 import React from 'react';
-import ButtonSlide from '../ui/buttons/ButtonSlide';
+import type { Product } from '../../types/products';
+import { getDiscount } from '../../hooks/discounts';
+import AddToCartButton from '../AddToCartButton';
 
 type ProductCardProps = {
     product: any;
@@ -36,18 +38,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                             </div>
                         )}
                     </div>
-                    <ButtonSlide
-                        text="OUR VALUES"
-                        href="#"
-                        normalBackground="transparent"
-                        normalColor="#3B3B3B"
-                        hoverBackground="#3B3B3B"
-                        hoverColor="#FAFAFA"
-                        borderColor="#3B3B3B"
-                        hoverBorderColor="#FAFAFA"
-                        transitionDuration="0.5s"
-                        className="w-full flex justify-center"
-                    />
+                    {product.variants?.nodes?.[0] && (
+                        <AddToCartButton
+                            variantId={product.variants.nodes[0].id}
+                            variantQuantityAvailable={product.variants.nodes[0].quantityAvailable || 0}
+                            variantAvailableForSale={product.variants.nodes[0].availableForSale}
+                        />
+                    )}
                 </div>
             </div>
             <div className="flex flex-row justify-between items-start">

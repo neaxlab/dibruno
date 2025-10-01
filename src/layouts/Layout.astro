@@ -3,6 +3,7 @@
 import '../styles/global.css';
 import Navbar from '../components/commons/navbar.astro';
 import Footer from '../components/commons/footer.astro';
+import CartDrawer from '../components/CartDrawer.tsx';
 ---
 
 <!doctype html>
@@ -19,5 +20,6 @@ import Footer from '../components/commons/footer.astro';
 		<Navbar />
 		<slot />
 		<Footer />
+		<CartDrawer client:load />
 	</body>
 </html>
