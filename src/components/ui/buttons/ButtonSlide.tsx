@@ -12,6 +12,7 @@ interface ButtonSlideProps {
   hoverBorderColor?: string;
   transitionDuration?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 const ButtonSlide: React.FC<ButtonSlideProps> = ({
@@ -24,7 +25,8 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
   borderColor = "#FAFAFA",
   hoverBorderColor = "#3B3B3B",
   transitionDuration = "0.5s",
-  className = ""
+  className = "",
+  disabled = false
 }) => {
   // Estilos CSS personalizados usando variables CSS
   const styles = React.useMemo(() => ({
@@ -47,8 +49,8 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
 
   return (
     <a 
-      href={href}
-      className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${className}`}
+      href={disabled ? undefined : href}
+      className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       style={styles}
     >
       <span>{text}</span>

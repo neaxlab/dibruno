@@ -8,7 +8,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-import type { Product } from '../../types/products';
 import ButtonSlide from '../ui/buttons/ButtonSlide';    
 import Pagination from './pagination';
 import NavigationButton from './navigationDirection';

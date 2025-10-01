@@ -8,12 +8,14 @@ import {
 } from '../stores/cart';
 import Money from './Money';
 import { useClickOutsideWithPriority } from '../hooks/useClickOutsideWithPriority';
+import ButtonSlide from './ui/buttons/ButtonSlide';
 
 const CartDrawer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [cartData, setCartData] = useState(cart.get());
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   useEffect(() => {
     const unsubscribe = cart.subscribe(setCartData);
@@ -82,6 +84,10 @@ const CartDrawer: React.FC = () => {
     }
   };
 
+  const handleTermsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTermsAccepted(event.target.checked);
+  };
+
   const cartIsUpdatingClass = isUpdating
     ? 'opacity-50 pointer-events-none'
     : '';
@@ -106,7 +112,7 @@ const CartDrawer: React.FC = () => {
             ref={clickOutsideRef}
             onKeyDown={onKeyDown}
           >
-            <div className={`pointer-events-auto w-screen max-w-[50vw] max-h-screen bg-white border-l border-gray-200 transition-transform duration-500 ease-in-out transform ${isAnimating
+            <div className={`pointer-events-auto w-screen max-w-[50vw] max-h-screen bg-white transition-transform duration-500 ease-in-out transform ${isAnimating
                 ? 'translate-x-0'
                 : 'translate-x-full'
               }`}>
@@ -116,7 +122,7 @@ const CartDrawer: React.FC = () => {
                     className="text-2xl flex gap-4 items-center text-black"
                     id="slide-over-title"
                   >
-                    <span className="text-base font-medium">Cart</span>
+                    <span className="text-d-title-1">Cart ({cartData?.totalQuantity})</span>
                     {isUpdating && (
                       <svg
                         className="animate-spin -ml-1 mr-3 h-4 w-4"
@@ -139,7 +145,7 @@ const CartDrawer: React.FC = () => {
                     >
                       <span className="sr-only">Cerrar panel</span>
                       <svg
-                        className="h-6 w-6"
+                        className="h-11 w-11 hover:rotate-90 transition-all duration-300"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -157,7 +163,6 @@ const CartDrawer: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="border-t border-gray-200"></div>
 
                 <div className="flex-1 overflow-y-scroll h-full">
                   <div className="px-6 h-full">
@@ -236,21 +241,56 @@ const CartDrawer: React.FC = () => {
 
                 <div>
                   {cartData && cartData.lines?.nodes.length > 0 && (
-                    <div className="border-t p-6 flex flex-col gap-4">
-                      <div className="flex justify-between text-base text-black font-normal">
-                        <p>Subtotal</p>
+                    <div className="p-6 flex flex-col gap-3">
+                      <div className="flex justify-between items-center">
+                        <p className="text-d-title-2">Subtotal</p>
                         <p>
                           <Money
                             price={cartData.cost.subtotalAmount}
                             showCurrency={true}
+                            className="text-d-title-2"
                           />
                         </p>
+                        
                       </div>
-                      <div className="w-full text-center border border-black py-3 px-4 font-light">
-                        <a href={cartData.checkoutUrl} className="Finalizar compra cursor-pointer">
-                          Finalizar compra
-                        </a>
-                      </div>
+                      <div className="w-full flex items-center gap-4">
+                          <div className="relative">
+                            <input 
+                              type="checkbox" 
+                              id="terms-checkbox"
+                              className="relative size-6 cursor-pointer appearance-none rounded-[4px] bg-white border-2 border-primary-olive checked:bg-primary-olive checked:border-primary-olive focus:outline-none focus:ring-2 focus:ring-primary-olive/20" 
+                              checked={termsAccepted}
+                              onChange={handleTermsChange}
+                            />
+                            {termsAccepted && (
+                              <svg 
+                                className="absolute top-3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 text-primary-lotion pointer-events-none"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path 
+                                  fillRule="evenodd" 
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            )}
+                          </div>
+                          <label htmlFor="terms-checkbox" className="text-d-products font-light">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
+                        </div>
+                        <ButtonSlide
+                          text={`SHOP NOW`}
+                          href={cartData.checkoutUrl}
+                          normalBackground="transparent"
+                          normalColor="#3B3B3B"
+                          hoverBackground="#3B3B3B"
+                          hoverColor="#FAFAFA"
+                          borderColor="#3B3B3B"
+                          hoverBorderColor="#FAFAFA"
+                          transitionDuration="0.5s"
+                          className="w-full justify-center items-center sm:flex hidden mt-6"
+                          disabled={!termsAccepted}
+                        /> 
                     </div>
                   )}
                 </div>
