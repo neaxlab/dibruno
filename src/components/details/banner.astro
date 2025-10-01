@@ -1,6 +1,7 @@
 ---
 import BannerCarousel from "./bannerCarousel.jsx";
 import ButtonSlide from "../ui/buttons/ButtonSlide.tsx";
+import AddToCartButton from "../AddToCartButton";
 const { product } = Astro.props;
 
 // const images = details[detail as keyof typeof details].images
@@ -48,30 +49,14 @@ const { product } = Astro.props;
             <span class="text-d-title-2 text-primary-olive"
                 >${product.variants.nodes[0].price.amount}</span
             >
-            <ButtonSlide
-                text={`BUY ${product.title.toUpperCase()} - $${product.variants.nodes[0].price.amount}`}
-                href="#"
-                normalBackground="transparent"
-                normalColor="#3B3B3B"
-                hoverBackground="#3B3B3B"
-                hoverColor="#FAFAFA"
-                borderColor="#3B3B3B"
-                hoverBorderColor="#FAFAFA"
-                transitionDuration="0.5s"
-                className="w-full text-center border-[1.5px] sm:flex hidden"
-            />
-            <ButtonSlide
-                text={`BUY $${product.variants.nodes[0].price.amount}`}
-                href="#"
-                normalBackground="transparent"
-                normalColor="#3B3B3B"
-                hoverBackground="#3B3B3B"
-                hoverColor="#FAFAFA"
-                borderColor="#3B3B3B"
-                hoverBorderColor="#FAFAFA"
-                transitionDuration="0.5s"
-                className="w-full justify-center items-center border-[1.5px] sm:hidden flex"
-            />
+            {product?.variants?.nodes?.[0] && (
+                <AddToCartButton
+                    client:load
+                    variantId={product.variants.nodes[0].id}
+                    variantQuantityAvailable={product.variants.nodes[0].quantityAvailable || 0}
+                    variantAvailableForSale={product.variants.nodes[0].availableForSale}
+                />
+            )}
         </div>
         <!-- <div class="flex flex-col gap-4 p-3 bg-primary-lotion rounded-3xl">
             <h3 class="text-d-products text-primary-granite">Goes well with</h3>
