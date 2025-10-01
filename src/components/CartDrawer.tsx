@@ -112,7 +112,7 @@ const CartDrawer: React.FC = () => {
             ref={clickOutsideRef}
             onKeyDown={onKeyDown}
           >
-            <div className={`pointer-events-auto w-screen max-w-[50vw] max-h-screen bg-white transition-transform duration-500 ease-in-out transform ${isAnimating
+            <div className={`pointer-events-auto w-screen sm:max-w-[50vw] max-h-screen bg-white transition-transform duration-500 ease-in-out transform ${isAnimating
                 ? 'translate-x-0'
                 : 'translate-x-full'
               }`}>
@@ -164,14 +164,14 @@ const CartDrawer: React.FC = () => {
                 </div>
 
 
-                <div className="flex-1 overflow-y-scroll h-full">
-                  <div className="px-6 h-full">
+                <div className="flex-1 overflow-y-auto hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  <div className="px-6 min-h-full flex flex-col">
                     {cartData && cartData.lines?.nodes.length > 0 ? (
                       <div
                         className={`gap-10 ${cartIsUpdatingClass}`}
                       >
                         {cartData.lines.nodes.map((item) => (
-                          <div key={item.id} className="flex py-8 gap-6 flex-row justify-between items-start">
+                          <div key={item.id} className="flex py-8 gap-6 flex-row justify-between items-start ">
                             <div className="flex items-center gap-6 flex-row">
                               <div className="overflow-hidden w-[136px] h-[136px] flex-shrink-0 rounded-3xl">
                                 <img
@@ -182,10 +182,10 @@ const CartDrawer: React.FC = () => {
                               </div>
                               <div className="flex-1 flex flex-col justify-between items-start gap-6">
                                 <div className="flex flex-col gap-2">
-                                  <h3 className="text-d-products">
+                                  <h3 className="sm:text-d-products text-d-secondary">
                                     {item.merchandise.product.title}
                                   </h3>
-                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive text-d-products" />
+                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive sm:text-d-products text-d-secondary" />
                                 </div>
                                 <div className="flex items-center gap-4">
                                   <div className="flex items-center gap-6 p-2 rounded-full border border-primary-granite">
@@ -224,16 +224,21 @@ const CartDrawer: React.FC = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="flex flex-col gap-4 justify-center items-center h-full">
-                        <p className="text-gray-500">Tu carrito está vacío</p>
-                        <div className="w-full text-center py-3 px-4 border">
-                          <a
-                            href="/shop"
-                            className="font-semibold text-black hover:text-gray-500"
-                          >
-                            Continuar comprando
-                          </a>
-                        </div>
+                      <div className="flex flex-col gap-4 justify-center items-center flex-1 min-h-[400px]">
+                        <p className="sm:text-d-title-2 text-d-secondary text-2xl text-primary-granite">Your Cart is Empty</p>
+                        <ButtonSlide
+                          text={`BROWSER PRODUCTS`}
+                          href="/shop"
+                          normalBackground="transparent"
+                          normalColor="#3B3B3B"
+                          hoverBackground="#3B3B3B"
+                          hoverColor="#FAFAFA"
+                          borderColor="#3B3B3B"
+                          hoverBorderColor="#FAFAFA"
+                          transitionDuration="0.5s"
+                          className="w-full justify-center items-center flex"
+                          disabled={!termsAccepted}
+                        />
                       </div>
                     )}
                   </div>
@@ -243,12 +248,12 @@ const CartDrawer: React.FC = () => {
                   {cartData && cartData.lines?.nodes.length > 0 && (
                     <div className="p-6 flex flex-col gap-3">
                       <div className="flex justify-between items-center">
-                        <p className="text-d-title-2">Subtotal</p>
+                        <p className="sm:text-d-title-2 text-d-secondary text-2xl">Subtotal</p>
                         <p>
                           <Money
                             price={cartData.cost.subtotalAmount}
                             showCurrency={true}
-                            className="text-d-title-2"
+                            className="sm:text-d-title-2 text-d-secondary text-2xl"
                           />
                         </p>
                         
@@ -276,7 +281,7 @@ const CartDrawer: React.FC = () => {
                               </svg>
                             )}
                           </div>
-                          <label htmlFor="terms-checkbox" className="text-d-products font-light">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
+                          <label htmlFor="terms-checkbox" className="sm:text-d-products text-d-tertiary font-light">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
                         </div>
                         <ButtonSlide
                           text={`SHOP NOW`}
@@ -288,9 +293,12 @@ const CartDrawer: React.FC = () => {
                           borderColor="#3B3B3B"
                           hoverBorderColor="#FAFAFA"
                           transitionDuration="0.5s"
-                          className="w-full justify-center items-center sm:flex hidden mt-6"
+                          className="w-full justify-center items-center flex sm:mt-6 mt-3"
                           disabled={!termsAccepted}
-                        /> 
+                        />
+                        <div className="text-xs sm:text-d-tertiary font-light w-full text-primary-granite">
+                          *Shipping, taxes and discounts calculated at checkout
+                        </div>
                     </div>
                   )}
                 </div>
