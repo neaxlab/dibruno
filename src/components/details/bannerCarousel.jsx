@@ -35,16 +35,16 @@ export default function TestimonialsCarousel({images}) {
                 className='w-full h-full'
             >
                 {images.map((image, index) => (
-                    <SwiperSlide key={index} className="w-full h-full">
+                    <SwiperSlide key={index} className="w-full h-full sm:rounded-none rounded-lg">
                         <img 
                             src={image.url} 
                             alt={image.alt} 
-                            className="w-full h-full object-cover" 
+                            className="w-full h-full object-cover sm:rounded-none rounded-lg" 
                         />
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="absolute -bottom-[45%] left-[10%] w-fit h-full flex flex-col gap-4 z-10">
+            <div className="absolute -bottom-[45%] left-[10%] w-fit h-full flex-col gap-4 z-10 sm:flex hidden">
                 {images.map((image, index) => (
                     <img 
                     key={index} 

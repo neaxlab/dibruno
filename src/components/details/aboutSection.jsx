@@ -126,7 +126,7 @@ export default function AboutSection({ product }) {
     };
 
     return (
-        <section className="w-full -font-sans px-section-d-gap-x pt-[340px] flex flex-col gap-10">
+        <section className="w-full -font-sans px-section-d-gap-x pt-[200px] flex flex-col gap-10">
             <h1 class="text-d-title-1 text-primary-olive text-center">
                 INSIDE THE BOTTLE
             </h1>

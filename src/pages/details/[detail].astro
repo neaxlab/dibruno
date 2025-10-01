@@ -5,6 +5,7 @@ import Banner from '../../components/details/banner.astro';
 import ChatWithUS from '../../components/faqs/chatWithUS.astro';
 import { getProductByHandle } from "../../utils/shopify";
 import AboutSection from '../../components/details/aboutSection.jsx';
+import AboutSectionMobile from '../../components/details/aboutSectionMobile.jsx';
 const { detail } = Astro.params;
 import '../../components/details/information.css';
 
@@ -27,6 +28,11 @@ if (!product) {
 
 <Layout>
     <Banner product={product} />
-    <AboutSection product={product} client:load />
+    <div class="w-full h-full sm:block hidden">
+        <AboutSection product={product} client:load />
+    </div>
+    <div class="w-full h-full sm:hidden block">
+        <AboutSectionMobile product={product} client:load />
+    </div>
     <ChatWithUS />
 </Layout>
