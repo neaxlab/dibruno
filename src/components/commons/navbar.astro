@@ -13,10 +13,14 @@ const navigationItems = [
   { href: '/learn', label: 'LEARN' }
 ];
 
-// Determinar colores basados en la ruta
-const isHome = currentPath === '/';
+// Determinar colores y logo basados en la ruta
+const isHome = currentPath === '/' || currentPath === '/index';
 const textColor = isHome ? 'text-primary-lotion' : 'text-primary-olive';
 const bgColor = isHome ? 'bg-primary-lotion' : 'bg-primary-olive';
+const logoSrc = isHome ? '/images/home/logo-white.svg' : '/images/home/logo-olive.svg';
+
+// Debug: Log para verificar la ruta actual
+console.log('Current path:', currentPath, 'isHome:', isHome);
 ---
 
 <header 
@@ -27,9 +31,9 @@ const bgColor = isHome ? 'bg-primary-lotion' : 'bg-primary-olive';
     <!-- Logo -->
     <a href="/" class="flex-shrink-0">
       <img 
-        src="/images/home/logo-white.svg" 
+        src={logoSrc}
         alt="Logo" 
-        class="w-[187px] h-[31px]"
+        class="w-[187px] h-[31px] transition-all duration-300"
         loading="eager"
       />
     </a>
