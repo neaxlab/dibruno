@@ -1,0 +1,96 @@
+---
+import BannerCarousel from "./bannerCarousel.jsx";
+import ButtonSlide from "../ui/buttons/ButtonSlide.tsx";
+const { product } = Astro.props;
+console.log(product, "product");
+
+// const images = details[detail as keyof typeof details].images
+---
+
+<section
+    class="font-sans relative w-full flex sm:flex-row flex-col-reverse sm:gap-6 gap-0 items-center justify-center py-section-m-gap-y h-screen"
+>
+    <BannerCarousel images={product.images.nodes} client:load />
+    <div class="absolute -bottom-[15%] right-[5%] z-10 p-10 gap-10 flex flex-col w-[667px] bg-primary-bright rounded-[4px]">
+        <h1 class="text-d-title-1 text-primary-olive">{product.title}</h1>
+        <div class="flex flex-col gap-6">
+            <p class="text-d-primary text-primary-granite">
+                {product.description}
+            </p>
+            <div
+                class="flex flex-row gap-4 items-center p-3 bg-[#E2E2E2] rounded-3xl"
+            >
+                <img
+                    src="/images/products/warning.png"
+                    alt="Icon"
+                    class="size-6 object-cover"
+                />
+                <p class="text-d-secondary text-primary-granite">
+                    Always perform a patch test before using any new hair care
+                    product to ensure you do not have any adverse reactions.
+                </p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-6">
+            <div class="flex flex-col gap-4">
+                <h3 class="text-d-products text-primary-granite">
+                    Choose Variant
+                </h3>
+                <div class="flex flex-row gap-6">
+                    <!-- {
+                        product.variants.map((variant: { name: string }) => (
+                            <button class="border border-primary-granite text-d-primary text-primary-granite py-4 px-6 rounded-full leading-none">
+                                {variant.name}
+                            </button>
+                        ))
+                    } -->
+                </div>
+            </div>
+            <span class="text-d-title-2 text-primary-olive"
+                >${product.variants.nodes[0].price.amount}</span
+            >
+            <ButtonSlide
+                text={`BUY ${product.title.toUpperCase()} - $${product.variants.nodes[0].price.amount}`}
+                href="#"
+                normalBackground="transparent"
+                normalColor="#3B3B3B"
+                hoverBackground="#3B3B3B"
+                hoverColor="#FAFAFA"
+                borderColor="#3B3B3B"
+                hoverBorderColor="#FAFAFA"
+                transitionDuration="0.5s"
+                className="w-full text-center border-[1.5px]"
+            />
+        </div>
+        <div class="flex flex-col gap-4 p-3 bg-primary-lotion rounded-3xl">
+            <h3 class="text-d-products text-primary-granite">Goes well with</h3>
+            <!-- <div class="flex flex-row gap-6">
+                {
+                    product.related.map((related: { name: string, price: number, image: string, alt: string }) => (
+                        <div class="flex flex-row gap-4 items-center justify-between w-full">
+                            <div class="flex flex-row gap-4 items-center w-full">
+                                <img src={related.image} alt={related.alt} class="size-16 object-cover" />
+                                <div class="flex flex-col gap-2">
+                                    <h4 class="text-d-products text-primary-granite">{related.name}</h4>
+                                    <span class="text-d-secondary text-primary-granite">${related.price}</span>
+                                </div>
+                            </div>
+                            <ButtonSlide
+                                text={`ADD`}
+                                href="#"
+                                normalBackground="transparent"
+                                normalColor="#3B3B3B"
+                                hoverBackground="#3B3B3B"
+                                hoverColor="#FAFAFA"
+                                borderColor="#3B3B3B"
+                                hoverBorderColor="#FAFAFA"
+                                transitionDuration="0.5s"
+                                className="w-fit"
+                            />
+                        </div>
+                    ))
+                }
+            </div> -->
+        </div>
+    </div>
+</section>

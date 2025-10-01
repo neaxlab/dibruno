@@ -1,0 +1,72 @@
+---
+const { product } = Astro.props;
+import './information.css';
+---
+
+<section class="w-full h-full font-sans px-section-d-gap-x pt-[340px]">
+    <h1 class="text-d-title-1 text-primary-olive text-center">INSIDE THE BOTTLE</h1>
+    <div class="tab-container flex flex-row w-full justify-between p-3 gap-10 bg-[#FFFFFF] rounded-full">
+        <!-- Indicador deslizante -->
+        <div class="tab-slider"></div>
+
+        <button class="tab-button text-d-secondary leading-none active" data-tab="about">ABOUT</button>
+        <button class="tab-button text-d-secondary leading-none" data-tab="ingredients">INGREDIENTS</button>
+        <button class="tab-button text-d-secondary leading-none" data-tab="how-to-use">HOW TO USE</button>
+        <button class="tab-button text-d-secondary leading-none" data-tab="faqs">FAQS</button>
+    </div>
+</section>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabSlider = document.querySelector('.tab-slider');
+        const tabContainer = document.querySelector('.tab-container');
+        
+        // Función para mover el slider al botón activo
+        function moveSlider(button) {
+            // Obtener la posición del botón relativa al contenedor
+            const buttonRect = button.getBoundingClientRect();
+            const containerRect = tabContainer.getBoundingClientRect();
+            
+            // Calcular posición exacta del botón dentro del contenedor
+            const left = buttonRect.left - containerRect.left;
+            const top = buttonRect.top - containerRect.top;
+            const width = buttonRect.width;
+            const height = buttonRect.height;
+            
+            // Aplicar posición y tamaño al slider
+            tabSlider.style.width = width + 'px';
+            tabSlider.style.height = height + 'px';
+            tabSlider.style.left = left + 'px';
+            tabSlider.style.top = top + 'px';
+        }
+        
+        // Inicializar la posición del slider en el botón activo
+        const activeButton = document.querySelector('.tab-button.active');
+        if (activeButton) {
+            moveSlider(activeButton);
+        }
+        
+        // Agregar eventos de click a los botones
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                
+                // Mover el slider al nuevo botón activo
+                moveSlider(this);
+            });
+        });
+        
+        // Actualizar posición del slider cuando cambie el tamaño de la ventana
+        window.addEventListener('resize', function() {
+            const currentActive = document.querySelector('.tab-button.active');
+            if (currentActive) {
+                moveSlider(currentActive);
+            }
+        });
+    });
+</script>

@@ -4,27 +4,28 @@ import { getDiscount } from '../../hooks/discounts';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
 
 type ProductCardProps = {
-    product: Product;
+    product: any;
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
+    console.log(product, "product");
     return (
         <article className="flex flex-col gap-4 w-full max-w-[421px] h-[614px] text-primary-olive text-d-products">
             <div className="relative w-full h-[552px] overflow-hidden bg-primary-bright z-10 group">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                {product.discount && (
+                <img src={product.featuredImage.url} alt={product.title} className="w-full h-full object-cover" />
+                {/* {product.discount && (
                     <div className="absolute top-3 right-3 bg-primary-discount p-3 text-d-secondary text-primary-lotion rounded-md">
                         -{product.discount}% OFF
                     </div>
-                )}
-                <div className="absolute bottom-0 left-0 w-full bg-primary-lotion translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex justify-center items-start px-6 py-10 gap-7 flex-col">
+                )} */}
+                <div className="absolute bottom-0 left-0 w-full bg-[#F4F4F4] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex justify-center items-start px-6 py-10 gap-7 flex-col">
                     <div className="flex flex-row gap-4 text-d-footer z-1">
                         {product.size && (
                             <div className="flex flex-row gap-2 items-center">
                                 <label className="text-d-tertiary text-primary-granite">Size</label>
                                 <div className="relative">
                                     <select className="appearance-none border-[0.75px] border-[#C7C6C3] rounded-md  py-[10px] px-6 w-[128px] text-left text-d-secondary text-primary-granite focus:outline-none focus:border-primary-olive">
-                                        {product.size.map((sizeOption) => (
+                                        {product.size.map((sizeOption: any) => (
                                             <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
                                         ))}
                                     </select>
@@ -54,24 +55,24 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
             <div className="flex flex-row justify-between items-start">
                 <div className="flex flex-col">
-                    <h4>{product.name}</h4>
+                    <h4>{product.title}</h4>
                     <span className="text-d-secondary letter-spacing-[2%] line-height-[100%] text-primary-granite">
                         {product.category}
                     </span>
                 </div>
                 <div className="flex flex-row gap-[10px] items-center">
-                    {product.discount ? (
+                    {product.variants.nodes[0].compareAtPrice ? (
                         <>
                             <span className="text-primary-granite leading-[100%] font-light text-[14px] line-through tracking-[2%]">
-                                {`$${product.price}`}
+                                {product.variants.nodes[0].compareAtPrice.amount}
                             </span>
                             <span className="leading-[100%] font-medium text-[20px] tracking-[2%] ">
-                                {getDiscount(product.price, product.discount)}
+                                {`$${product.variants.nodes[0].price.amount}`}
                             </span>
                         </>
                     ) : (
                         <span>
-                            {`$${product.price}`}
+                            {`$${product.variants.nodes[0].price.amount}`}
                         </span>
                     )}
                 </div>
