@@ -2,113 +2,159 @@
 // Obtener la ruta actual
 const currentPath = Astro.url.pathname;
 import CartIcon from '../CartIcon.tsx';
+
+// Configuración de navegación
+const navigationItems = [
+  { href: '/shop', label: 'SHOP' },
+  { href: '/about', label: 'ABOUT' },
+  { href: '/ingredients', label: 'OUR INGREDIENTS' },
+  { href: '/testimonials', label: 'TESTIMONIALS' },
+  { href: '/faqs', label: 'FAQS' },
+  { href: '/learn', label: 'LEARN' }
+];
+
+// Determinar colores basados en la ruta
+const isHome = currentPath === '/';
+const textColor = isHome ? 'text-primary-lotion' : 'text-primary-olive';
+const bgColor = isHome ? 'bg-primary-lotion' : 'bg-primary-olive';
 ---
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 p-2 transition-transform duration-300 ease-in-out">
-    <div class="w-full h-fit flex flex-row justify-between items-center max-w-screen-2xl mx-auto p-5 text-primary-lotion text-d-nav">
-        <a href="/">
-            <img src="/images/home/logo-white.svg" alt="Logo" class="w-[187px] h-[31px]"/>
+
+<header 
+  id="navbar" 
+  class={`fixed top-0 left-0 right-0 z-50 p-2 transition-all duration-300 ease-in-out ${textColor}`}
+>
+  <div class={`w-full h-fit flex flex-row justify-between items-center max-w-screen-2xl mx-auto p-5 text-d-nav ${textColor}`}>
+    <!-- Logo -->
+    <a href="/" class="flex-shrink-0">
+      <img 
+        src="/images/home/logo-white.svg" 
+        alt="Logo" 
+        class="w-[187px] h-[31px]"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="flex flex-row gap-10" role="navigation" aria-label="Main navigation">
+      {navigationItems.map(({ href, label }) => (
+        <a 
+          href={href} 
+          class={`nav-link group relative transition-colors duration-300 ${currentPath === href ? 'active' : ''}`}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          <span class="flex items-center gap-2">
+            <span 
+              class={`bullet w-0 h-0 rounded-full transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px] ${bgColor}`}
+              aria-hidden="true"
+            ></span>
+            <span>{label}</span>
+          </span>
+          <div 
+            class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${bgColor}`}
+            aria-hidden="true"
+          ></div>
         </a>
-        <div class="flex flex-row gap-10">
-            <a href="/shop" class={`nav-link group relative ${currentPath === '/shop' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>SHOP</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-            <a href="/about" class={`nav-link group relative ${currentPath === '/about' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>ABOUT</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-            <a href="/ingredients" class={`nav-link group relative ${currentPath === '/ingredients' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>OUR INGREDIENTS</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-            <a href="/testimonials" class={`nav-link group relative ${currentPath === '/testimonials' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>TESTIMONIALS</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-            <a href="/faqs" class={`nav-link group relative ${currentPath === '/faqs' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>FAQS</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-            <a href="/learn" class={`nav-link group relative ${currentPath === '/learn' ? 'active' : ''}`}>
-                <span class="flex items-center gap-2">
-                    <span class="bullet w-0 h-0 rounded-full bg-primary-lotion transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"></span>
-                    <span>LEARN</span>
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary-lotion opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"></div>
-            </a>
-        </div>
-        <div class="flex flex-row gap-10">
-            <span>SEARCH</span>
-            <CartIcon client:load />
-        </div>
+      ))}
+    </nav>
+
+    <!-- Right Side Actions -->
+    <div class="flex flex-row gap-10">
+      <button 
+        class="transition-colors duration-300 hover:opacity-70"
+        aria-label="Search"
+      >
+        SEARCH
+      </button>
+      <CartIcon client:load />
     </div>
+  </div>
 </header>
 
 <script>
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+  // Variables globales para optimización
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  let navLinks: NodeListOf<HTMLAnchorElement> | null = null;
 
-    function updateNavbar() {
-        const navbar = document.getElementById('navbar');
-        if (!navbar) return;
-        
-        const currentScrollY = window.scrollY;
+  // Función optimizada para actualizar el navbar
+  function updateNavbar() {
+    const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+    
+    const currentScrollY = window.scrollY;
+    const shouldHide = currentScrollY > lastScrollY && currentScrollY > 100;
+    
+    navbar.style.transform = shouldHide ? 'translateY(-100%)' : 'translateY(0)';
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
 
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down - hide navbar
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            // Scrolling up - show navbar
-            navbar.style.transform = 'translateY(0)';
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
+  // Función optimizada para manejar scroll
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(updateNavbar);
+      ticking = true;
     }
+  }
 
-    function onScroll() {
-        if (!ticking) {
-            requestAnimationFrame(updateNavbar);
-            ticking = true;
-        }
-    }
+  // Función optimizada para manejar clics en navegación
+  function handleNavClick(event: Event) {
+    const target = event.currentTarget as HTMLAnchorElement;
+    if (!target) return;
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Remover clase active de todos los enlaces
+    navLinks?.forEach(link => link.classList.remove('active'));
+    
+    // Agregar clase active al enlace clickeado
+    target.classList.add('active');
+  }
 
-    // Handle active navigation links
-    function handleNavClick(event: Event) {
-        // Remove active class from all nav links
-        const allNavLinks = document.querySelectorAll('.nav-link');
-        allNavLinks.forEach(link => link.classList.remove('active'));
-        
-        // Add active class to clicked link
-        if (event.currentTarget) {
-            (event.currentTarget as HTMLElement).classList.add('active');
-        }
-        
-        // Allow normal navigation behavior
-    }
-
-    // Add click listeners to all nav links
-    document.addEventListener('DOMContentLoaded', function() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', handleNavClick);
-        });
+  // Función para inicializar el navbar
+  function initNavbar() {
+    // Cache de elementos DOM
+    navLinks = document.querySelectorAll('.nav-link');
+    
+    // Agregar event listeners
+    navLinks.forEach(link => {
+      link.addEventListener('click', handleNavClick, { passive: true });
     });
+
+    // Agregar listener de scroll optimizado
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
 </script>
+
+<style>
+  /* Estilos optimizados para el navbar */
+  .nav-link {
+    @apply relative inline-block;
+  }
+
+  .nav-link.active {
+    @apply font-semibold;
+  }
+
+  /* Optimización para transiciones */
+  .nav-link .bullet {
+    @apply transform-gpu;
+  }
+
+  /* Mejoras de accesibilidad */
+  .nav-link:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-lotion;
+  }
+
+  /* Optimización para dispositivos móviles */
+  @media (max-width: 768px) {
+    .nav-link {
+      @apply text-sm;
+    }
+  }
+</style>
