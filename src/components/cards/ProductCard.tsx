@@ -1,6 +1,4 @@
 import React from 'react';
-import type { Product } from '../../types/products';
-import { getDiscount } from '../../hooks/discounts';
 import AddToCartButton from '../AddToCartButton';
 
 type ProductCardProps = {
@@ -11,7 +9,9 @@ export default function ProductCard({ product }: ProductCardProps) {
     return (
         <article className="flex flex-col gap-4 w-full max-w-[421px] h-[614px] text-primary-olive text-d-products">
             <div className="relative w-full h-[552px] overflow-hidden bg-primary-bright z-10 group">
-                <img src={product.featuredImage.url} alt={product.title} className="w-full h-full object-cover" />
+                <a href={`/details/${product.handle}`}>
+                    <img src={product.featuredImage.url} alt={product.title} className="w-full h-full object-cover cursor-pointer" />
+                </a>
                 {/* {product.discount && (
                     <div className="absolute top-3 right-3 bg-primary-discount p-3 text-d-secondary text-primary-lotion rounded-md">
                         -{product.discount}% OFF

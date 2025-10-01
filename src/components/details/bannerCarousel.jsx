@@ -44,7 +44,7 @@ export default function TestimonialsCarousel({images}) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="absolute -bottom-[45%] left-[10%] w-full h-full flex flex-col gap-4 z-10">
+            <div className="absolute -bottom-[45%] left-[10%] w-fit h-full flex flex-col gap-4 z-10">
                 {images.map((image, index) => (
                     <img 
                     key={index} 

@@ -32,3 +32,40 @@
     color: #FAFAFA !important;
 }
 
+/* Animaciones de paginación para flechas */
+.paginate-btn {
+    overflow: hidden;
+}
+
+.paginate-btn .arrow-anim {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+/* Rotación fija para flecha izquierda */
+.paginate-btn.left .arrow-anim {
+    transform: rotate(180deg);
+}
+
+@keyframes arrow-left-cycle {
+    0% { transform: translateX(0) rotate(180deg); opacity: 1; }
+    49% { transform: translateX(-140%) rotate(180deg); opacity: 0; }
+    50% { transform: translateX(140%) rotate(180deg); opacity: 0; }
+    100% { transform: translateX(0) rotate(180deg); opacity: 1; }
+}
+
+@keyframes arrow-right-cycle {
+    0% { transform: translateX(0); opacity: 1; }
+    49% { transform: translateX(140%); opacity: 0; }
+    50% { transform: translateX(-140%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.paginate-btn.left:hover .arrow-anim {
+    animation: arrow-left-cycle 0.6s ease-in-out forwards;
+}
+
+.paginate-btn.right:hover .arrow-anim {
+    animation: arrow-right-cycle 0.6s ease-in-out forwards;
+}
+

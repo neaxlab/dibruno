@@ -32,6 +32,7 @@ export default function AboutSection({ product }) {
     const [swiper, setSwiper] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [expandedFaqs, setExpandedFaqs] = useState({});
+    const [ingredientsPage, setIngredientsPage] = useState(0);
     const tabContainerRef = useRef(null);
     const tabSliderRef = useRef(null);
 
@@ -43,12 +44,12 @@ export default function AboutSection({ product }) {
     // Función para mover el slider al botón activo
     const moveSlider = (buttonIndex) => {
         if (!tabContainerRef.current || !tabSliderRef.current) return;
-        
+
         const tabContainer = tabContainerRef.current;
         const tabSlider = tabSliderRef.current;
         const buttons = tabContainer.querySelectorAll('.tab-button');
         const button = buttons[buttonIndex];
-        
+
         if (!button) return;
 
         // Obtener la posición del botón relativa al contenedor
@@ -102,6 +103,28 @@ export default function AboutSection({ product }) {
         return () => window.removeEventListener('resize', handleResize);
     }, [activeIndex]);
 
+    const ingredients = product?.active_ingredients?.images ?? [];
+    const totalIngredients = ingredients.length;
+    const pageSize = 3;
+    const totalPages = Math.ceil(totalIngredients / pageSize) || 0;
+
+    const getVisibleIngredients = () => {
+        if (totalIngredients <= pageSize) return ingredients;
+        const start = ingredientsPage * pageSize;
+        const end = Math.min(start + pageSize, totalIngredients);
+        return ingredients.slice(start, end);
+    };
+
+    const showPrevIngredients = () => {
+        if (ingredientsPage <= 0) return;
+        setIngredientsPage((prev) => Math.max(0, prev - 1));
+    };
+
+    const showNextIngredients = () => {
+        if (ingredientsPage >= totalPages - 1) return;
+        setIngredientsPage((prev) => Math.min(totalPages - 1, prev + 1));
+    };
+
     return (
         <section className="w-full -font-sans px-section-d-gap-x pt-[340px] flex flex-col gap-10">
             <h1 class="text-d-title-1 text-primary-olive text-center">
@@ -134,14 +157,15 @@ export default function AboutSection({ product }) {
                     setActiveIndex(swiper.activeIndex);
                 }}
                 className='w-full h-full'
+                allowTouchMove={false}
             >
                 <SwiperSlide key={1} className="w-full h-full">
                     <div class="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
-                        <div class="w-full h-full">
+                        <div class="w-full h-full justify-center items-center flex">
                             <img
                                 src={product.full_image.url}
                                 alt={product.full_image.altText}
-                                class="w-full h-full object-cover"
+                                class="w-full h-full max-w-[600px] object-cover"
                             />
                         </div>
                         <div
@@ -179,28 +203,52 @@ export default function AboutSection({ product }) {
                                     healthier-looking hair.
                                 </p>
                             </div>
-                            <div class="w-[60%] h-full">
-                                {
-                                    product.active_ingredients.images.map((ingredient) => (
-                                        <div class="flex flex-row gap-10 items-center">
-                                            <div class="w-fit h-fit">
-                                                <img
-                                                    src={ingredient.url}
-                                                    alt={ingredient.altText}
-                                                    class="w-full max-w-[253px] h-full max-h-[138px] object-cover"
-                                                />
+                            <div class="w-[60%] h-full relative pt-12">
+                                {totalIngredients > pageSize && (
+                                    <div class="absolute top-0 right-0 flex flex-row gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={showPrevIngredients}
+                                            disabled={ingredientsPage === 0}
+                                            class={`paginate-btn left size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage === 0 ? 'cursor-not-allowed' : ''}`}
+                                            aria-label="Ver ingredientes anteriores"
+                                        >
+                                            <img src="/images/home/arrow-paginate.svg" alt="Anterior" class="arrow-anim size-6" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={showNextIngredients}
+                                            disabled={ingredientsPage >= totalPages - 1}
+                                            class={`paginate-btn right size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage >= totalPages - 1 ? 'cursor-not-allowed' : ''}`}
+                                            aria-label="Ver siguientes ingredientes"
+                                        >
+                                            <img src="/images/home/arrow-paginate.svg" alt="Siguiente" class="arrow-anim size-6" />
+                                        </button>
+                                    </div>
+                                )}
+                                <div class="flex-1 flex flex-col gap-8">
+                                    {
+                                        getVisibleIngredients().map((ingredient, idx) => (
+                                            <div key={`${ingredient.title}-${idx}`} class="flex flex-row gap-10 items-center">
+                                                <div class="w-fit h-fit">
+                                                    <img
+                                                        src={ingredient.url}
+                                                        alt={ingredient.altText}
+                                                        class="w-full max-w-[253px] h-full max-h-[138px] object-cover"
+                                                    />
+                                                </div>
+                                                <div class="w-full h-full flex flex-col gap-1 justify-center items-start">
+                                                    <h2 class="text-d-primary text-primary-olive">
+                                                        {ingredient.title}
+                                                    </h2>
+                                                    <p class="text-d-primary text-primary-granite">
+                                                        {ingredient.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="w-full h-full flex flex-col gap-1 justify-center items-start">
-                                                <h2 class="text-d-primary text-primary-olive">
-                                                    {ingredient.title}
-                                                </h2>
-                                                <p class="text-d-primary text-primary-granite">
-                                                    {ingredient.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))
-                                }
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -215,11 +263,11 @@ export default function AboutSection({ product }) {
                                 dangerouslySetInnerHTML={{ __html: product.how_to_use.value }}
                             />
                         </div>
-                        <div class="w-full h-full bg-primary-silver">
+                        <div class="w-full h-full justify-center items-center flex">
                             <img
                                 src={product.full_image.url}
                                 alt={product.full_image.altText}
-                                class="w-full h-full object-cover"
+                                class="w-full h-full max-w-[600px] object-cover justify-center items-center"
                             />
                         </div>
                     </div>
