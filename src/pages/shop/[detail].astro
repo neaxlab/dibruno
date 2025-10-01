@@ -1,13 +1,13 @@
 ---
 export const prerender = false;
-import Layout from '../../layouts/Layout.astro';
-import Banner from '../../components/details/banner.astro';
-import ChatWithUS from '../../components/faqs/chatWithUS.astro';
-import { getProductByHandle } from "../../utils/shopify";
-import AboutSection from '../../components/details/aboutSection.jsx';
-import AboutSectionMobile from '../../components/details/aboutSectionMobile.jsx';
+import Layout from '@/layouts/Layout.astro';
+import Banner from '@/components/details/banner.astro';
+import ChatWithUS from '@/components/faqs/chatWithUS.astro';
+import { getProductByHandle } from "@/utils/shopify";
+import AboutSection from '@/components/details/aboutSection.jsx';
+import AboutSectionMobile from '@/components/details/aboutSectionMobile.jsx';
 const { detail } = Astro.params;
-import '../../components/details/information.css';
+import '@/components/details/information.css';
 
 // Obtener IP del cliente de forma segura
 let ip = null;

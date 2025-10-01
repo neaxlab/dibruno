@@ -1,11 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Banner from '../../components/shop/banner.astro';
-import Categories from '../../components/shop/categories.astro';
-import Products from '../../components/shop/products.astro';
+import Layout from '@/layouts/Layout.astro';
+import Banner from '@/components/shop/banner.astro';
+import Categories from '@/components/shop/categories.astro';
+import Products from '@/components/shop/products.astro';
 export const prerender = false;
 
-import { getProductsPaginated } from "../../utils/shopify";
+import { getProductsPaginated } from "@/utils/shopify";
 
 // Obtener IP del cliente de forma segura
 let ip = null;

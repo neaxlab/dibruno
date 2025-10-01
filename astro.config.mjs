@@ -11,4 +11,11 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
     adapter: vercel(),
     integrations: [tailwind(), react()],
+    vite: {
+        resolve: {
+            alias: {
+                '@': new URL('./src', import.meta.url).pathname
+            }
+        }
+    }
 });
