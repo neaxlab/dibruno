@@ -1,6 +1,22 @@
 ---
 import AnimatedLink from '../ui/buttons/AnimatedLink.tsx';
 import ProductsCarousel from '../commons/productsCarousel.tsx';
+
+import { getProductsPaginated } from "../../utils/shopify";
+
+// Obtener IP del cliente de forma segura
+let ip = null;
+try {
+    const headers = Astro.request.headers;
+    ip = headers.get("x-vercel-forwarded-for") || headers.get("x-forwarded-for") || Astro.clientAddress;
+} catch (error) {
+    ip = null;
+}
+const limit = 6;
+const after = null;
+
+const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ buyerIP: ip || "127.0.0.1", limit, after });
+
 ---
 
 <section class="max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
@@ -11,7 +27,8 @@ import ProductsCarousel from '../commons/productsCarousel.tsx';
             className="text-d-button text-primary-granite"
             animationDuration={0.5}
             linePosition={-8}
+            href="/shop"
         />
     </div>
-    <ProductsCarousel client:load />
+    <ProductsCarousel products={pageProducts} client:load />
 </section>

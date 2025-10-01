@@ -7,11 +7,11 @@ import 'swiper/css/scrollbar';
 
 
 import ProductCard from '../cards/ProductCard';
-import { products } from '../../constants/home/products';
 
 
 
-export default function ProductsCarousel() {
+
+export default function ProductsCarousel({ products }: { products: any }) {
     return (
         <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x">
             <Swiper
@@ -24,7 +24,7 @@ export default function ProductsCarousel() {
                 scrollbar={{ el: '.custom-scrollbar', draggable: true, hide: false }}
                 className='w-full h-full overflow-visible relative'
             >
-                {products.map((product, index) => (
+                {products.map((product: any, index: any) => (
                     <SwiperSlide key={`${product.name}-${index}`}>
                         <ProductCard product={product} />
                     </SwiperSlide>

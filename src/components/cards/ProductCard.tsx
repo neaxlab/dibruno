@@ -1,6 +1,4 @@
 import React from 'react';
-import type { Product } from '../../types/products';
-import { getDiscount } from '../../hooks/discounts';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
 
 type ProductCardProps = {
@@ -8,7 +6,6 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
-    console.log(product, "product");
     return (
         <article className="flex flex-col gap-4 w-full max-w-[421px] h-[614px] text-primary-olive text-d-products">
             <div className="relative w-full h-[552px] overflow-hidden bg-primary-bright z-10 group">

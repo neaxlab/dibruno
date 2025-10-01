@@ -14,7 +14,6 @@ try {
     const headers = Astro.request.headers;
     ip = headers.get("x-vercel-forwarded-for") || headers.get("x-forwarded-for") || Astro.clientAddress;
 } catch (error) {
-    console.warn("No se pudo obtener la IP del cliente:", error);
     ip = null;
 }
 
@@ -22,7 +21,6 @@ const product = await getProductByHandle({ handle: detail!, buyerIP: ip || "127.
 if (!product) {
     return Astro.redirect('/404');
 }
-console.log(product);
 
 
 ---
