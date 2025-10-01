@@ -1,89 +1,175 @@
 ---
 const currentPath = Astro.url.pathname;
-import CartIcon from '../CartIcon.tsx';
+import CartIcon from "../CartIcon.tsx";
 
 const navigationItems = [
-  { href: '/shop', label: 'SHOP' },
-  { href: '/about', label: 'ABOUT' },
-  { href: '/ingredients', label: 'OUR INGREDIENTS' },
-  { href: '/testimonials', label: 'TESTIMONIALS' },
-  { href: '/faqs', label: 'FAQS' },
-  { href: '/learn', label: 'LEARN' }
+  { href: "/shop", label: "SHOP" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/ingredients", label: "OUR INGREDIENTS" },
+  { href: "/testimonials", label: "TESTIMONIALS" },
+  { href: "/faqs", label: "FAQS" },
+  { href: "/learn", label: "LEARN" },
 ];
 
-const isHome = currentPath === '/' || currentPath === '/index';
-const textColor = isHome ? 'text-primary-lotion' : 'text-primary-olive';
-const bgColor = isHome ? 'bg-primary-lotion' : 'bg-primary-olive';
-const logoSrc = isHome ? '/images/home/logo-white.svg' : '/images/home/logo-olive.svg';
-
+const isHome = currentPath === "/" || currentPath === "/index";
+const textColor = isHome ? "text-primary-lotion" : "text-primary-olive";
+const bgColor = isHome ? "bg-primary-lotion" : "bg-primary-olive";
+const logoSrc = isHome
+  ? "/images/home/logo-white.svg"
+  : "/images/home/logo-olive.svg";
 ---
 
-<header 
-  id="navbar" 
-  class={`fixed top-0 left-0 right-0 z-50 p-2 transition-all duration-300 ease-in-out z-50 ${textColor}`}
+<header
+  id="navbar"
+  class={`fixed top-0 left-0 right-0 w-full transition-all duration-300 ease-in-out z-50 ${textColor}`}
 >
-  <div class={`w-full h-fit flex flex-row justify-between items-center max-w-screen-2xl mx-auto p-5 text-d-nav ${textColor}`}>
+  <div
+    class={`w-full h-fit flex flex-row justify-between items-center px-4 py-5 text-d-nav ${textColor}`}
+  >
     <!-- Logo -->
     <a href="/" class="flex-shrink-0">
-      <img 
+      <img
         src={logoSrc}
-        alt="Logo" 
+        alt="Logo"
         class="w-[187px] h-[31px] transition-all duration-300"
         loading="eager"
       />
     </a>
 
-    <!-- Navigation Links -->
-    <nav class="flex flex-row gap-10" role="navigation" aria-label="Main navigation">
-      {navigationItems.map(({ href, label }) => (
-        <a 
-          href={href} 
-          class={`nav-link group relative transition-colors duration-300 ${currentPath === href ? 'active' : ''}`}
-          aria-current={currentPath === href ? 'page' : undefined}
-        >
-          <span class="flex items-center gap-2">
-            <span 
-              class={`bullet w-0 h-0 rounded-full transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px] ${bgColor}`}
+    <!-- Desktop Navigation Links -->
+    <nav
+      class="hidden md:flex flex-row gap-10 flex-1 justify-center"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      {
+        navigationItems.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`nav-link group relative transition-colors duration-300 ${currentPath === href ? "active" : ""}`}
+            aria-current={currentPath === href ? "page" : undefined}
+          >
+            <span class="flex items-center gap-2">
+              <span
+                class={`bullet w-0 h-0 rounded-full transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px] ${bgColor}`}
+                aria-hidden="true"
+              />
+              <span>{label}</span>
+            </span>
+            <div
+              class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${bgColor}`}
               aria-hidden="true"
-            ></span>
-            <span>{label}</span>
-          </span>
-          <div 
-            class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${bgColor}`}
-            aria-hidden="true"
-          ></div>
-        </a>
-      ))}
+            />
+          </a>
+        ))
+      }
     </nav>
 
     <!-- Right Side Actions -->
-    <div class="flex flex-row gap-10">
-      <button 
-        class="transition-colors duration-300 hover:opacity-70"
+    <div class="flex flex-row items-center gap-4 md:gap-10">
+      <button
+        class="hidden md:block transition-colors duration-300 hover:opacity-70"
         aria-label="Search"
       >
         SEARCH
       </button>
       <CartIcon client:load />
+      
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 p-1 transition-all duration-300 hover:opacity-70"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+      >
+        <span class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300" style="background-color: currentColor;"></span>
+        <span class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300" style="background-color: currentColor;"></span>
+        <span class="hamburger-line w-6 h-0.5 transition-all duration-300" style="background-color: currentColor;"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu-overlay"
+  class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+  aria-hidden="true"
+></div>
+
+<!-- Mobile Menu -->
+<nav
+  id="mobile-menu"
+  class="fixed top-0 right-0 h-full w-full bg-primary-lotion z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+  role="navigation"
+  aria-label="Mobile navigation"
+>
+  <div class="flex flex-col h-full">
+    <!-- Mobile Menu Header -->
+    <div class="flex justify-between items-center p-6">
+      <a href="/">
+        <img
+          src="/images/home/logo-olive.svg"
+          alt="Logo"
+          class="w-[150px] h-[25px]"
+          loading="eager"
+        />
+      </a>
+      <button
+        id="mobile-menu-close"
+        class="w-8 h-8 flex items-center justify-center"
+        aria-label="Close mobile menu"
+      >
+        <svg class="w-6 h-6 text-primary-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Links -->
+    <div class="flex-1 p-6">
+      <ul class="">
+        {
+          navigationItems.map(({ href, label }) => (
+            <li>
+                <a
+                  href={href}
+                  class={`mobile-nav-link group relative flex items-center gap-4 text-primary-olive text-d-nav text-base font-medium transition-colors duration-300 py-3 ${currentPath === href ? "active" : ""}`}
+                  aria-current={currentPath === href ? "page" : undefined}
+                >
+                  <span class={`relative inline-block pb-2`}>
+                    {label}
+                    <div
+                      class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${currentPath === href ? "opacity-100" : ""} bg-primary-olive`}
+                      aria-hidden="true"
+                    />
+                  </span>
+                </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <script>
   // Variables globales para optimización
   let lastScrollY = window.scrollY;
   let ticking = false;
   let navLinks: NodeListOf<HTMLAnchorElement> | null = null;
+  let mobileNavLinks: NodeListOf<HTMLAnchorElement> | null = null;
+  let isMobileMenuOpen = false;
 
   // Función optimizada para actualizar el navbar
   function updateNavbar() {
-    const navbar = document.getElementById('navbar');
+    const navbar = document.getElementById("navbar");
     if (!navbar) return;
-    
+
     const currentScrollY = window.scrollY;
     const shouldHide = currentScrollY > lastScrollY && currentScrollY > 100;
-    
-    navbar.style.transform = shouldHide ? 'translateY(-100%)' : 'translateY(0)';
+
+    navbar.style.transform = shouldHide ? "translateY(-100%)" : "translateY(0)";
     lastScrollY = currentScrollY;
     ticking = false;
   }
@@ -99,23 +185,121 @@ const logoSrc = isHome ? '/images/home/logo-white.svg' : '/images/home/logo-oliv
     const target = event.currentTarget as HTMLAnchorElement;
     if (!target) return;
 
-    navLinks?.forEach(link => link.classList.remove('active'));
+    navLinks?.forEach((link) => link.classList.remove("active"));
+
+    target.classList.add("active");
+  }
+
+  // Funciones para el menú móvil
+  function openMobileMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const overlay = document.getElementById("mobile-menu-overlay");
+    const menuButton = document.getElementById("mobile-menu-button");
     
-    target.classList.add('active');
+    if (mobileMenu && overlay && menuButton) {
+      mobileMenu.classList.remove("translate-x-full");
+      overlay.classList.remove("hidden");
+      menuButton.setAttribute("aria-expanded", "true");
+      isMobileMenuOpen = true;
+      
+      // Animar el botón hamburguesa a X
+      const lines = menuButton.querySelectorAll(".hamburger-line");
+      if (lines.length >= 3) {
+        (lines[0] as HTMLElement).style.transform = "rotate(45deg) translate(5px, 5px)";
+        (lines[1] as HTMLElement).style.opacity = "0";
+        (lines[2] as HTMLElement).style.transform = "rotate(-45deg) translate(7px, -6px)";
+      }
+      
+      // Prevenir scroll del body
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeMobileMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const overlay = document.getElementById("mobile-menu-overlay");
+    const menuButton = document.getElementById("mobile-menu-button");
+    
+    if (mobileMenu && overlay && menuButton) {
+      mobileMenu.classList.add("translate-x-full");
+      overlay.classList.add("hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      isMobileMenuOpen = false;
+      
+      // Restaurar el botón hamburguesa
+      const lines = menuButton.querySelectorAll(".hamburger-line");
+      if (lines.length >= 3) {
+        (lines[0] as HTMLElement).style.transform = "none";
+        (lines[1] as HTMLElement).style.opacity = "1";
+        (lines[2] as HTMLElement).style.transform = "none";
+      }
+      
+      // Restaurar scroll del body
+      document.body.style.overflow = "";
+    }
+  }
+
+  function handleMobileNavClick(event: Event) {
+    const target = event.currentTarget as HTMLAnchorElement;
+    if (!target) return;
+
+    // Cerrar el menú móvil
+    closeMobileMenu();
+
+    // Actualizar estado activo
+    mobileNavLinks?.forEach((link) => link.classList.remove("active"));
+    target.classList.add("active");
   }
 
   function initNavbar() {
-    navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-      link.addEventListener('click', handleNavClick, { passive: true });
+    navLinks = document.querySelectorAll(".nav-link");
+    mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+    // Event listeners para navegación desktop
+    navLinks.forEach((link) => {
+      link.addEventListener("click", handleNavClick, { passive: true });
     });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Event listeners para navegación móvil
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener("click", handleMobileNavClick, { passive: true });
+    });
+
+    // Event listeners para botones móviles
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenuClose = document.getElementById("mobile-menu-close");
+    const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+
+    if (mobileMenuButton) {
+      mobileMenuButton.addEventListener("click", openMobileMenu, { passive: true });
+    }
+
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener("click", closeMobileMenu, { passive: true });
+    }
+
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener("click", closeMobileMenu, { passive: true });
+    }
+
+    // Cerrar menú móvil al hacer scroll
+    window.addEventListener("scroll", () => {
+      if (isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+      onScroll();
+    }, { passive: true });
+
+    // Cerrar menú móvil al redimensionar ventana
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    }, { passive: true });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavbar);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initNavbar);
   } else {
     initNavbar();
   }
@@ -138,9 +322,51 @@ const logoSrc = isHome ? '/images/home/logo-white.svg' : '/images/home/logo-oliv
     @apply outline-2 outline-offset-2 outline-primary-lotion;
   }
 
+  /* Estilos para el menú móvil */
+  .mobile-nav-link {
+    @apply relative;
+  }
+
+  .mobile-nav-link.active {
+    @apply font-semibold;
+  }
+
+  .mobile-nav-link:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-olive;
+  }
+
+  /* Animaciones del botón hamburguesa */
+  .hamburger-line {
+    @apply transform-gpu;
+  }
+
+  /* Estilos responsive */
   @media (max-width: 768px) {
     .nav-link {
       @apply text-sm;
     }
+    
+    /* Asegurar que el menú móvil esté por encima de todo */
+    #mobile-menu {
+      @apply z-50;
+    }
+    
+    #mobile-menu-overlay {
+      @apply z-40;
+    }
+  }
+
+  /* Animaciones suaves para el menú móvil */
+  #mobile-menu {
+    will-change: transform;
+  }
+
+  #mobile-menu-overlay {
+    will-change: opacity;
+  }
+
+  /* Prevenir scroll cuando el menú móvil está abierto */
+  body.mobile-menu-open {
+    overflow: hidden;
   }
 </style>

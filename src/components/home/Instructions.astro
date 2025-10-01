@@ -129,9 +129,9 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
             const instructionsData = instructions[index];
             instructionsContent.innerHTML = instructionsData.instructions.map((instruction: any, instructionIndex: number) => `
                 <div class="flex flex-row gap-5 items-center">
-                    <h1 class="text-[88px] font-bold text-[#D0CFCE] leading-none">${instructionIndex + 1}</h1>
+                    <h1 class="sm:text-[88px] text-[20px] font-bold text-[#D0CFCE] leading-none">${instructionIndex + 1}</h1>
                     <div class="flex flex-col gap-1">
-                        <h1 class="text-2xl font-medium">${instruction.title}</h1>
+                        <h1 class="sm:text-2xl text-d-secondary font-medium">${instruction.title}</h1>
                     </div>
                 </div>
             `).join('');
