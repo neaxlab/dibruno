@@ -1,9 +1,15 @@
 ---
 // Importar estilos globales
 import '../styles/global.css';
-import Navbar from '../components/commons/navbar.astro';
-import Footer from '../components/commons/footer.astro';
-import CartDrawer from '../components/CartDrawer.tsx';
+import Navbar from '@/components/commons/navbar.astro';
+import Footer from '@/components/commons/footer.astro';
+import CartDrawer from '@/components/cart/CartDrawer.tsx';
+
+export interface Props {
+	title?: string;
+}
+
+const { title = "DiBruno - Proyecto Astro" } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +19,7 @@ import CartDrawer from '../components/CartDrawer.tsx';
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>DiBruno - Proyecto Astro</title>
+		<title>{title}</title>
 		<meta name="description" content="Proyecto desarrollado con Astro y Tailwind CSS" />
 	</head>
 	<body >

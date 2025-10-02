@@ -1,5 +1,5 @@
 import React from 'react';
-import AddToCartButton from '../AddToCartButton';
+import AddToCartButton from '@/components/cart/AddToCartButton';
 
 type ProductCardProps = {
     product: any;

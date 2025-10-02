@@ -1,6 +1,6 @@
 import React from 'react';
 import type { z } from 'zod';
-import type { MoneyV2Result } from '../utils/schemas';
+import type { MoneyV2Result } from '@/utils/schemas';
 
 interface Props {
   price: z.infer<typeof MoneyV2Result> | null | undefined;

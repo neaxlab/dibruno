@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { initCart, cart, isCartDrawerOpen } from '../stores/cart';
+import { initCart, cart, isCartDrawerOpen } from '@/stores/cart';
 
 const CartIcon: React.FC = () => {
   const [cartData, setCartData] = useState(cart.get());

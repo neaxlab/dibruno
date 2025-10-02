@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addCartItem, cart } from '../stores/cart';
+import { addCartItem, cart } from '@/stores/cart';
 import './AddToCartButton.css';
 
 interface Props {
