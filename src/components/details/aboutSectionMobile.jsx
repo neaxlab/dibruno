@@ -14,6 +14,7 @@ const AboutSectionMobile = ({ product }) => {
         }));
     };
 
+
     return (
         <div className="w-full p-5">
             {/* About Section */}
@@ -79,10 +80,10 @@ const AboutSectionMobile = ({ product }) => {
                             </div>
                             <div className="w-full h-full flex flex-col gap-1 justify-center items-start">
                                 <h2 className="text-d-primary text-primary-olive">
-                                    Titulo
+                                    {ingredient.name}
                                 </h2>
                                 <p className="text-d-secondary text-primary-granite">
-                                    descripcion
+                                    {ingredient.description}
                                 </p>
                             </div>
                         </div>

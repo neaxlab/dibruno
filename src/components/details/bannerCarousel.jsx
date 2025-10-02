@@ -18,7 +18,7 @@ export default function TestimonialsCarousel({images}) {
     }
 
     return (
-        <section className="w-full h-screen font-sans relative">
+        <section className="h-full font-sans relative sm:w-[60%] w-full">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, Autoplay]}
                 autoplay={{
@@ -32,14 +32,14 @@ export default function TestimonialsCarousel({images}) {
                 onSlideChange={(swiper) => {
                     setActiveIndex(swiper.activeIndex);
                 }}
-                className='w-full h-full'
+                className='w-full h-full sm:rounded-[10px] rounded-lg'
             >
                 {images.map((image, index) => (
-                    <SwiperSlide key={index} className="w-full h-full sm:rounded-none rounded-lg">
+                    <SwiperSlide key={index} className="w-full h-full sm:rounded-[10px] rounded-lg">
                         <img 
                             src={image.url} 
                             alt={image.alt} 
-                            className="w-full h-full object-cover sm:rounded-none rounded-lg" 
+                            className="w-full aspect-square object-center sm:rounded-[10px] rounded-lg" 
                         />
                     </SwiperSlide>
                 ))}

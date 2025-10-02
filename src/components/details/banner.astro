@@ -8,10 +8,10 @@ const { product } = Astro.props;
 ---
 
 <section
-    class="font-sans relative w-full flex sm:flex-row flex-col-reverse sm:gap-6 gap-0 items-center justify-center pb-36  sm:px-0 px-[5px]"
+    class="font-san w-full sm:h-screen h-full pt-20 flex sm:flex-row flex-col sm:gap-[2px] gap-0 items-center justify-center  sm:px-0 px-[5px]"
 >
     <BannerCarousel images={product.images.nodes} client:load />
-    <div class="absolute bottom-0 sm:right-[5%] z-10 sm:p-10 p-5 gap-10 flex flex-col sm:w-[667px] w-[90%] mx-auto bg-primary-bright rounded-[4px]">
+    <div class="sm:p-10 p-5 gap-10 flex flex-col bg-primary-bright rounded-[4px] h-full sm:w-[40%] w-full">
         <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">{product.title}</h1>
         <div class="flex flex-col gap-6">
             <p class="sm:text-d-primary text-d-secondary text-primary-granite">
