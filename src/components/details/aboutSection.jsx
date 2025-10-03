@@ -27,7 +27,7 @@ const buttons = [
 ]
 
 
-export default function AboutSection({ product }) {
+export default function AboutSection({ product, faqs = [] }) {
     const [activeImage, setActiveImage] = useState(null);
     const [swiper, setSwiper] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -305,11 +305,33 @@ export default function AboutSection({ product }) {
                 <SwiperSlide key={4} className="w-full h-full">
                     <div className="grid-cols-1 gap-10 tab-content" data-content="faqs">
                         <div className="">
-                            {product.faqs?.value ? (
-                                <div
-                                    className="faq-item flex flex-col gap-5 text-primary-olive border-b py-5 border-primary-olive"
-                                    dangerouslySetInnerHTML={{ __html: product.faqs.value }}
-                                />
+                            {faqs && faqs.length > 0 ? (
+                                <div className="flex flex-col gap-5">
+                                    {faqs.map((faq, index) => (
+                                        <div key={faq.id || index} className="border-b border-primary-olive py-5">
+                                            <div 
+                                                className="flex flex-row items-center justify-between cursor-pointer hover:bg-gray-50 rounded px-3 py-2 transition-colors duration-200"
+                                                onClick={() => toggleFaq(faq.id)}
+                                            >
+                                                <h3 className="flex-1 pr-4 text-d-primary font-medium text-primary-olive">
+                                                    {faq.question}
+                                                </h3>
+                                                <img 
+                                                    src="/images/home/close-icon.svg" 
+                                                    alt="Toggle FAQ" 
+                                                    className={`size-6 transition-transform duration-300 ${expandedFaqs[faq.id] ? 'rotate-45' : ''}`}
+                                                />
+                                            </div>
+                                            <div className={`overflow-hidden transition-all duration-300 ${
+                                                expandedFaqs[faq.id] ? 'max-h-96 opacity-100 pt-4' : 'max-h-0 opacity-0'
+                                            }`}>
+                                                <p className="text-d-products text-primary-granite font-normal px-3">
+                                                    {faq.answer}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             ) : (
                                 <div className="flex flex-col gap-6 items-center justify-center py-16">
                                     <h3 className="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>

@@ -157,6 +157,40 @@ export const MetafieldMetaobjectResult = z.object({
   };
 });
 
+// Esquema específico para FAQs
+export const FAQMetaobjectResult = MetafieldMetaobjectResult.transform((data) => {
+  if (!data || !(data as any).fields?.faq) return data;
+  
+  // Procesar el campo 'faq' que contiene una lista de IDs de metaobjects
+  let faqs: Array<{
+    id: string;
+    handle: string;
+    question: string;
+    answer: string;
+  }> = [];
+  
+  try {
+    const faqIds = JSON.parse((data as any).fields.faq);
+    if (Array.isArray(faqIds)) {
+      // Crear FAQs básicos con los IDs (se procesarán después con getFAQContent)
+      faqs = faqIds.map((faqId, index) => ({
+        id: faqId,
+        handle: `faq-${index + 1}`,
+        question: `Pregunta ${index + 1}`,
+        answer: `Respuesta ${index + 1}`,
+      }));
+    }
+  } catch (error) {
+    console.warn('Error parsing faq field:', error);
+  }
+  
+  return {
+    ...data,
+    faqIds: faqs.map(faq => faq.id),
+    faqs: faqs,
+  };
+});
+
 export const AboutMetaobjectResult = MetafieldMetaobjectResult
   .nullable()
   .transform((data) => {
@@ -238,7 +272,7 @@ export const ProductResult = z
     }),
     activeIngredients: MetafieldListMetaobjectResult.nullable(),
     benefits: MetafieldResult.nullable(),
-    faqs: MetafieldResult.nullable(),
+    faq_s: FAQMetaobjectResult.nullable(),
     about: AboutMetaobjectResult,
     howToUse: MetafieldMetaobjectResult.nullable(),
   })

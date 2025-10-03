@@ -165,6 +165,36 @@ export const getStepContent = async (stepId: string, buyerIP: string = "127.0.0.
   };
 };
 
+// Get FAQ content by metaobject ID
+// FAQ metaobject type structure:
+// - faq.faq_title: FAQ question (display name: "FAQ title")
+// - faq.faq_description: FAQ answer (display name: "FAQ description")
+export const getFAQContent = async (faqId: string, buyerIP: string = "127.0.0.1") => {
+  const data = await makeShopifyRequest(StepMetaobjectQuery, { id: faqId }, buyerIP);
+  const { metaobject } = data;
+  
+  if (!metaobject) {
+    return null;
+  }
+  
+  // Transform fields into a more usable format
+  const fields = metaobject.fields.reduce((acc: Record<string, any>, field: any) => {
+    acc[field.key] = field.value;
+    if (field.reference?.image) {
+      acc[`${field.key}_image`] = field.reference.image;
+    }
+    return acc;
+  }, {} as Record<string, any>);
+  
+  return {
+    id: metaobject.id,
+    handle: metaobject.handle,
+    question: fields.faq_title || fields.question || fields.title || '',
+    answer: fields.faq_description || fields.answer || fields.description || fields.content || '',
+    ...fields
+  };
+};
+
 // Process steps with real content
 export const processStepsWithContent = async (steps: any[], buyerIP: string = "127.0.0.1") => {
   const stepPromises = steps.map(async (step, index) => {
@@ -188,6 +218,30 @@ export const processStepsWithContent = async (steps: any[], buyerIP: string = "1
   
   return await Promise.all(stepPromises);
 };
+
+// Process FAQs with real content
+export const processFAQsWithContent = async (faqs: any[], buyerIP: string = "127.0.0.1") => {
+  const faqPromises = faqs.map(async (faq, index) => {
+    try {
+      const faqContent = await getFAQContent(faq.id, buyerIP);
+      if (faqContent) {
+        return faqContent;
+      }
+    } catch (error) {
+      console.warn(`Error fetching FAQ content for ${faq.id}:`, error);
+    }
+    // Fallback si no se puede obtener el contenido
+    return {
+      id: faq.id,
+      handle: `faq-${index + 1}`,
+      question: `Pregunta ${index + 1}`,
+      answer: 'Respuesta no disponible',
+    };
+  });
+  
+  return await Promise.all(faqPromises);
+};
+
 
 // Get a product by its handle (slug)
 export const getProductByHandle = async (options: {

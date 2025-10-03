@@ -91,9 +91,22 @@ fragment productFragment on Product {
       }
     }
   }
-  faqs: metafield(namespace: "custom", key: "faqs") {
+  faq_s: metafield(namespace: "custom", key: "faq_s") {
+    id
+    namespace
+    key
     value
     type
+    reference {
+      ... on Metaobject {
+        id
+        handle
+        fields {
+          key
+          value 
+        }
+      }
+    }
   }
   activeIngredients: metafield(namespace: "custom", key: "active_ingredients") {
     value

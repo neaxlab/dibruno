@@ -25,12 +25,17 @@ if (!product) {
 
 const recommendations = await getProductRecommendations({ productId: product.id, buyerIP: ip || "127.0.0.1" });
 
+let productFAQs: any[] = [];
+if ((product.faq_s as any)?.faqs && (product.faq_s as any).faqs.length > 0) {
+  const { processFAQsWithContent } = await import("@/utils/shopify");
+  productFAQs = await processFAQsWithContent((product.faq_s as any).faqs, ip || "127.0.0.1");
+}
 ---
 
 <Layout>
     <Banner product={product} recommendations={recommendations} />
     <div class="w-full h-full sm:block hidden">
-        <AboutSection product={product} client:load />
+        <AboutSection product={product} faqs={productFAQs as any} client:load />
     </div>
     <div class="w-full h-full sm:hidden block">
         <AboutSectionMobile product={product} client:load />
