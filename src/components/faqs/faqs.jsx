@@ -11,6 +11,7 @@ import { faqs, categories } from '../../constants/faqs/faqs';
 
 export default function CategoriesCarousel() {
     const [openFAQs, setOpenFAQs] = useState({});
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
     const toggleFAQ = (index) => {
         setOpenFAQs(prev => ({
@@ -19,27 +20,33 @@ export default function CategoriesCarousel() {
         }));
     };
 
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category);
+    };
+
+    // Filtrar FAQs basado en la categoría seleccionada
+    const filteredFAQs = selectedCategory === "All" 
+        ? faqs 
+        : faqs.filter(faq => faq.category === selectedCategory);
+
     useEffect(() => {
         const categoryButtons = document.querySelectorAll('.category-btn');
         
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remover clase active de todos los botones
-                categoryButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.classList.remove('bg-primary-granite');
-                    btn.classList.remove('text-primary-lotion');
-                    btn.classList.add('text-primary-granite');
-                });
-                
-                // Agregar clase active al botón clickeado
-                this.classList.add('active');
-                this.classList.add('bg-primary-granite');
-                this.classList.add('text-primary-lotion');
-                this.classList.remove('text-primary-granite');
-            });
+        // Aplicar estilos activos a la categoría "All" por defecto
+        categoryButtons.forEach((button, index) => {
+            if (button.textContent.trim() === selectedCategory) {
+                button.classList.add('active');
+                button.classList.add('bg-primary-granite');
+                button.classList.add('text-primary-lotion');
+                button.classList.remove('text-primary-granite');
+            } else {
+                button.classList.remove('active');
+                button.classList.remove('bg-primary-granite');
+                button.classList.remove('text-primary-lotion');
+                button.classList.add('text-primary-granite');
+            }
         });
-    }, []);
+    }, [selectedCategory]);
 
     return (
         <div className="w-full h-full">
@@ -55,7 +62,10 @@ export default function CategoriesCarousel() {
                 >
                 {categories.map((category, index) => (
                     <SwiperSlide key={index} className="!w-fit !mx-4">
-                        <div className="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300">
+                        <div 
+                            className="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300"
+                            onClick={() => handleCategoryClick(category)}
+                        >
                             {category}
                         </div>
                     </SwiperSlide>
@@ -63,7 +73,7 @@ export default function CategoriesCarousel() {
                 </Swiper>
             </div>
             <div className="w-full h-full sm:px-16 px-section-m-gap-x">
-                {faqs.map((faq, index) => {
+                {filteredFAQs.map((faq, index) => {
                     const isOpen = openFAQs[index] || false;
                     
                     return (
