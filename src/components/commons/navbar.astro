@@ -11,12 +11,9 @@ const navigationItems = [
   { href: "/learn", label: "LEARN" },
 ];
 
-const isHome = currentPath === "/" || currentPath === "/index";
-const textColor = isHome ? "text-primary-lotion" : "text-primary-olive";
-const bgColor = isHome ? "bg-primary-lotion" : "bg-primary-olive";
-const logoSrc = isHome
-  ? "/images/home/logo-white.svg"
-  : "/images/home/logo-olive.svg";
+const textColor = "text-primary-olive";
+const bgColor = "bg-primary-olive";
+const logoSrc = "/images/home/logo-olive.svg";
 ---
 
 <header
@@ -27,7 +24,7 @@ const logoSrc = isHome
     class={`w-full h-fit flex flex-row justify-between items-center px-4 py-5 text-d-nav ${textColor}`}
   >
     <!-- Logo -->
-    <a href="/" class="flex-shrink-0">
+    <a href="/" class="flex-shrink-0 z-10">
       <img
         src={logoSrc}
         alt="Logo"
@@ -170,6 +167,12 @@ const logoSrc = isHome
     const shouldHide = currentScrollY > lastScrollY && currentScrollY > 100;
 
     navbar.style.transform = shouldHide ? "translateY(-100%)" : "translateY(0)";
+    // Fondo lotion con opacidad cuando se sale de la posición inicial
+    if (currentScrollY > 0) {
+      navbar.classList.add("bg-primary-lotion/80");
+    } else {
+      navbar.classList.remove("bg-primary-lotion/80");
+    }
     lastScrollY = currentScrollY;
     ticking = false;
   }

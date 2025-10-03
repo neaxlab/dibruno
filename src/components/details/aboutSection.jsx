@@ -230,7 +230,7 @@ export default function AboutSection({ product }) {
                                     {totalIngredients > 0 ? (
                                         getVisibleIngredients().map((ingredient, idx) => (
                                             <div key={`${ingredient.title}-${idx}`} class="flex flex-row gap-10 items-center">
-                                                <div class="w-fit h-fit">
+                                                <div class="w-fit  h-fit">
                                                     <img
                                                         src={ingredient.url || '/images/placeholder.png'}
                                                         alt={ingredient.altText || 'Ingrediente'}
