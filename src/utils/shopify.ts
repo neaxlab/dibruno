@@ -12,7 +12,7 @@ import {
   ProductRecommendationsQuery,
   CollectionsQuery,
   CollectionProductsQuery,
-  
+  StepMetaobjectQuery,
 } from "./graphql";
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -135,6 +135,60 @@ export const getProductsPaginated = async (options: {
 
 // Storefront API no provee productsCount
 
+// Get step content by metaobject ID
+export const getStepContent = async (stepId: string, buyerIP: string = "127.0.0.1") => {
+  const data = await makeShopifyRequest(StepMetaobjectQuery, { id: stepId }, buyerIP);
+  const { metaobject } = data;
+  
+  if (!metaobject) {
+    return null;
+  }
+  
+  // Transform fields into a more usable format
+  const fields = metaobject.fields.reduce((acc: Record<string, any>, field: any) => {
+    acc[field.key] = field.value;
+    if (field.reference?.image) {
+      acc[`${field.key}_image`] = field.reference.image;
+    }
+    return acc;
+  }, {} as Record<string, any>);
+  
+  return {
+    id: metaobject.id,
+    handle: metaobject.handle,
+    title: fields.step_title || fields.title || fields.name || '',
+    description: fields.step_description || fields.description || fields.content || '',
+    step_number: parseInt(fields.step_number) || 1,
+    step_title: fields.step_title || '',
+    step_description: fields.step_description || '',
+    ...fields
+  };
+};
+
+// Process steps with real content
+export const processStepsWithContent = async (steps: any[], buyerIP: string = "127.0.0.1") => {
+  const stepPromises = steps.map(async (step, index) => {
+    try {
+      const stepContent = await getStepContent(step.id, buyerIP);
+      if (stepContent) {
+        return stepContent;
+      }
+    } catch (error) {
+      console.warn(`Error fetching step content for ${step.id}:`, error);
+    }
+    // Fallback si no se puede obtener el contenido
+    return {
+      id: step.id,
+      handle: `step-${index + 1}`,
+      title: `Step ${index + 1}`,
+      description: `Step ${index + 1} description`,
+      step_number: index + 1,
+    };
+  });
+  
+  return await Promise.all(stepPromises);
+};
+
 // Get a product by its handle (slug)
 export const getProductByHandle = async (options: {
   handle: string;
@@ -151,6 +205,11 @@ export const getProductByHandle = async (options: {
   const { product } = data;
 
   const parsedProduct = ProductResult.parse(product);
+
+  // Process steps with real content if they exist
+  if (parsedProduct.howToUse?.steps && parsedProduct.howToUse.steps.length > 0) {
+    parsedProduct.howToUse.steps = await processStepsWithContent(parsedProduct.howToUse.steps, buyerIP);
+  }
 
   return parsedProduct;
 };

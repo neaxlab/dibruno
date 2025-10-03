@@ -78,6 +78,8 @@ export const MetafieldFileResult = z.object({
 }).nullable().optional();
 
 export const MetaobjectFieldResult = z.object({
+  key: z.string(),
+  value: z.string(),
   reference: z.object({
     image: ImageResult,
   }).nullable().optional(),
@@ -87,24 +89,119 @@ export const MetaobjectResult = z.object({
   fields: z.array(MetaobjectFieldResult),
 });
 
+export const MetafieldMetaobjectResult = z.object({
+  id: z.string(),
+  namespace: z.string(),
+  key: z.string(),
+  value: z.string(),
+  type: z.string(),
+  reference: z.object({
+    id: z.string(),
+    handle: z.string(),
+    fields: z.array(MetaobjectFieldResult),
+  }).nullable().optional(),
+}).nullable().optional().transform((data) => {
+  if (!data || !data.reference?.fields) return data;
+  
+  // Transformar los campos del metaobject en un formato más fácil de usar
+  const fields = data.reference.fields.reduce((acc, field) => {
+    acc[field.key] = field.value;
+    // Si el campo tiene una referencia de imagen, la agregamos
+    if (field.reference?.image) {
+      acc[`${field.key}_image`] = field.reference.image;
+    }
+    // Si el campo tiene una referencia a otro metaobject (como los pasos)
+    if (field.reference && !field.reference.image) {
+      acc[`${field.key}_metaobject`] = field.reference;
+    }
+    return acc;
+  }, {} as Record<string, any>);
+  
+  // Procesar los pasos desde step_2 si existe
+  let steps: Array<{
+    id: string;
+    handle: string;
+    title: string;
+    description: string;
+    step_number: number;
+    [key: string]: any;
+  }> = [];
+  
+  // Buscar el campo step_2 en los campos del metaobject
+  const step2Field = fields.step_2;
+  if (step2Field) {
+    try {
+      // step_2 debería contener un JSON string con los IDs de los metaobjects
+      const stepIds = JSON.parse(step2Field);
+      if (Array.isArray(stepIds)) {
+        // Crear pasos básicos con los IDs (se procesarán después)
+        steps = stepIds.map((stepId, index) => ({
+          id: stepId,
+          handle: `step-${index + 1}`,
+          title: `Step ${index + 1}`,
+          description: `Step ${index + 1} description`,
+          step_number: index + 1,
+        }));
+      }
+    } catch (error) {
+      console.warn('Error parsing step_2:', error);
+    }
+  }
+  
+  return {
+    ...data,
+    fields,
+    content: fields.content || fields.description || fields.text || '',
+    image: fields.image_image || null,
+    steps: steps,
+  };
+});
+
 export const MetafieldListMetaobjectResult = z.object({
   value: z.string(),
   type: z.string(),
   references: z.object({
-    nodes: z.array(MetaobjectResult),
+    edges: z.array(z.object({
+      node: z.object({
+        id: z.string(),
+        handle: z.string(),
+        fields: z.array(MetaobjectFieldResult),
+      }),
+    })),
   }).nullable().optional(),
 }).nullable().optional().transform((data) => {
-  if (!data || !data.references?.nodes) return data;
+  if (!data || !data.references?.edges) return data;
   
-  // Extraer todas las imágenes de los campos
-  const images = data.references.nodes
-    .flatMap(node => node.fields)
-    .map(field => field.reference?.image)
-    .filter((img): img is NonNullable<typeof img> => img !== null && img !== undefined);
+  // Transformar los metaobjects en un formato más fácil de usar
+  const ingredients = data.references.edges.map(edge => {
+    const node = edge.node;
+    const fields = node.fields.reduce((acc, field) => {
+      acc[field.key] = field.value;
+      // Si el campo tiene una referencia de imagen, la agregamos
+      if (field.reference?.image) {
+        acc[`${field.key}_image`] = field.reference.image;
+      }
+      return acc;
+    }, {} as Record<string, any>);
+    
+    // Buscar la imagen del campo 'image'
+    const imageField = node.fields.find(field => field.key === 'image');
+    const image = imageField?.reference?.image || null;
+    
+    return {
+      id: node.id,
+      handle: node.handle,
+      title: fields.title || fields.name || '',
+      description: fields.description || '',
+      url: image?.url || '',
+      altText: image?.altText || '',
+      image: image,
+    };
+  });
   
   return {
     ...data,
-    images,
+    ingredients,
   };
 });
 
@@ -133,14 +230,15 @@ export const ProductResult = z
         }),
       })),
     }),
-    active_ingredients: MetafieldListMetaobjectResult.nullable(),
-    how_to_use: MetafieldResult.nullable(),
+    activeIngredients: MetafieldListMetaobjectResult.nullable(),
+    benefits: MetafieldResult.nullable(),
     faqs: MetafieldResult.nullable(),
-    full_description: MetafieldResult.nullable(),
-    full_image: MetafieldFileResult.nullable().transform((data) => {
+    fullDescription: MetafieldResult.nullable(),
+    fullImage: MetafieldFileResult.nullable().transform((data) => {
       if (!data || !data.reference?.image) return data;
       return data.reference.image;
     }),
+    howToUse: MetafieldMetaobjectResult.nullable(),
   })
   .nullable();
 

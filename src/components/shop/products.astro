@@ -61,15 +61,11 @@ const { products } = Astro.props;
         const productsGrid = document.getElementById('products-grid');
         const sortSelect = document.querySelector('.sort-select') as HTMLSelectElement;
         
-        console.log('Iniciando ordenamiento de productos...');
-        
         // Función para ordenar productos usando atributos de datos
         function sortProducts(sortType: string) {
             if (!productsGrid) return;
             
             const productItems = Array.from(productsGrid.querySelectorAll('.product-item')) as HTMLElement[];
-            
-            console.log('Productos encontrados:', productItems.length);
             
             // Ordenar elementos según el tipo seleccionado
             productItems.sort((a, b) => {
@@ -110,14 +106,11 @@ const { products } = Astro.props;
             productItems.forEach(item => {
                 productsGrid.appendChild(item);
             });
-            
-            console.log('Productos reordenados con criterio:', sortType);
         }
         
         // Event listener para el select de ordenamiento
         if (sortSelect) {
             sortSelect.addEventListener('change', function() {
-                console.log('Ordenamiento seleccionado:', this.value);
                 sortProducts(this.value);
             });
         }

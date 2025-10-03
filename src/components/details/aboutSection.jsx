@@ -18,7 +18,7 @@ const buttons = [
     },
     {
         text: "HOW TO USE",
-        value: "how-to-use",
+        value: "howToUse",
     },
     {
         text: "FAQS",
@@ -103,7 +103,7 @@ export default function AboutSection({ product }) {
         return () => window.removeEventListener('resize', handleResize);
     }, [activeIndex]);
 
-    const ingredients = product?.active_ingredients?.images ?? [];
+    const ingredients = product?.activeIngredients?.ingredients ?? [];
     const totalIngredients = ingredients.length;
     const pageSize = 3;
     const totalPages = Math.ceil(totalIngredients / pageSize) || 0;
@@ -163,8 +163,8 @@ export default function AboutSection({ product }) {
                     <div class="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
                         <div class="w-full h-full justify-center items-center flex">
                             <img
-                                src={product.full_image.url}
-                                alt={product.full_image.altText}
+                                src={product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
+                                alt={product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
                                 class="w-full h-full max-w-[600px] object-cover"
                             />
                         </div>
@@ -179,7 +179,7 @@ export default function AboutSection({ product }) {
                             <p
                                 class="text-d-products font-medium leading-[140%] text-primary-olive"
                             >
-                                {product.full_description.value}
+                                {product.fullDescription?.value || product.description || 'Descripción no disponible'}
                             </p>
                         </div>
                     </div>
@@ -227,13 +227,13 @@ export default function AboutSection({ product }) {
                                     </div>
                                 )}
                                 <div class="flex-1 flex flex-col gap-8">
-                                    {
+                                    {totalIngredients > 0 ? (
                                         getVisibleIngredients().map((ingredient, idx) => (
                                             <div key={`${ingredient.title}-${idx}`} class="flex flex-row gap-10 items-center">
                                                 <div class="w-fit h-fit">
                                                     <img
-                                                        src={ingredient.url}
-                                                        alt={ingredient.altText}
+                                                        src={ingredient.url || '/images/placeholder.png'}
+                                                        alt={ingredient.altText || 'Ingrediente'}
                                                         class="w-full max-w-[253px] h-full max-h-[138px] object-cover"
                                                     />
                                                 </div>
@@ -247,7 +247,14 @@ export default function AboutSection({ product }) {
                                                 </div>
                                             </div>
                                         ))
-                                    }
+                                    ) : (
+                                        <div class="flex flex-col gap-6 items-center justify-center py-16">
+                                            <h3 class="text-d-primary font-medium text-primary-granite mb-2">No Ingredients Available</h3>
+                                            <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                                Ingredient information is not available at this time.
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -258,15 +265,43 @@ export default function AboutSection({ product }) {
                         <div
                             class="w-full h-full flex flex-col gap-1 justify-center items-start"
                         >
-                            <div
-                                class="flex flex-col gap-10 h-full text-primary-olive"
-                                dangerouslySetInnerHTML={{ __html: product.how_to_use.value }}
-                            />
+                            {product.howToUse?.steps && product.howToUse.steps.length > 0 ? (
+                                <div class="flex flex-col gap-8 h-full text-primary-olive">
+                                    {product.howToUse.steps.map((step, index) => (
+                                        <div key={step.id || index} class="flex flex-row gap-6 items-start">
+                                            <div class="flex-shrink-0 w-20 h-20 flex items-center justify-center">
+                                                <span class="text-[#D0CFCE] text-[88px] font-semibold leading-[100%] tracking-[1.76px]">
+                                                    {step.step_number}
+                                                </span>
+                                            </div>
+                                            <div class="flex-1">
+                                                {step.step_title && (
+                                                    <h3 class="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px] mb-2">
+                                                        {step.step_title}
+                                                    </h3>
+                                                )}
+                                                {step.step_description && (
+                                                    <p class="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
+                                                        {step.step_description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div class="flex flex-col gap-6 items-center justify-center py-16">
+                                    <h3 class="text-d-primary font-medium text-primary-granite mb-2">Usage Instructions Coming Soon</h3>
+                                    <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                        Detailed usage instructions will be available soon.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                         <div class="w-full h-full justify-center items-center flex">
                             <img
-                                src={product.full_image.url}
-                                alt={product.full_image.altText}
+                                src={product.howToUse?.image?.url || product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
+                                alt={product.howToUse?.image?.altText || product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
                                 class="w-full h-full max-w-[600px] object-cover justify-center items-center"
                             />
                         </div>
@@ -274,56 +309,20 @@ export default function AboutSection({ product }) {
                 </SwiperSlide>
                 <SwiperSlide key={4} className="w-full h-full">
                     <div class="grid-cols-1 gap-10 tab-content" data-content="faqs">
-                        <h2
-                            class="text-d-secondary font-light leading-none text-primary-granite"
-                        >
-                            FREQUENTLY ASKED QUESTIONS
-                        </h2>
                         <div className="">
-                            <div
-                                className="faq-item flex flex-col gap-5 text-primary-olive border-b py-5 border-primary-olive"
-                            >
+                            {product.faqs?.value ? (
                                 <div
-                                    onClick={() => toggleFaq('faq1')}
-                                    className="faq-header flex flex-row justify-between items-center cursor-pointer hover:bg-gray-50 rounded transition-colors duration-400"
-                                >
-                                    <h1 className="flex-1 pr-4 text-d-primary font-medium">
-                                        What causes hair loss or alopecia?
-                                    </h1>
-                                    <img
-                                        src="/images/home/close-icon.svg"
-                                        alt="Toggle FAQ"
-                                        className={`faq-icon transition-transform duration-200 ${expandedFaqs['faq1'] ? 'rotate-45' : ''}`}
-                                    />
-                                </div>
-                                <div className={`faq-content px-4 transition-all duration-300 overflow-hidden ${expandedFaqs['faq1'] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <p className="text-d-products text-primary-granite font-normal">
-                                        DiBruno is a brand that sells products for hair and skin care. Our products are formulated with natural ingredients to help with hair loss and promote healthier hair growth.
+                                    className="faq-item flex flex-col gap-5 text-primary-olive border-b py-5 border-primary-olive"
+                                    dangerouslySetInnerHTML={{ __html: product.faqs.value }}
+                                />
+                            ) : (
+                                <div class="flex flex-col gap-6 items-center justify-center py-16">
+                                    <h3 class="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>
+                                    <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                        Frequently asked questions are not available at this time.
                                     </p>
                                 </div>
-                            </div>
-                            <div
-                                className="faq-item flex flex-col gap-5 text-primary-olive border-b py-5 border-primary-olive"
-                            >
-                                <div
-                                    onClick={() => toggleFaq('faq2')}
-                                    className="faq-header flex flex-row justify-between items-center cursor-pointer hover:bg-gray-50 rounded transition-colors duration-400"
-                                >
-                                    <h1 className="flex-1 pr-4 text-d-primary font-medium">
-                                        How long does it take to see results?
-                                    </h1>
-                                    <img
-                                        src="/images/home/close-icon.svg"
-                                        alt="Toggle FAQ"
-                                        className={`faq-icon transition-transform duration-200 ${expandedFaqs['faq2'] ? 'rotate-45' : ''}`}
-                                    />
-                                </div>
-                                <div className={`faq-content px-4 transition-all duration-300 overflow-hidden ${expandedFaqs['faq2'] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <p className="text-d-products text-primary-granite font-normal">
-                                        Most users start seeing improvements in hair texture and strength within 4-6 weeks of consistent use. Full results typically appear after 2-3 months of regular application.
-                                    </p>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </SwiperSlide>

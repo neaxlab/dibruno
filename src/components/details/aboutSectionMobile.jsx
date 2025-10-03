@@ -36,8 +36,8 @@ const AboutSectionMobile = ({ product }) => {
                     <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
                         <div className="w-full h-full justify-center items-center flex">
                             <img
-                                src={product.full_image.url}
-                                alt={product.full_image.altText}
+                                src={product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
+                                alt={product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
                                 className="w-full aspect-square object-cover"
                             />
                         </div>
@@ -46,7 +46,7 @@ const AboutSectionMobile = ({ product }) => {
                                 ABOUT THE PRODUCT
                             </h2>
                             <p className="text-d-secondary font-medium leading-[140%] text-primary-olive">
-                                {product.full_description.value}
+                                {product.fullDescription?.value || product.description || 'Descripción no disponible'}
                             </p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const AboutSectionMobile = ({ product }) => {
                     />
                 </div>
                 <div className={`flex-col gap-8 ${openSections.ingredients ? 'flex' : 'hidden'}`}>
-                    {product.active_ingredients.images.map((ingredient, idx) => (
+                    {product.activeIngredients?.ingredients?.length > 0 ? product.activeIngredients.ingredients.map((ingredient, idx) => (
                         <div key={idx} className="flex flex-col gap-10 items-start">
                             <div className="w-fit h-fit">
                                 <img
@@ -80,25 +80,32 @@ const AboutSectionMobile = ({ product }) => {
                             </div>
                             <div className="w-full h-full flex flex-col gap-1 justify-center items-start">
                                 <h2 className="text-d-primary text-primary-olive">
-                                    {ingredient.name}
+                                    {ingredient.title}
                                 </h2>
                                 <p className="text-d-secondary text-primary-granite">
                                     {ingredient.description}
                                 </p>
                             </div>
                         </div>
-                    ))}
+                    )) : (
+                        <div className="flex flex-col gap-6 items-center justify-center py-12">
+                            <h3 className="text-d-primary font-medium text-primary-granite mb-1">No Ingredients Available</h3>
+                            <p className="text-d-secondary text-primary-granite/70 text-center text-sm">
+                                Ingredient information is not available at this time.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
 
-            {/* How to Use Section */}
+            {/* How To Use Section */}
             <div className="flex flex-col gap-[50px] border-b border-primary-olive py-5">
                 <div 
                     className="flex flex-row items-center justify-between cursor-pointer accordion-trigger" 
                     onClick={() => toggleSection('howToUse')}
                 >
                     <h2 className="text-d-primary font-medium leading-none text-primary-olive">
-                        How to use
+                        How To Use
                     </h2>
                     <img 
                         src="/images/about/arrow-down.svg" 
@@ -110,15 +117,49 @@ const AboutSectionMobile = ({ product }) => {
                     <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
                         <div className="w-full h-full justify-center items-center flex">
                             <img
-                                src={product.full_image.url}
-                                alt={product.full_image.altText}
+                                src={product.howToUse?.image?.url || product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
+                                alt={product.howToUse?.image?.altText || product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
                                 className="w-full aspect-square object-cover"
                             />
                         </div>
                         <div className="w-full h-full flex flex-col gap-1 justify-center items-start">
-                            <p className="text-d-secondary leading-[140%] text-primary-granite">
-                                {product.how_to_use.value}
-                            </p>
+                            <h2 className="text-d-secondary font-light leading-none text-primary-granite">
+                                HOW TO USE
+                            </h2>
+                            {product.howToUse?.steps && product.howToUse.steps.length > 0 ? (
+                                <div className="flex flex-col gap-6">
+                                    {product.howToUse.steps.map((step, index) => (
+                                        <div key={step.id || index} className="flex flex-col gap-3">
+                                            <div className="flex flex-row gap-4 items-start">
+                                                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                                                    <span className="text-[#D0CFCE] text-[32px] font-semibold leading-[100%] tracking-[0.64px]">
+                                                        {step.step_number}
+                                                    </span>
+                                                </div>
+                                                <div className="flex-1">
+                                                    {step.step_title && (
+                                                        <h3 className="text-[#3B3B3B] text-[20px] font-medium leading-[100%] tracking-[0.4px] mb-2">
+                                                            {step.step_title}
+                                                        </h3>
+                                                    )}
+                                                    {step.step_description && (
+                                                        <p className="text-[#67645E] font-geist text-[16px] font-normal leading-[140%] tracking-[0.32px]">
+                                                            {step.step_description}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col gap-4 items-center justify-center py-8">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-1">Usage Instructions Coming Soon</h3>
+                                    <p className="text-d-secondary text-primary-granite/70 text-center text-sm">
+                                        Detailed usage instructions will be available soon.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -54,18 +54,6 @@ fragment productFragment on Product {
   title
   handle
   description
-  dimensions: metafield(namespace: "custom", key: "dimensions") {
-    value
-    type
-  }
-  materials: metafield(namespace: "custom", key: "materials") {
-    value
-    type
-  }
-  product_care: metafield(namespace: "custom", key: "product_care") {
-    value
-    type
-  }
   images (first: 10) {
     nodes {
       url
@@ -103,20 +91,30 @@ fragment productFragment on Product {
       }
     }
   }
-  active_ingredients: metafield(namespace: "custom", key: "active_ingredients") {
+  faqs: metafield(namespace: "custom", key: "faqs") {
+    value
+    type
+  }
+  activeIngredients: metafield(namespace: "custom", key: "active_ingredients") {
     value
     type
     references(first: 10) {
-      nodes {
-        ... on Metaobject {
-          fields {
-            reference {
-              ... on MediaImage {
-                image {
-                  url
-                  altText
-                  width
-                  height
+      edges {
+        node {
+          ... on Metaobject {
+            id
+            handle
+            fields {
+              key
+              value
+              reference {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
                 }
               }
             }
@@ -125,19 +123,15 @@ fragment productFragment on Product {
       }
     }
   }
-  how_to_use: metafield(namespace: "custom", key: "how_to_use") {
+  benefits: metafield(namespace: "custom", key: "benefits") {
     value
     type
   }
-  faqs: metafield(namespace: "custom", key: "faqs") {
+  fullDescription: metafield(namespace: "custom", key: "full_description") {
     value
     type
   }
-  full_description: metafield(namespace: "custom", key: "full_description") {
-    value
-    type
-  }
-  full_image: metafield(namespace: "custom", key: "full_image") {
+  fullImage: metafield(namespace: "custom", key: "full_image") {
     value
     type
     reference {
@@ -147,6 +141,51 @@ fragment productFragment on Product {
           altText
           width
           height
+        }
+      }
+    }
+  }
+  howToUse: metafield(namespace: "custom", key: "how_to_use") {
+    id
+    namespace
+    key
+    value
+    type
+    reference {
+      ... on Metaobject {
+        id
+        handle
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+                width
+                height
+              }
+            }
+            ... on Metaobject {
+              id
+              handle
+              fields {
+                key
+                value
+                reference {
+                  ... on MediaImage {
+                    image {
+                      url
+                      altText
+                      width
+                      height
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -180,6 +219,29 @@ export const ProductByHandleQuery = `#graphql
     }
   }
   ${PRODUCT_FRAGMENT}
+`;
+
+export const StepMetaobjectQuery = `#graphql
+  query ($id: ID!) {
+    metaobject(id: $id) {
+      id
+      handle
+      fields {
+        key
+        value
+        reference {
+          ... on MediaImage {
+            image {
+              url
+              altText
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const ProductRecommendationsQuery = `#graphql
