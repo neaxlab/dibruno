@@ -13,12 +13,12 @@ import ProductCard from '../cards/ProductCard';
 
 export default function ProductsCarousel({ products }: { products: any }) {
     return (
-        <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x">
+        <section className="w-full h-full sm:pl-section-d-gap-x pl-section-m-gap-x sm:hidden block">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
                 loop={false}
-                slidesPerView={1.15}
+                slidesPerView={1}
                 spaceBetween={12}
                 breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3, spaceBetween: 24, } }}
                 scrollbar={{ el: '.custom-scrollbar', draggable: true, hide: false }}

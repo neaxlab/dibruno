@@ -11,7 +11,7 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 
 
 <>
-<section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y sm:px-section-d-gap-x px-section-m-gap-x flex-col gap-10">
+<section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y flex-col gap-10">
     <div class="w-full relative" id="instructions-container">
         <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
         
@@ -42,8 +42,8 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
              data-index="4">
             <Bullet />
         </div>
-        <div class="absolute top-0 left-0 w-full h-full z-10 hidden ingredients">
-            <div class="w-screen h-full bg-primary-olive opacity-90 ingredients-fill"></div>
+        <div class="fixed top-0 left-0 w-full h-full z-10 hidden ingredients">
+            <div class="w-full h-full bg-primary-olive opacity-20 ingredients-fill"></div>
             <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
                 <div class="flex flex-row justify-between items-center">
                     <h1 class="text-d-title-1">HOW TO USE?</h1>

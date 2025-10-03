@@ -1,7 +1,7 @@
 ---
 import AnimatedLink from '../ui/buttons/AnimatedLink.tsx';
 import ProductCard from '../cards/ProductCard.tsx';
-
+import ProductsCarousel from '../commons/productsCarousel.tsx';
 import { getProductsPaginated } from "../../utils/shopify";
 
 
@@ -20,7 +20,7 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
 
 ---
 
-<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
+<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10 sm:px-0 px-section-m-gap-x">
     <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-center w-full">
         <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">Best Sellers</h2>
         <AnimatedLink 
@@ -31,10 +31,10 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
             href="/shop"
         />
     </div>
-    <div class="w-full h-full flex flex-row gap-6 mx-auto">
+    <div class="w-full h-full flex-row gap-6 mx-auto sm:flex hidden">
         {pageProducts.map((product: any) => (
             <ProductCard product={product} />
         ))}
     </div>
-    <!-- <ProductsCarousel products={pageProducts} client:load /> -->
+    <ProductsCarousel products={pageProducts} client:load />
 </section>
