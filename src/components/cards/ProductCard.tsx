@@ -7,7 +7,7 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
     return (
-        <article className="flex flex-col gap-4 w-[397px] h-[579px] text-primary-olive text-d-products">
+        <article className="flex flex-col gap-4 sm:w-[397px] w-full h-[579px] text-primary-olive text-d-products">
             <div className="relative size-full overflow-hidden bg-primary-bright z-10 group">
                 <a href={`/shop/${product.handle}`} className="w-full h-[500px]">
                     <img src={product.featuredImage.url} alt={product.title} className="size-full object-cover cursor-pointer" />

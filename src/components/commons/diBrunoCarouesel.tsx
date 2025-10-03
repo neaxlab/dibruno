@@ -42,7 +42,7 @@ export default function ProductsCarousel() {
     }
   };
     return (
-        <div className="w-full sm:h-screen h-[800px] flex sm:flex-row flex-col gap-12">
+        <div className="w-full h-[850px] flex sm:flex-row flex-col gap-12">
             
             <Swiper
                 modules={[Navigation, Scrollbar]}

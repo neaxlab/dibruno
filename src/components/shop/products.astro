@@ -4,7 +4,7 @@ import './products.css';
 const { products } = Astro.props;
 
 ---
-<section class="max-w-screen-2xl mx-auto w-fit h-full font-sans">
+<section class="max-w-screen-2xl mx-auto w-fit h-full font-sans sm:px-0 px-4">
     <div class="w-full h-full flex flex-row justify-between items-center">
         <div class="w-full h-full flex flex-row justify-start items-center">
             <div class="flex flex-row items-center gap-2">
@@ -24,7 +24,7 @@ const { products } = Astro.props;
                 {products.length} Products
             </span>
             <div class="flex flex-row justify-between items-center gap-2">
-                <div class="view-btn active grid grid-cols-1 sm:grid-cols-3 gap-[2px] w-fit cursor-pointer">
+                <div class="view-btn active sm:grid hidden grid-cols-1 sm:grid-cols-3 gap-[2px] w-fit cursor-pointer">
                     <span class="bg-primary-granite sm:size-2 size-[18px] rounded-[2px]"></span>
                     <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
                     <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
@@ -32,7 +32,7 @@ const { products } = Astro.props;
                     <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
                     <span class="bg-primary-granite size-2 rounded-[2px] sm:block hidden"></span>
                 </div>
-                <div class="view-btn grid grid-cols-2 gap-[2px] w-fit cursor-pointer">
+                <div class="view-btn grid-cols-2 gap-[2px] w-fit cursor-pointer sm:grid hidden">
                     <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
                     <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
                     <span class="bg-[#D8D7D6] size-2 rounded-[2px]"></span>
