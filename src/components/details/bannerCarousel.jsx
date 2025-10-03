@@ -39,7 +39,7 @@ export default function TestimonialsCarousel({images}) {
                         <img 
                             src={image.url} 
                             alt={image.alt} 
-                            className="w-full aspect-square object-center sm:rounded-[10px] rounded-lg" 
+                            className="w-full h-full object-cover object-center sm:rounded-[10px] rounded-lg" 
                         />
                     </SwiperSlide>
                 ))}
