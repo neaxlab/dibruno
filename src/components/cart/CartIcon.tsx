@@ -22,7 +22,7 @@ const CartIcon: React.FC = () => {
   return (
     <div>
       <button 
-        className="text-sm font-medium text-primary-olive hover:text-primary-granite transition-colors cursor-pointer uppercase"
+        className="text-d-nav text-primary-olive hover:text-primary-granite transition-colors cursor-pointer"
         onClick={openCart}
       >
         Cart {isHydrated && cartData && `(${cartData.totalQuantity})`}
