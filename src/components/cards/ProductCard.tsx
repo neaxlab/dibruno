@@ -7,10 +7,10 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
     return (
-        <article className="flex flex-col gap-4 w-full max-w-[421px] h-[614px] text-primary-olive text-d-products">
-            <div className="relative w-full h-[552px] overflow-hidden bg-primary-bright z-10 group">
-                <a href={`/shop/${product.handle}`}>
-                    <img src={product.featuredImage.url} alt={product.title} className="w-full h-full object-cover cursor-pointer" />
+        <article className="flex flex-col gap-4 w-[397px] h-[579px] text-primary-olive text-d-products">
+            <div className="relative size-full overflow-hidden bg-primary-bright z-10 group">
+                <a href={`/shop/${product.handle}`} className="w-full h-[500px]">
+                    <img src={product.featuredImage.url} alt={product.title} className="size-full object-cover cursor-pointer" />
                 </a>
                 {/* {product.discount && (
                     <div className="absolute top-3 right-3 bg-primary-discount p-3 text-d-secondary text-primary-lotion rounded-md">

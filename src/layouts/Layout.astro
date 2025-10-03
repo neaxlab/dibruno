@@ -24,8 +24,10 @@ const { title = "DiBruno - Proyecto Astro" } = Astro.props;
 	</head>
 	<body >
 		<Navbar />
-		<slot />
-		<Footer />
+		<div class="w-full h-full sm:p-2 p-1">
+			<slot />
+			<Footer />
+		</div>
 		<CartDrawer client:load />
 	</body>
 </html>

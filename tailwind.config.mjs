@@ -94,10 +94,10 @@ export default {
         sans: ["Geist", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
-        "screen-2xl": "1920px",
+        "screen-2xl": "1240px",
       },
       width: {
-        macbook: "1920px",
+        macbook: "1240px",
         max_desktop: "1044px",
         max_laptop: "960px",
       },

@@ -1,8 +1,9 @@
 ---
 import AnimatedLink from '../ui/buttons/AnimatedLink.tsx';
-import ProductsCarousel from '../commons/productsCarousel.tsx';
+import ProductCard from '../cards/ProductCard.tsx';
 
 import { getProductsPaginated } from "../../utils/shopify";
+
 
 // Obtener IP del cliente de forma segura
 let ip = null;
@@ -12,15 +13,15 @@ try {
 } catch (error) {
     ip = null;
 }
-const limit = 6;
+const limit = 3;
 const after = null;
 
 const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ buyerIP: ip || "127.0.0.1", limit, after });
 
 ---
 
-<section class="max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
-    <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-center w-full sm:px-section-d-gap-x px-section-m-gap-x">
+<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
+    <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-center w-full">
         <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">Best Sellers</h2>
         <AnimatedLink 
             text="EXPLORE ALL PRODUCTS"
@@ -30,5 +31,10 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
             href="/shop"
         />
     </div>
-    <ProductsCarousel products={pageProducts} client:load />
+    <div class="w-full h-full flex flex-row gap-6 mx-auto">
+        {pageProducts.map((product: any) => (
+            <ProductCard product={product} />
+        ))}
+    </div>
+    <!-- <ProductsCarousel products={pageProducts} client:load /> -->
 </section>
