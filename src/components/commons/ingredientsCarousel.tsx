@@ -45,7 +45,7 @@ const [activeIndex, setActiveIndex] = useState(0);
     }
   };
     return (
-        <section className="w-full h-full font-sans flex flex-col gap-12">
+        <section className="w-full h-full font-sans flex flex-col gap-16">
             <Swiper
                 grabCursor={true}
                 
@@ -64,12 +64,12 @@ const [activeIndex, setActiveIndex] = useState(0);
             >
                 {ingredients.map((ingredient, index) => (
                     <SwiperSlide key={index}>
-                        <div className="flex sm:flex-row flex-col gap-6">
+                        <div className="flex sm:flex-row flex-col gap-4">
                             <div className="w-[55%]">
                                 <img src={ingredient.image} alt={ingredient.alt} className="w-full aspect-[16/11] object-cover rounded-md" />
                             </div>
-                            <div className="w-[45%] flex flex-col justify-between">
-                                <div className="flex sm:flex-row flex-col gap-6">
+                            <div className="w-[45%] flex flex-col justify-between gap-4">
+                                <div className="flex sm:flex-row flex-col gap-4">
                                    <div className="w-[50%] overflow-hidden rounded-md">
                                         <img src={ingredient.nextImages[0]} alt="Ingredients" className="w-full aspect-[0.8] object-cover object-[0%_30%] scale-150 rounded-md grayscale" />
                                    </div>
@@ -78,9 +78,9 @@ const [activeIndex, setActiveIndex] = useState(0);
                                    </div>
                                 </div>
                                 <div className="flex flex-row gap-6 relative">
-                                    <div className="text-d-title-1 text-[57px] leading-[120%] font-semibold letter-spacing-[2%] text-primary-olive flex flex-col gap-4">
+                                    <div className="text-[72px] leading-[120%] font-semibold letter-spacing-[2%] text-primary-olive flex flex-col gap-4">
                                         <h1 className="">{ingredient.title}</h1>
-                                        <p className="text-[28px] font-weight-[400] leading-[140%]">{ingredient.aubtext}</p>
+                                        <p className="text-d-primary font-medium leading-[140%]">{ingredient.aubtext}</p>
                                     </div>
                                     <div className="justify-between items-center flex flex-row gap-4 absolute right-0 top-0">
                                         <NavigationButton direction="prev" onClick={handlePrev} />
@@ -108,7 +108,7 @@ const [activeIndex, setActiveIndex] = useState(0);
             >
                 {ingredients.map((ingredient, index) => (
                     <SwiperSlide key={index}>
-                        <div className="flex flex-col gap-6 text-2xl leading-[140%] text-primary-granite">
+                        <div className="flex flex-col gap-4 text-2xl leading-[140%] text-primary-granite">
                             <p className="text-center">{ingredient.description}</p>
                             <div className="flex flex-row gap-2 items-center justify-center">
                                 <p>To learn more about this powerful active you can </p>

@@ -15,7 +15,7 @@ const AddToCartButton: React.FC<Props> = ({
     variantQuantityAvailable,
     variantAvailableForSale,
     iconOnly = false,
-    buttonText = 'ADD TO CART',
+    buttonText = 'Add to Cart',
 }) => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [cartData, setCartData] = useState(cart.get());
@@ -77,7 +77,7 @@ const AddToCartButton: React.FC<Props> = ({
     return (
         <button
             onClick={handleAddToCart}
-            className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-full text-nowrap disabled:cursor-not-allowed disabled:opacity-60`}
+            className={`btn-slide text-d-products font-bold px-6 py-4 border-[1.5px] rounded-full w-full text-nowrap disabled:cursor-not-allowed disabled:opacity-60`}
             style={styles}
             disabled={isDisabled}
         >

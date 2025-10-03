@@ -139,11 +139,11 @@ const { products } = Astro.props;
                 });
                 
                 // Cambiar el grid según el botón activo
-                if (this.classList.contains('grid-cols-3')) {
+                if (this.classList.contains('grid-cols-1')) {
                     // Si es el primer botón (grid 3x2), usar 3 columnas
                     productsGrid?.classList.remove('grid-cols-2');
                     productsGrid?.classList.add('sm:grid-cols-3');
-                } else {
+                } else if (this.classList.contains('grid-cols-2')) {
                     // Si es el segundo botón (grid 2x2), usar 2 columnas
                     productsGrid?.classList.remove('sm:grid-cols-3');
                     productsGrid?.classList.add('grid-cols-2');

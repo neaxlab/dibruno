@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-export default function TestimonialsCarousel({images}) {
+export default function BannerCarousel({images}) {
     const [activeImage, setActiveImage] = useState(null);
     const [swiper, setSwiper] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);

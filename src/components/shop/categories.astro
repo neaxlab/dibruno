@@ -10,8 +10,8 @@ const categories = [
 ---
 <section class="w-full h-full py-10">
     <div class="hidden flex-row gap-10 justify-center items-center sm:flex">
-        {categories.map((category) => (
-            <div class="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300">
+        {categories.map((category, index) => (
+            <div class={`category-btn w-fit h-fit py-4 px-6 rounded-full border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300 ${index === 0 ? 'active bg-primary-granite text-primary-lotion' : 'text-primary-granite'}`}>
                 {category}
             </div>
         ))}

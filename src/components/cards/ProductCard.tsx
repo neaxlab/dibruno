@@ -7,8 +7,8 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
     return (
-        <article className="flex flex-col gap-4 sm:w-[397px] w-full h-[579px] text-primary-olive text-d-products">
-            <div className="relative size-full overflow-hidden bg-primary-bright z-10 group">
+        <article className="flex gap-4 flex-col sm:w-[397px] w-full text-primary-olive text-d-products">
+            <div className="relative size-full overflow-hidden bg-primary-bright z-10 group flex flex-col gap-4">
                 <a href={`/shop/${product.handle}`} className="w-full h-[500px]">
                     <img src={product.featuredImage.url} alt={product.title} className="size-full object-cover cursor-pointer" />
                 </a>
@@ -17,27 +17,8 @@ export default function ProductCard({ product }: ProductCardProps) {
                         -{product.discount}% OFF
                     </div>
                 )} */}
-                <div className="absolute bottom-0 left-0 w-full bg-[#F4F4F4] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex justify-center items-start px-6 py-10 gap-7 flex-col">
-                    <div className="flex flex-row gap-4 text-d-footer z-1">
-                        {product.size && (
-                            <div className="flex flex-row gap-2 items-center">
-                                <label className="text-d-tertiary text-primary-granite">Size</label>
-                                <div className="relative">
-                                    <select className="appearance-none border-[0.75px] border-[#C7C6C3] rounded-md  py-[10px] px-6 w-[128px] text-left text-d-secondary text-primary-granite focus:outline-none focus:border-primary-olive">
-                                        {product.size.map((sizeOption: any) => (
-                                            <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
-                                        ))}
-                                    </select>
-                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-primary-granite">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </span>
-                                    <span className="pointer-events-none absolute inset-y-0 right-9 w-px bg-[#C7C6C3]"></span>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                <div className="absolute bottom-0 left-0 w-full bg-[#F4F4F4] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex justify-center items-start p-6 gap-7 flex-col">
+
                     {product.variants?.nodes?.[0] && (
                         <AddToCartButton
                             variantId={product.variants.nodes[0].id}
@@ -49,7 +30,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
             <div className="flex flex-row justify-between items-start">
                 <div className="flex flex-col">
-                    <h4>{product.title}</h4>
+                    <h4 className="text-d-secondary font-medium">{product.title}</h4>
                     <span className="text-d-secondary letter-spacing-[2%] line-height-[100%] text-primary-granite">
                         {product.category}
                     </span>

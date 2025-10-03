@@ -19,7 +19,7 @@ export default function CategoriesCarousel({categories}: {categories: string[]})
             >
                 {categories.map((category, index) => (
                     <SwiperSlide key={index} className="!w-fit !mx-4">
-                        <div className="category-btn w-fit h-fit py-4 px-6 rounded-full text-primary-granite border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300">
+                        <div className={`category-btn w-fit h-fit py-4 px-6 rounded-full border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300 ${index === 0 ? 'active bg-primary-granite text-primary-lotion' : 'text-primary-granite'}`}>
                             {category}
                         </div>
                     </SwiperSlide>
