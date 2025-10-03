@@ -157,6 +157,15 @@ export const MetafieldMetaobjectResult = z.object({
   };
 });
 
+export const AboutMetaobjectResult = MetafieldMetaobjectResult
+  .nullable()
+  .transform((data) => {
+    if (!data) return null;
+    const description = (data as any).fields?.description || (data as any).content || '';
+    const image = (data as any).image || null;
+    return { description, image } as { description: string; image: typeof ImageResult._type | null };
+  });
+
 export const MetafieldListMetaobjectResult = z.object({
   value: z.string(),
   type: z.string(),
@@ -211,9 +220,6 @@ export const ProductResult = z
     title: z.string(),
     handle: z.string(),
     description: z.string().nullable().optional(),
-    dimensions: MetafieldResult,
-    materials: MetafieldResult,
-    product_care: MetafieldResult,
     images: z.object({
       nodes: z.array(ImageResult),
     }),
@@ -233,11 +239,7 @@ export const ProductResult = z
     activeIngredients: MetafieldListMetaobjectResult.nullable(),
     benefits: MetafieldResult.nullable(),
     faqs: MetafieldResult.nullable(),
-    fullDescription: MetafieldResult.nullable(),
-    fullImage: MetafieldFileResult.nullable().transform((data) => {
-      if (!data || !data.reference?.image) return data;
-      return data.reference.image;
-    }),
+    about: AboutMetaobjectResult,
     howToUse: MetafieldMetaobjectResult.nullable(),
   })
   .nullable();

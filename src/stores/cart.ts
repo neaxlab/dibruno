@@ -32,7 +32,6 @@ export const cart = persistentAtom<z.infer<typeof CartResult>>(
 );
 
 export async function initCart() {
-  
   const sessionStarted = sessionStorage.getItem("sessionStarted");
   if (!sessionStarted) {
     sessionStorage.setItem("sessionStarted", "true");
@@ -95,7 +94,6 @@ export async function addCartItem(item: { id: string; quantity: number }) {
 }
 
 export async function removeCartItems(lineIds: string[]) {
-  
   const localCart = cart.get();
   const cartId = localCart?.id;
 
@@ -116,7 +114,6 @@ export async function removeCartItems(lineIds: string[]) {
 }
 
 export async function updateCartItemQuantity(lineId: string, quantity: number) {
-  
   const localCart = cart.get();
   const cartId = localCart?.id;
 

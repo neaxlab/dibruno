@@ -7,6 +7,7 @@ interface Props {
     variantQuantityAvailable: number;
     variantAvailableForSale: boolean;
     iconOnly?: boolean;
+    buttonText?: string;
 }
 
 const AddToCartButton: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const AddToCartButton: React.FC<Props> = ({
     variantQuantityAvailable,
     variantAvailableForSale,
     iconOnly = false,
+    buttonText = 'ADD TO CART',
 }) => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [cartData, setCartData] = useState(cart.get());
@@ -93,7 +95,7 @@ const AddToCartButton: React.FC<Props> = ({
                 </svg>
             ) : (
                 <span>
-                    {variantAvailableForSale ? 'ADD TO CART' : 'SOLD OUT'}
+                    {variantAvailableForSale ? buttonText : 'SOLD OUT'}
                 </span>
             )}
         </button>

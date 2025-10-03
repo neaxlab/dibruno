@@ -3,7 +3,7 @@ export const prerender = false;
 import Layout from '@/layouts/Layout.astro';
 import Banner from '@/components/details/banner.astro';
 import ChatWithUS from '@/components/faqs/chatWithUS.astro';
-import { getProductByHandle } from "@/utils/shopify";
+import { getProductByHandle, getProductRecommendations } from "@/utils/shopify";
 import AboutSection from '@/components/details/aboutSection.jsx';
 import AboutSectionMobile from '@/components/details/aboutSectionMobile.jsx';
 const { detail } = Astro.params;
@@ -23,13 +23,12 @@ if (!product) {
     return Astro.redirect('/404');
 }
 
-// Imprimir los datos del producto para debugging
-
+const recommendations = await getProductRecommendations({ productId: product.id, buyerIP: ip || "127.0.0.1" });
 
 ---
 
 <Layout>
-    <Banner product={product} />
+    <Banner product={product} recommendations={recommendations} />
     <div class="w-full h-full sm:block hidden">
         <AboutSection product={product} client:load />
     </div>

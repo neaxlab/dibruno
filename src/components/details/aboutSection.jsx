@@ -36,11 +36,6 @@ export default function AboutSection({ product }) {
     const tabContainerRef = useRef(null);
     const tabSliderRef = useRef(null);
 
-    const handleImageClick = (image) => {
-        setActiveImage(image);
-        swiper.slideTo(images.indexOf(image));
-    }
-
     // Función para mover el slider al botón activo
     const moveSlider = (buttonIndex) => {
         if (!tabContainerRef.current || !tabSliderRef.current) return;
@@ -127,7 +122,7 @@ export default function AboutSection({ product }) {
 
     return (
         <section className="w-full -font-sans px-section-d-gap-x pt-[200px] flex flex-col gap-10">
-            <h1 class="text-d-title-1 text-primary-olive text-center">
+            <h1 className="text-d-title-1 text-primary-olive text-center">
                 INSIDE THE BOTTLE
             </h1>
             <div
@@ -160,97 +155,97 @@ export default function AboutSection({ product }) {
                 allowTouchMove={false}
             >
                 <SwiperSlide key={1} className="w-full h-full">
-                    <div class="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
-                        <div class="w-full h-full justify-center items-center flex">
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="about">
+                        <div className="w-full h-full justify-center items-center flex">
                             <img
-                                src={product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
-                                alt={product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
-                                class="w-full h-full max-w-[600px] object-cover"
+                                src={product.about?.image?.url || product.featuredImage?.url || '/images/placeholder.png'}
+                                alt={product.about?.image?.altText || product.featuredImage?.altText || 'Imagen del producto'}
+                                className="w-full h-full max-w-[600px] object-cover"
                             />
                         </div>
                         <div
-                            class="w-full h-full flex flex-col gap-1 justify-center items-start"
+                            className="w-full h-full flex flex-col gap-1 justify-center items-start"
                         >
                             <h2
-                                class="text-d-secondary font-light leading-none text-primary-granite"
+                                className="text-d-secondary font-light leading-none text-primary-granite"
                             >
                                 ABOUT THE PRODUCT
                             </h2>
                             <p
-                                class="text-d-products font-medium leading-[140%] text-primary-olive"
+                                className="text-d-products font-medium leading-[140%] text-primary-olive"
                             >
-                                {product.fullDescription?.value || product.description || 'Descripción no disponible'}
+                                {product.about?.description || product.description || 'Descripción no disponible'}
                             </p>
                         </div>
                     </div>
                 </SwiperSlide>
                 <SwiperSlide key={2} className="w-full h-full">
-                    <div class="grid-cols-1 tab-content">
-                        <div class="flex flex-row gap-10">
+                    <div className="grid-cols-1 tab-content">
+                        <div className="flex flex-row gap-10">
                             <div
-                                class="w-[40%] h-full flex flex-col gap-1 justify-center items-start"
+                                className="w-[40%] h-full flex flex-col gap-1 justify-center items-start"
                             >
                                 <h2
-                                    class="text-d-secondary font-light leading-none text-primary-granite"
+                                    className="text-d-secondary font-light leading-none text-primary-granite"
                                 >
                                     KEY INGREDIENTS
                                 </h2>
                                 <p
-                                    class="text-d-products font-medium leading-[140%] text-primary-olive"
+                                    className="text-d-products font-medium leading-[140%] text-primary-olive"
                                 >
                                     A powerful blend of natural actives designed to nourish the
                                     scalp, strengthen follicles, and support thicker,
                                     healthier-looking hair.
                                 </p>
                             </div>
-                            <div class="w-[60%] h-full relative pt-12">
+                            <div className="w-[60%] h-full relative pt-12">
                                 {totalIngredients > pageSize && (
-                                    <div class="absolute top-0 right-0 flex flex-row gap-2">
+                                    <div className="absolute top-0 right-0 flex flex-row gap-2">
                                         <button
                                             type="button"
                                             onClick={showPrevIngredients}
                                             disabled={ingredientsPage === 0}
-                                            class={`paginate-btn left size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage === 0 ? 'cursor-not-allowed' : ''}`}
+                                            className={`paginate-btn left size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage === 0 ? 'cursor-not-allowed' : ''}`}
                                             aria-label="Ver ingredientes anteriores"
                                         >
-                                            <img src="/images/home/arrow-paginate.svg" alt="Anterior" class="arrow-anim size-6" />
+                                            <img src="/images/home/arrow-paginate.svg" alt="Anterior" className="arrow-anim size-6" />
                                         </button>
                                         <button
                                             type="button"
                                             onClick={showNextIngredients}
                                             disabled={ingredientsPage >= totalPages - 1}
-                                            class={`paginate-btn right size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage >= totalPages - 1 ? 'cursor-not-allowed' : ''}`}
+                                            className={`paginate-btn right size-10 flex items-center justify-center rounded-full bg-transparent ${ingredientsPage >= totalPages - 1 ? 'cursor-not-allowed' : ''}`}
                                             aria-label="Ver siguientes ingredientes"
                                         >
-                                            <img src="/images/home/arrow-paginate.svg" alt="Siguiente" class="arrow-anim size-6" />
+                                            <img src="/images/home/arrow-paginate.svg" alt="Siguiente" className="arrow-anim size-6" />
                                         </button>
                                     </div>
                                 )}
-                                <div class="flex-1 flex flex-col gap-8">
+                                <div className="flex-1 flex flex-col gap-8">
                                     {totalIngredients > 0 ? (
                                         getVisibleIngredients().map((ingredient, idx) => (
-                                            <div key={`${ingredient.title}-${idx}`} class="flex flex-row gap-10 items-center">
-                                                <div class="w-fit  h-fit">
+                                            <div key={`${ingredient.title}-${idx}`} className="flex flex-row gap-10 items-center">
+                                                <div className="w-fit  h-fit">
                                                     <img
                                                         src={ingredient.url || '/images/placeholder.png'}
                                                         alt={ingredient.altText || 'Ingrediente'}
-                                                        class="w-full max-w-[253px] h-full max-h-[138px] object-cover"
+                                                        className="w-full max-w-[253px] h-full max-h-[138px] object-cover"
                                                     />
                                                 </div>
-                                                <div class="w-full h-full flex flex-col gap-1 justify-center items-start">
-                                                    <h2 class="text-d-primary text-primary-olive">
+                                                <div className="w-full h-full flex flex-col gap-1 justify-center items-start">
+                                                    <h2 className="text-d-primary text-primary-olive">
                                                         {ingredient.title}
                                                     </h2>
-                                                    <p class="text-d-primary text-primary-granite">
+                                                    <p className="text-d-primary text-primary-granite">
                                                         {ingredient.description}
                                                     </p>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
-                                        <div class="flex flex-col gap-6 items-center justify-center py-16">
-                                            <h3 class="text-d-primary font-medium text-primary-granite mb-2">No Ingredients Available</h3>
-                                            <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                        <div className="flex flex-col gap-6 items-center justify-center py-16">
+                                            <h3 className="text-d-primary font-medium text-primary-granite mb-2">No Ingredients Available</h3>
+                                            <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
                                                 Ingredient information is not available at this time.
                                             </p>
                                         </div>
@@ -261,27 +256,27 @@ export default function AboutSection({ product }) {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide key={3} className="w-full h-full">
-                    <div class="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content">
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content">
                         <div
-                            class="w-full h-full flex flex-col gap-1 justify-center items-start"
+                            className="w-full h-full flex flex-col gap-1 justify-center items-start"
                         >
                             {product.howToUse?.steps && product.howToUse.steps.length > 0 ? (
-                                <div class="flex flex-col gap-8 h-full text-primary-olive">
+                                <div className="flex flex-col gap-8 h-full text-primary-olive">
                                     {product.howToUse.steps.map((step, index) => (
-                                        <div key={step.id || index} class="flex flex-row gap-6 items-start">
-                                            <div class="flex-shrink-0 w-20 h-20 flex items-center justify-center">
-                                                <span class="text-[#D0CFCE] text-[88px] font-semibold leading-[100%] tracking-[1.76px]">
+                                        <div key={step.id || index} className="flex flex-row gap-6 items-start">
+                                            <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center">
+                                                <span className="text-[#D0CFCE] text-[88px] font-semibold leading-[100%] tracking-[1.76px]">
                                                     {step.step_number}
                                                 </span>
                                             </div>
-                                            <div class="flex-1">
+                                            <div className="flex-1">
                                                 {step.step_title && (
-                                                    <h3 class="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px] mb-2">
+                                                    <h3 className="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px] mb-2">
                                                         {step.step_title}
                                                     </h3>
                                                 )}
                                                 {step.step_description && (
-                                                    <p class="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
+                                                    <p className="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
                                                         {step.step_description}
                                                     </p>
                                                 )}
@@ -290,25 +285,25 @@ export default function AboutSection({ product }) {
                                     ))}
                                 </div>
                             ) : (
-                                <div class="flex flex-col gap-6 items-center justify-center py-16">
-                                    <h3 class="text-d-primary font-medium text-primary-granite mb-2">Usage Instructions Coming Soon</h3>
-                                    <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                <div className="flex flex-col gap-6 items-center justify-center py-16">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">Usage Instructions Coming Soon</h3>
+                                    <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
                                         Detailed usage instructions will be available soon.
                                     </p>
                                 </div>
                             )}
                         </div>
-                        <div class="w-full h-full justify-center items-center flex">
+                        <div className="w-full h-full justify-center items-center flex">
                             <img
                                 src={product.howToUse?.image?.url || product.fullImage?.url || product.featuredImage?.url || '/images/placeholder.png'}
                                 alt={product.howToUse?.image?.altText || product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
-                                class="w-full h-full max-w-[600px] object-cover justify-center items-center"
+                                className="w-full h-full max-w-[600px] object-cover justify-center items-center"
                             />
                         </div>
                     </div>
                 </SwiperSlide>
                 <SwiperSlide key={4} className="w-full h-full">
-                    <div class="grid-cols-1 gap-10 tab-content" data-content="faqs">
+                    <div className="grid-cols-1 gap-10 tab-content" data-content="faqs">
                         <div className="">
                             {product.faqs?.value ? (
                                 <div
@@ -316,9 +311,9 @@ export default function AboutSection({ product }) {
                                     dangerouslySetInnerHTML={{ __html: product.faqs.value }}
                                 />
                             ) : (
-                                <div class="flex flex-col gap-6 items-center justify-center py-16">
-                                    <h3 class="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>
-                                    <p class="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                <div className="flex flex-col gap-6 items-center justify-center py-16">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>
+                                    <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
                                         Frequently asked questions are not available at this time.
                                     </p>
                                 </div>

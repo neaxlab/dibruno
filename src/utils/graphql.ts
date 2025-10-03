@@ -123,24 +123,37 @@ fragment productFragment on Product {
       }
     }
   }
-  benefits: metafield(namespace: "custom", key: "benefits") {
-    value
-    type
-  }
-  fullDescription: metafield(namespace: "custom", key: "full_description") {
-    value
-    type
-  }
-  fullImage: metafield(namespace: "custom", key: "full_image") {
+  about: metafield(namespace: "custom", key: "about") {
+    id
+    namespace
+    key
     value
     type
     reference {
-      ... on MediaImage {
-        image {
-          url
-          altText
-          width
-          height
+      ... on Metaobject {
+        id
+        handle
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+                width
+                height
+              }
+            }
+            ... on Metaobject {
+              id
+              handle
+              fields {
+                key
+                value
+              }
+            }
+          }
         }
       }
     }
@@ -173,16 +186,6 @@ fragment productFragment on Product {
               fields {
                 key
                 value
-                reference {
-                  ... on MediaImage {
-                    image {
-                      url
-                      altText
-                      width
-                      height
-                    }
-                  }
-                }
               }
             }
           }
