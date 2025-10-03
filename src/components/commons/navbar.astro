@@ -3,12 +3,12 @@ const currentPath = Astro.url.pathname;
 import CartIcon from "@/components/cart/CartIcon.tsx";
 
 const navigationItems = [
-  { href: "/shop", label: "SHOP" },
-  { href: "/about", label: "ABOUT" },
-  { href: "/ingredients", label: "OUR INGREDIENTS" },
-  { href: "/testimonials", label: "TESTIMONIALS" },
-  { href: "/faqs", label: "FAQS" },
-  { href: "/learn", label: "LEARN" },
+  { href: "/shop", label: "Shop" },
+  { href: "/about", label: "About" },
+  { href: "/ingredients", label: "Our Ingredients" },
+  { href: "/testimonials", label: "Testimonials" },
+  { href: "/faqs", label: "FAQs" },
+  { href: "/learn", label: "Learn" },
 ];
 
 const textColor = "text-primary-olive";
@@ -28,7 +28,7 @@ const logoSrc = "/images/home/logo-olive.svg";
       <img
         src={logoSrc}
         alt="Logo"
-        class="w-[187px] h-[31px] transition-all duration-300"
+        class="w-[150px] h-[30px] transition-all duration-300 sm:mx-16 mx-0"
         loading="eager"
       />
     </a>
@@ -68,7 +68,7 @@ const logoSrc = "/images/home/logo-olive.svg";
         class="hidden md:block transition-colors duration-300 hover:opacity-70"
         aria-label="Search"
       >
-        SEARCH
+        Search
       </button>
       <CartIcon client:load />
       

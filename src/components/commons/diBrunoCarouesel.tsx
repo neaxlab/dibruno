@@ -42,7 +42,7 @@ export default function ProductsCarousel() {
     }
   };
     return (
-        <div className="w-full h-[850px] flex sm:flex-row flex-col gap-12">
+        <div className="w-full h-[745px] flex sm:flex-row flex-col gap-12">
             
             <Swiper
                 modules={[Navigation, Scrollbar]}
@@ -89,7 +89,7 @@ export default function ProductsCarousel() {
                     <SwiperSlide key={`${product.product.name}-${index}`}>
                         <div className="w-full h-full p-8 bg-primary-bright flex flex-col justify-between items-center">
                             <div className="w-full h-full flex justify-center items-center">
-                            <img src={product.product.image} alt={product.product.name} className="h-[621px] object-cover" />
+                            <img src={product.product.image} alt={product.product.name} className="h-full object-cover" />
                             </div>
                             <div className="flex flex-col gap-6 w-full">
                                 <div className="w-full justify-center items-center z-10 sm:!hidden !flex">
