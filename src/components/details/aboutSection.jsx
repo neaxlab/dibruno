@@ -20,10 +20,10 @@ const buttons = [
         text: "HOW TO USE",
         value: "howToUse",
     },
-    {
-        text: "FAQS",
-        value: "faqs",
-    },
+    // {
+    //     text: "FAQS",
+    //     value: "faqs",
+    // },
 ]
 
 
@@ -31,7 +31,7 @@ export default function AboutSection({ product, faqs = [] }) {
     const [activeImage, setActiveImage] = useState(null);
     const [swiper, setSwiper] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [expandedFaqs, setExpandedFaqs] = useState({});
+    // const [expandedFaqs, setExpandedFaqs] = useState({});
     const [ingredientsPage, setIngredientsPage] = useState(0);
     const tabContainerRef = useRef(null);
     const tabSliderRef = useRef(null);
@@ -73,13 +73,13 @@ export default function AboutSection({ product, faqs = [] }) {
         }
     }
 
-    // Manejador para toggle de FAQs
-    const toggleFaq = (faqId) => {
-        setExpandedFaqs(prev => ({
-            ...prev,
-            [faqId]: !prev[faqId]
-        }));
-    }
+    // Manejador para toggle de FAQs (deshabilitado)
+    // const toggleFaq = (faqId) => {
+    //     setExpandedFaqs(prev => ({
+    //         ...prev,
+    //         [faqId]: !prev[faqId]
+    //     }));
+    // }
 
     // Efecto para inicializar la posición del slider
     useEffect(() => {
@@ -302,47 +302,51 @@ export default function AboutSection({ product, faqs = [] }) {
                         </div>
                     </div>
                 </SwiperSlide>
-                <SwiperSlide key={4} className="w-full h-full">
-                    <div className="grid-cols-1 gap-10 tab-content" data-content="faqs">
-                        <div className="">
-                            {faqs && faqs.length > 0 ? (
-                                <div className="flex flex-col gap-5">
-                                    {faqs.map((faq, index) => (
-                                        <div key={faq.id || index} className="border-b border-primary-olive py-5">
-                                            <div 
-                                                className="flex flex-row items-center justify-between cursor-pointer hover:bg-gray-50 rounded px-3 py-2 transition-colors duration-200"
-                                                onClick={() => toggleFaq(faq.id)}
-                                            >
-                                                <h3 className="flex-1 pr-4 text-d-primary font-medium text-primary-olive">
-                                                    {faq.question}
-                                                </h3>
-                                                <img 
-                                                    src="/images/home/close-icon.svg" 
-                                                    alt="Toggle FAQ" 
-                                                    className={`size-6 transition-transform duration-300 ${expandedFaqs[faq.id] ? 'rotate-45' : ''}`}
-                                                />
-                                            </div>
-                                            <div className={`overflow-hidden transition-all duration-300 ${
-                                                expandedFaqs[faq.id] ? 'max-h-96 opacity-100 pt-4' : 'max-h-0 opacity-0'
-                                            }`}>
-                                                <p className="text-d-products text-primary-granite font-normal px-3">
-                                                    {faq.answer}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="flex flex-col gap-6 items-center justify-center py-16">
-                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>
-                                    <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
-                                        Frequently asked questions are not available at this time.
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </SwiperSlide>
+                {/**
+                 * Sección de FAQs deshabilitada temporalmente
+                 *
+                 * <SwiperSlide key={4} className="w-full h-full">
+                 *     <div className="grid-cols-1 gap-10 tab-content" data-content="faqs">
+                 *         <div className="">
+                 *             {faqs && faqs.length > 0 ? (
+                 *                 <div className="flex flex-col gap-5">
+                 *                     {faqs.map((faq, index) => (
+                 *                         <div key={faq.id || index} className="border-b border-primary-olive py-5">
+                 *                             <div 
+                 *                                 className="flex flex-row items-center justify-between cursor-pointer hover:bg-gray-50 rounded px-3 py-2 transition-colors duration-200"
+                 *                                 onClick={() => toggleFaq(faq.id)}
+                 *                             >
+                 *                                 <h3 className="flex-1 pr-4 text-d-primary font-medium text-primary-olive">
+                 *                                     {faq.question}
+                 *                                 </h3>
+                 *                                 <img 
+                 *                                     src="/images/home/close-icon.svg" 
+                 *                                     alt="Toggle FAQ" 
+                 *                                     className={`size-6 transition-transform duration-300 ${expandedFaqs[faq.id] ? 'rotate-45' : ''}`}
+                 *                                 />
+                 *                             </div>
+                 *                             <div className={`overflow-hidden transition-all duration-300 ${
+                 *                                 expandedFaqs[faq.id] ? 'max-h-96 opacity-100 pt-4' : 'max-h-0 opacity-0'
+                 *                             }`}>
+                 *                                 <p className="text-d-products text-primary-granite font-normal px-3">
+                 *                                     {faq.answer}
+                 *                                 </p>
+                 *                             </div>
+                 *                         </div>
+                 *                     ))}
+                 *                 </div>
+                 *             ) : (
+                 *                 <div className="flex flex-col gap-6 items-center justify-center py-16">
+                 *                     <h3 className="text-d-primary font-medium text-primary-granite mb-2">No FAQs Available</h3>
+                 *                     <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                 *                         Frequently asked questions are not available at this time.
+                 *                     </p>
+                 *                 </div>
+                 *             )}
+                 *         </div>
+                 *     </div>
+                 * </SwiperSlide>
+                 */}
             </Swiper>
         </section>
     )

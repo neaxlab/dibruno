@@ -69,7 +69,7 @@
     animation: arrow-right-cycle 0.6s ease-in-out forwards;
 }
 
-/* Spinner para loading de FAQs */
+/* Spinner para loading de FAQs (deshabilitado)
 .spinner {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #67645E;
@@ -83,4 +83,5 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+*/
 

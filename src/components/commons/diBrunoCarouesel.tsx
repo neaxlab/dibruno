@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigation, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -11,7 +11,7 @@ import 'swiper/css/scrollbar';
 import ButtonSlide from '../ui/buttons/ButtonSlide';    
 import Pagination from './pagination';
 import NavigationButton from './navigationDirection';
-import { slides } from '../../constants/home/products';
+import { getProducts } from '@/utils/shopify';
 
 
 
@@ -19,11 +19,25 @@ export default function ProductsCarousel() {
     const [activeIndex, setActiveIndex] = useState(0);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [swiper2, setSwiper2] = useState<SwiperType | null>(null);
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const data = await getProducts({ limit: 2, buyerIP: '127.0.0.1' });
+        if (isMounted) setProducts(data);
+      } catch (e) {
+        console.error('Error fetching products for carousel', e);
+      }
+    })();
+    return () => { isMounted = false; };
+  }, []);
 
   const handlePrev = () => {
     if (swiper) {
       const current = swiper.realIndex;
-      const total = slides.length;
+      const total = products.length;
       const newIndex = (current - 1 + total) % total;
       swiper.slideToLoop(newIndex);
       swiper2?.slideToLoop(newIndex);
@@ -34,7 +48,7 @@ export default function ProductsCarousel() {
   const handleNext = () => {
     if (swiper) {
       const current = swiper.realIndex;
-      const total = slides.length;
+      const total = products.length;
       const newIndex = (current + 1) % total;
       swiper.slideToLoop(newIndex);
       swiper2?.slideToLoop(newIndex);
@@ -58,16 +72,16 @@ export default function ProductsCarousel() {
                 breakpoints={{ 640: { allowTouchMove: false, }, }}
                 className='w-full h-full relative sm:!flex !hidden'
             >
-                {slides.map((product, index) => (
-                    <SwiperSlide key={`${product.product.name}-${index}`}>
+                {['/images/home/sliderLeft1.png','/images/home/sliderLeft2.png'].map((imageSrc, index) => (
+                    <SwiperSlide key={`left-image-${index}`}>
                         <div className="w-full h-full">
-                            <img src={product.imageLeft} alt={product.product.name} className="w-full h-full object-cover" />
+                            <img src={imageSrc} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
                             <img src="/images/home/logo.svg" alt="DiBruno" className="w-[120px] h-[20px] object-cover absolute top-8 left-8" />
                         </div>
                     </SwiperSlide> 
                 ))}
                 <div className="absolute bottom-8 w-full flex justify-center items-center z-10">
-                    <Pagination totalSlides={slides.length} activeIndex={activeIndex} />
+                    <Pagination totalSlides={2} activeIndex={activeIndex} />
                 </div>
             </Swiper>
             <Swiper
@@ -85,21 +99,21 @@ export default function ProductsCarousel() {
                 onSwiper={setSwiper2}
                 className='w-full h-full relative'
             >
-                {slides.map((product, index) => (
-                    <SwiperSlide key={`${product.product.name}-${index}`}>
+                {products.map((product, index) => (
+                    <SwiperSlide key={`${product.handle}-${index}`}>
                         <div className="w-full h-full p-8 bg-primary-bright flex flex-col justify-between items-center">
                             <div className="w-full h-full flex justify-center items-center">
-                            <img src={product.product.image} alt={product.product.name} className="h-full object-cover" />
+                            <img src={product.featuredImage?.url} alt={product.title} className="h-full object-cover" />
                             </div>
                             <div className="flex flex-col gap-6 w-full">
                                 <div className="w-full justify-center items-center z-10 sm:!hidden !flex">
-                                    <Pagination totalSlides={slides.length} activeIndex={activeIndex} />
+                                    <Pagination totalSlides={2} activeIndex={activeIndex} />
                                 </div>
-                                <h3 className="sm:text-d-title-2 text-d-products text-primary-olive">{product.product.name}</h3>
+                                <h3 className="sm:text-d-title-2 text-d-products text-primary-olive">{product.title}</h3>
                                 <div className="flex flex-row w-full justify-between items-center">
                                     <ButtonSlide
-                                        text={`BUY FOR $${product.product.price}`}
-                                        href="#"
+                                        text={`BUY FOR $${product.variants?.nodes?.[0]?.price?.amount ?? ''}`}
+                                        href={`/shop/${product.handle}`}
                                         normalBackground="transparent"
                                         normalColor="#3B3B3B"
                                         hoverBackground="#3B3B3B"
@@ -108,7 +122,7 @@ export default function ProductsCarousel() {
                                         hoverBorderColor="#FAFAFA"
                                         transitionDuration="0.5s"
                                     /> 
-                                    <span className="text-d-title-2 text-primary-olive sm:text-4xl">{`${index + 1}/${slides.length}`}</span>
+                                    <span className="text-d-title-2 text-primary-olive sm:text-4xl">{`${index + 1}/2`}</span>
                                 </div>
                             </div>
                         </div>

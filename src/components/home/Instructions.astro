@@ -13,7 +13,7 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 <>
 <section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y flex-col gap-10">
     <div class="w-full relative" id="instructions-container">
-        <img src="/images/home/instructions.png" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
+        <img src="/images/home/instructions.avif" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
         
         <!-- Bullet 1 - Posición relativa a la imagen -->
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
@@ -40,6 +40,13 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
              id="bullet-4"
              data-index="4">
+            <Bullet />
+        </div>
+        
+        <!-- Bullet 5 - Posición relativa a la imagen -->
+        <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
+             id="bullet-5"
+             data-index="5">
             <Bullet />
         </div>
         <div class="fixed top-0 left-0 w-full h-full z-10 hidden ingredients">
@@ -82,10 +89,11 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 
         // Posiciones relativas de los bullets (basadas en porcentajes de la imagen original)
         const bulletPositions = [
-            { top: 28, left: 31.2 }, // Bullet 1
-            { top: 35, left: 43.6 }, // Bullet 2  
-            { top: 21, right: 40 }, // Bullet 3
-            { top: 50, right: 28.5 }  // Bullet 4
+            { top: 28, left: 29.2 }, // Bullet 1 (movido 2% a la izquierda)
+            { top: 35, left: 41.6 }, // Bullet 2 (movido 2% a la izquierda)
+            { top: 21, right: 42 },  // Bullet 3 (movido 2% a la izquierda)
+            { top: 50, right: 30.5 }, // Bullet 4 (movido 2% a la izquierda)
+            { top: 65, left: 48 }    // Bullet 5 (nuevo, alineado inferior-centro aproximado)
         ];
 
         const positionBullets = () => {

@@ -7,9 +7,13 @@ import CartDrawer from '@/components/cart/CartDrawer.tsx';
 
 export interface Props {
 	title?: string;
+	description?: string;
 }
 
-const { title = "DiBruno - Proyecto Astro" } = Astro.props;
+const {
+	title = "DiBruno Lab | Organic & Vegan Hair Loss Treatment & Hair Growth",
+	description = "Dibruno Lab offers vegan, organic hair care solutions to stop hair loss, promote regrowth, and restore a healthy scalp. Science with conscience, for stronger, fuller hair."
+} = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -20,7 +24,7 @@ const { title = "DiBruno - Proyecto Astro" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<meta name="description" content="Proyecto desarrollado con Astro y Tailwind CSS" />
+		<meta name="description" content={description} />
 	</head>
 	<body >
 		<Navbar />

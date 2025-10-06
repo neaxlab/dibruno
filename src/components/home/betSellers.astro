@@ -4,8 +4,6 @@ import ProductCard from '../cards/ProductCard.tsx';
 import ProductsCarousel from '../commons/productsCarousel.tsx';
 import { getProductsPaginated } from "../../utils/shopify";
 
-
-// Obtener IP del cliente de forma segura
 let ip = null;
 try {
     const headers = Astro.request.headers;

@@ -63,7 +63,7 @@ const { product, recommendations } = Astro.props;
             {Array.isArray(recommendations) && recommendations.length > 0 ? (
                 <div class="flex flex-row gap-6">
                     {
-                        recommendations.map((rec: any) => {
+                        recommendations.slice(0, 1).map((rec: any) => {
                             const imageUrl = rec?.featuredImage?.url || rec?.images?.nodes?.[0]?.url || "/images/placeholder.png";
                             const altText = rec?.featuredImage?.altText || rec?.title || "Recommended product";
                             const title = rec?.title || "";
