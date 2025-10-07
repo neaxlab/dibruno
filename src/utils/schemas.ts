@@ -275,6 +275,7 @@ export const ProductResult = z
     faq_s: FAQMetaobjectResult.nullable(),
     about: AboutMetaobjectResult,
     howToUse: MetafieldMetaobjectResult.nullable(),
+    treatment: MetafieldListMetaobjectResult.nullable(),
   })
   .nullable();
 

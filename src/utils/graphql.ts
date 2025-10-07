@@ -206,6 +206,42 @@ fragment productFragment on Product {
       }
     }
   }
+  treatment: metafield(namespace: "custom", key: "treatment") {
+    value
+    type
+    references(first: 10) {
+      edges {
+        node {
+          ... on Metaobject {
+            id
+            handle
+            fields {
+              key
+              value
+              reference {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+                ... on Metaobject {
+                  id
+                  handle
+                  fields {
+                    key
+                    value
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 `;
 
