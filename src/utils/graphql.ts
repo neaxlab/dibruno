@@ -269,6 +269,19 @@ export const ProductRecommendationsQuery = `#graphql
   ${PRODUCT_FRAGMENT}
 `;
 
+export const ProductsByQuery = `#graphql
+  query ($query: String!, $first: Int!) {
+    products(first: $first, query: $query) {
+      edges {
+        node {
+          ...productFragment
+        }
+      }
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+`;
+
 export const GetCartQuery = `#graphql
   query ($id: ID!) {
     cart(id: $id) {

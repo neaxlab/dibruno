@@ -13,6 +13,7 @@ import {
   CollectionsQuery,
   CollectionProductsQuery,
   StepMetaobjectQuery,
+  ProductsByQuery,
 } from "./graphql";
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -288,6 +289,31 @@ export const getProductRecommendations = async (options: {
   const parsedProducts = ProductsResult.parse(productRecommendations);
 
   return parsedProducts;
+};
+
+// Get product by exact title using products(query:)
+export const getProductByTitle = async (options: {
+  title: string;
+  buyerIP: string;
+}) => {
+  const { title, buyerIP } = options;
+  // Shopify products query supports title filtering: title:'...'
+  const query = `title:'${title.replace(/"/g, "\\\"")}'`;
+  const data = await makeShopifyRequest(
+    ProductsByQuery,
+    { query, first: 1 },
+    buyerIP
+  );
+  const { products } = data as any;
+  if (!products || !products.edges || products.edges.length === 0) {
+    throw new Error(`Product not found for title: ${title}`);
+  }
+  const node = products.edges[0].node;
+  const parsed = ProductResult.parse(node);
+  if (parsed?.howToUse?.steps && parsed.howToUse.steps.length > 0) {
+    parsed.howToUse.steps = await processStepsWithContent(parsed.howToUse.steps, buyerIP);
+  }
+  return parsed;
 };
 
 // Create a cart and add a line item to it and return the cart object

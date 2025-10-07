@@ -1,19 +1,60 @@
 ---
 import { Bullet } from '../ui/buttons/Bullet';
-import { instructions } from '../../constants/home/instructions';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
 import InstructionsCarousel from '../commons/instructionsCarousel';
+import { getProductByTitle } from '../../utils/shopify';
+
+// Orden y títulos exactos de Shopify
+// const productTitles = [
+//   'ColorVive Mist (Silverfree)',
+//   'ScalpCalm Shampoo (3% Apiscalp)',
+//   'ScalpSoothe Serum (3% Apiscalp)',
+//   'ShieldLite Mist Spray (3% Procapil)',
+//   'RootFlourish Mask (5% Procapil)'
+// ];
+
+const productTitles = [
+  'DiBruno Hair Regrowth Accelerator Leave-In',
+  'DiBruno Anti Hair Loss Alopecia Hair Mask 8 oz',
+  'DiBruno Anti Hair Loss Alopecia Shampoo 8oz',
+  'DiBruno The Hair Vitamin Oil 1 OZ',
+]
+
+const buyerIP = Astro.request.headers.get('x-forwarded-for') || '127.0.0.1';
+const productsLite = await Promise.all(
+  productTitles.map(async (title) => {
+    try {
+      const p = await getProductByTitle({ title, buyerIP });
+      return { title: p?.title || title, handle: p?.handle || '', howToUse: p?.howToUse || null };
+    } catch {
+      return { title, handle: '', howToUse: null };
+    }
+  })
+);
+const instructions = Object.fromEntries(
+  productsLite.map((p, idx) => [
+    String(idx + 1),
+    {
+      url: p.handle ? `/shop/${p.handle}` : '#',
+      image: '/images/products/dibrunoShampoo.png',
+      alt: p.title,
+      recomendations: '',
+      instructions: [] as any[],
+    }
+  ])
+);
 ---
 
-<script define:vars={{ instructions }}>
+<script define:vars={{ instructions, productsLite }}>
     window.instructions = instructions;
+    window.productsLite = productsLite;
 </script>
 
 
 <>
 <section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y flex-col gap-10">
     <div class="w-full relative" id="instructions-container">
-        <img src="/images/home/instructions.avif" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
+        <img src="/images/home/how-to.png" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
         
         <!-- Bullet 1 - Posición relativa a la imagen -->
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
@@ -44,11 +85,13 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
         </div>
         
         <!-- Bullet 5 - Posición relativa a la imagen -->
+        <!--
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
              id="bullet-5"
              data-index="5">
             <Bullet />
         </div>
+        -->
         <div class="fixed top-0 left-0 w-full h-full z-10 hidden ingredients">
             <div class="w-full h-full bg-primary-olive opacity-20 ingredients-fill"></div>
             <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
@@ -87,13 +130,12 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
     (function registerDelegation() {
         const instructions = (window as any).instructions || [];
 
-        // Posiciones relativas de los bullets (basadas en porcentajes de la imagen original)
         const bulletPositions = [
-            { top: 28, left: 29.2 }, // Bullet 1 (movido 2% a la izquierda)
-            { top: 35, left: 41.6 }, // Bullet 2 (movido 2% a la izquierda)
-            { top: 21, right: 42 },  // Bullet 3 (movido 2% a la izquierda)
-            { top: 50, right: 30.5 }, // Bullet 4 (movido 2% a la izquierda)
-            { top: 65, left: 48 }    // Bullet 5 (nuevo, alineado inferior-centro aproximado)
+            { top: 35, left: 31 },
+            { top: 40, left: 43.5 },
+            { top: 30, right: 40 },
+            { top: 55, right: 28.5 },
+            { top: 65, left: 48 }
         ];
 
         const positionBullets = () => {
@@ -130,22 +172,32 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
             });
         };
 
-        const renderInstructions = (index: number) => {
+        const renderInstructions = async (index: number) => {
             const instructionsContent = document.getElementById('instructions-content');
-            if (!instructionsContent || !instructions[index]) return;
+            if (!instructionsContent) return;
 
-            const instructionsData = instructions[index];
-            instructionsContent.innerHTML = instructionsData.instructions.map((instruction: any, instructionIndex: number) => `
+            const idx = index - 1;
+            const productsLite = (window as any).productsLite || [];
+            const product = productsLite[idx];
+            if (!product) return;
+
+            // howToUse.content puede contener HTML o texto; steps puede venir lleno tras parseo
+            const how = product.howToUse || {};
+            const steps = Array.isArray(how.steps) && how.steps.length > 0
+              ? how.steps
+              : (how.content ? [ { title: how.content } ] : []);
+
+            instructionsContent.innerHTML = steps.map((instruction: any, instructionIndex: number) => `
                 <div class="flex flex-row gap-5 items-center">
                     <h1 class="sm:text-[88px] text-[20px] font-bold text-[#D0CFCE] leading-none">${instructionIndex + 1}</h1>
                     <div class="flex flex-col gap-1">
-                        <h1 class="sm:text-2xl text-d-secondary font-medium">${instruction.title}</h1>
+                        <h1 class="sm:text-2xl text-d-secondary font-medium">${instruction.title || instruction.step_title || ''}</h1>
                     </div>
                 </div>
             `).join('');
             const instructionsRecomendations = document.getElementById('instructions-recomendations');
             if (instructionsRecomendations) {
-                instructionsRecomendations.innerHTML = instructionsData.recomendations || '';
+                instructionsRecomendations.innerHTML = how.recommendations || how.recomendations || '';
             }
         };
 
@@ -174,18 +226,19 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
                 const ingredientsFill = document.querySelector('.ingredients-fill');
                 
                 if (wrapper) {
-                    // Obtener el data-index del elemento clickeado
                     const dataIndex = wrapper.getAttribute('data-index');
                     if (dataIndex !== null) {
                         const index = parseInt(dataIndex); 
                                     
                         renderInstructions(index);
                         
-                        // Actualizar href del botón con la URL correspondiente
                         const instructionsData = instructions[index];
                         const button = document.querySelector('.instructions-btn') as HTMLAnchorElement | null;
-                        if (button && instructionsData?.url) {
-                            button.setAttribute('href', instructionsData.url);
+                        const productsLite = (window as any).productsLite || [];
+                        const product = productsLite[index - 1];
+                        if (button) {
+                            const href = (product && product.handle) ? `/shop/${product.handle}` : (instructionsData?.url || '#');
+                            button.setAttribute('href', href);
                         }
                         
                         // Mostrar el modal con animación
@@ -201,13 +254,11 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
                 }
                 
                 if (wrapperIngredients || wrapperIngredientsClose) {
-                    // Trigger de la animación de salida
                     ingredientsPanel?.classList.remove('ingredients-panel-enter');
                     ingredientsPanel?.classList.add('ingredients-panel-exit');
                     ingredientsFill?.classList.remove('ingredients-fill-enter');
                     ingredientsFill?.classList.add('ingredients-fill-exit');
                     
-                    // Ocultar el modal después de la animación
                     setTimeout(() => {
                         ingredients?.classList.add('hidden');
                         ingredients?.classList.remove('flex');
