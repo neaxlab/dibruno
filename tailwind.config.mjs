@@ -66,14 +66,14 @@ const screens = {
 
 const customFontSizes = {
   "d-title-0": ["130px", { lineHeight: "100%", fontWeight: "500"}],
-  "d-title-1": ["48px", { lineHeight: "120%", fontWeight: "600", letterSpacing: "0.96px"}],
+  "d-title-1": ["40px", { lineHeight: "120%", fontWeight: "600", letterSpacing: "0.96px"}],
   "d-title-2": ["32px", { lineHeight: "120%", fontWeight: "500", letterSpacing: "0.8px"}],
   "d-primary": ["20px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "2%"}],
   "d-products": ["20px", { lineHeight: "100%", fontWeight: "500", letterSpacing: "2%", style: "medium"}],
   "d-secondary": ["18px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.36px"}],
   "d-tertiary": ["14px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.32px"}],
   "m-tertiary": ["12px", { lineHeight: "140%", fontWeight: "400", letterSpacing: "0.32px"}],
-  "d-button": ["18px", { lineHeight: "100%", fontWeight: "700", letterSpacing: "0.36px", textTransform: "uppercase"}],
+  "d-button": ["16px", { lineHeight: "100%", fontWeight: "600", letterSpacing: "0.36px", textTransform: "uppercase"}],
   "d-nav": ["16px", { lineHeight: "140%", fontWeight: "700", letterSpacing: "0.32px", textTransform: "uppercase"}],
   "d-footer": ["16px", { lineHeight: "100%", fontWeight: "400", letterSpacing: "2%", textTransform: "uppercase"}],
 };
