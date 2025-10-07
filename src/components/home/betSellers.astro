@@ -31,7 +31,7 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
     </div>
     <div class="w-full h-full flex-row gap-6 mx-auto sm:flex hidden">
         {pageProducts.map((product: any) => (
-            <ProductCard product={product} />
+            <ProductCard product={product} client:load />
         ))}
     </div>
     <ProductsCarousel products={pageProducts} client:load />
