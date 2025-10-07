@@ -5,7 +5,7 @@ import Categories from '@/components/shop/categories.astro';
 import Products from '@/components/shop/products.astro';
 export const prerender = false;
 
-import { getProductsPaginated } from "@/utils/shopify";
+import { getProductsPaginated, getProductsByHandle, getCollections } from "@/utils/shopify";
 
 // Obtener IP del cliente de forma segura
 let ip = null;
@@ -15,15 +15,28 @@ try {
 } catch (error) {
     ip = null;
 }
+
+// Obtener parámetros de URL
+const url = new URL(Astro.request.url);
+const selectedCategory = url.searchParams.get('category') || 'all';
+
 const limit = 20;
 const after = null;
 
-const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ buyerIP: ip || "127.0.0.1", limit, after });
+// Obtener todas las colecciones para validar la categoría seleccionada
+const collections = await getCollections({ buyerIP: ip || "127.0.0.1" });
+const validCategory = collections.find(col => col.handle === selectedCategory)?.handle || 'all';
 
+// Obtener productos según la categoría seleccionada
+const products = await getProductsByHandle({ 
+    collectionHandle: validCategory, 
+    buyerIP: ip || "127.0.0.1",
+    limit 
+});
 ---
 
 <Layout>
     <Banner />
-    <Categories />
-    <Products products={pageProducts} />
+    <Categories ip={ip} collections={collections} selectedCategory={validCategory} />
+    <Products products={products} />
 </Layout>

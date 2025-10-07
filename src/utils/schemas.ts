@@ -279,11 +279,11 @@ export const ProductResult = z
   .nullable();
 
 export const CollectionResult = z.object({
-  id: z.string(),
+  // id: z.string(),
   title: z.string(),
   handle: z.string(),
-  description: z.string().nullable().optional(),
-  image: ImageResult.nullable(),
+  // description: z.string().nullable().optional(),
+  // image: ImageResult.nullable(),
 });
 
 export const CollectionProductResult = z.object({

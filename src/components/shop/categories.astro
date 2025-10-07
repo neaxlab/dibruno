@@ -1,23 +1,26 @@
 ---
 import CategoriesCarousel from '../commons/categoriesCarousel';
-const categories = [
-    "SHOP ALL",
-    "KIT AND COMBOS",
-    "SHAMPOO",
-    "LEAVE IN",
-    "OIL",
-]
+const { ip, collections, selectedCategory } = Astro.props;
+
+// Agregar "All" como primera opción si no está presente
+const allCategories = collections.find((col: any) => col.handle === 'all') 
+    ? collections 
+    : [{ handle: 'all', title: 'All Products' }, ...collections];
+
 ---
 <section class="w-full h-full py-10">
     <div class="hidden flex-row gap-10 justify-center items-center sm:flex">
-        {categories.map((category, index) => (
-            <div class={`category-btn w-fit h-fit py-4 px-6 rounded-full border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300 ${index === 0 ? 'active bg-primary-granite text-primary-lotion' : 'text-primary-granite'}`}>
-                {category}
+        {allCategories.map((category: any, index: number) => (
+            <div 
+                class={`category-btn w-fit h-fit py-4 px-6 rounded-full border border-primary-granite text-d-secondary font-semibold hover:bg-primary-granite hover:text-primary-lotion cursor-pointer transition-all duration-300 ${category.handle === selectedCategory ? 'active bg-primary-granite text-primary-lotion' : 'text-primary-granite'}`}
+                data-category={category.handle}
+            >
+                {category.handle === 'all' ? 'All Products' : category.handle.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
             </div>
         ))}
     </div>
     <div class="flex flex-row gap-10 justify-center items-center sm:hidden">
-        <CategoriesCarousel categories={categories} client:load />
+        <CategoriesCarousel categories={allCategories} selectedCategory={selectedCategory} client:load />
     </div>
 </section>
 
@@ -27,19 +30,13 @@ const categories = [
         
         categoryButtons.forEach(button => {
             button.addEventListener('click', function(this: HTMLElement) {
-                // Remover clase active de todos los botones
-                categoryButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.classList.remove('bg-primary-granite');
-                    btn.classList.remove('text-primary-lotion');
-                    btn.classList.add('text-primary-granite');
-                });
-                
-                // Agregar clase active al botón clickeado
-                this.classList.add('active');
-                this.classList.add('bg-primary-granite');
-                this.classList.add('text-primary-lotion');
-                this.classList.remove('text-primary-granite');
+                const categoryHandle = this.getAttribute('data-category');
+                if (categoryHandle) {
+                    // Navegar a la nueva URL con el parámetro de categoría
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.set('category', categoryHandle);
+                    window.location.href = currentUrl.toString();
+                }
             });
         });
     });

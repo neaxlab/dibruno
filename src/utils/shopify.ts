@@ -261,9 +261,9 @@ export const getProductByHandle = async (options: {
   const parsedProduct = ProductResult.parse(product);
 
   // Process steps with real content if they exist
-  if (parsedProduct.howToUse?.steps && parsedProduct.howToUse.steps.length > 0) {
-    parsedProduct.howToUse.steps = await processStepsWithContent(parsedProduct.howToUse.steps, buyerIP);
-  }
+  // if (parsedProduct.howToUse?.steps && parsedProduct.howToUse.steps.length > 0) {
+  //   parsedProduct.howToUse.steps = await processStepsWithContent(parsedProduct.howToUse.steps, buyerIP);
+  // }
 
   return parsedProduct;
 };
@@ -412,4 +412,64 @@ export const getCollectionProducts = async (options: {
     ...parsedCollection,
     products: productsList,
   };
+};
+
+// Get products filtered by collection handle
+export const getProductsByCollection = async (options: {
+  collectionHandle: string;
+  limit?: number;
+  buyerIP: string;
+}) => {
+  const { collectionHandle, limit = 20, buyerIP } = options;
+
+  // First get all products
+  const data = await makeShopifyRequest(
+    ProductsQuery,
+    { first: 250 }, // Get more products to filter
+    buyerIP
+  );
+  const { products } = data;
+
+  if (!products) {
+    throw new Error("No products found");
+  }
+
+  const productsList = products.edges.map((edge: any) => edge.node);
+  
+  // Filter products that belong to the specified collection
+  const filteredProducts = productsList.filter((product: any) => {
+    return product.collections.edges.some((edge: any) => 
+      edge.node.handle === collectionHandle
+    );
+  }).slice(0, limit); // Apply limit after filtering
+
+  const ProductsResult = z.array(ProductResult);
+  const parsedProducts = ProductsResult.parse(filteredProducts);
+
+  return parsedProducts;
+};
+
+// Get products filtered by collection handle (using collection handle as parameter)
+export const getProductsByHandle = async (options: {
+  collectionHandle: string;
+  limit?: number;
+  buyerIP: string;
+}) => {
+  const { collectionHandle, limit = 20, buyerIP } = options;
+
+  // If collectionHandle is "all", return all products without filtering
+  if (collectionHandle === "all") {
+    const result = await getProductsPaginated({
+      limit,
+      buyerIP
+    });
+    return result.products;
+  }
+
+  // Use the existing getProductsByCollection function for specific collections
+  return await getProductsByCollection({
+    collectionHandle,
+    limit,
+    buyerIP
+  });
 };
