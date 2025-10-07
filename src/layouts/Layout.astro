@@ -1,9 +1,9 @@
 ---
 // Importar estilos globales
-import '../styles/global.css';
-import Navbar from '@/components/commons/navbar.astro';
-import Footer from '@/components/commons/footer.astro';
-import CartDrawer from '@/components/cart/CartDrawer.tsx';
+import "../styles/global.css";
+import Navbar from "@/components/commons/navbar.astro";
+import Footer from "@/components/commons/footer.astro";
+import CartDrawer from "@/components/cart/CartDrawer.tsx";
 
 export interface Props {
 	title?: string;
@@ -12,8 +12,12 @@ export interface Props {
 
 const {
 	title = "DiBruno Lab | Organic & Vegan Hair Loss Treatment & Hair Growth",
-	description = "Dibruno Lab offers vegan, organic hair care solutions to stop hair loss, promote regrowth, and restore a healthy scalp. Science with conscience, for stronger, fuller hair."
+	description = "Dibruno Lab offers vegan, organic hair care solutions to stop hair loss, promote regrowth, and restore a healthy scalp. Science with conscience, for stronger, fuller hair.",
 } = Astro.props as Props;
+
+const FB_PIXEL_ID = '25194880230109237';
+const fbPixelHeadHtml = `<!-- Facebook Pixel Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n n.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n n.queue=[];t=b.createElement(e);t.async=!0;\n t.src=v;s=b.getElementsByTagName(e)[0];\n s.parentNode.insertBefore(t,s)}(window,document,'script',\n 'https://connect.facebook.net/en_US/fbevents.js');\n fbq('init', '${FB_PIXEL_ID}');\n fbq('track', 'PageView');\n</script>\n<!-- End Facebook Pixel Code -->`;
+const fbPixelNoScriptHtml = `<noscript><img height="1" width="1" src="https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1" /></noscript>`;
 ---
 
 <!doctype html>
@@ -25,8 +29,10 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<Fragment set:html={fbPixelHeadHtml} />
 	</head>
-	<body >
+	<body>
+		<Fragment set:html={fbPixelNoScriptHtml} />
 		<Navbar />
 		<div class="w-full h-full sm:p-2 p-1">
 			<slot />
