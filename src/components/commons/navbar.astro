@@ -43,8 +43,8 @@ const logoSrc = "/images/home/logo-olive.svg";
         navigationItems.map(({ href, label }) => (
           <a
             href={href}
-            class={`nav-link group relative transition-colors duration-300 ${currentPath === href ? "active" : ""}`}
-            aria-current={currentPath === href ? "page" : undefined}
+            class={`nav-link group relative transition-colors duration-300 ${(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "active" : ""; })()}`}
+            aria-current={(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "page" : undefined; })()}
           >
             <span class="flex items-center gap-2">
               <span
@@ -64,13 +64,9 @@ const logoSrc = "/images/home/logo-olive.svg";
 
     <!-- Right Side Actions -->
     <div class="flex flex-row items-center gap-4 md:gap-10">
-      <button
-        class="hidden md:block transition-colors duration-300 hover:opacity-70"
-        aria-label="Search"
-      >
-        Search
-      </button>
-      <CartIcon client:load />
+      <div class="sm:mr-16 mr-0">
+        <CartIcon client:load />
+      </div>
       
       <!-- Mobile Menu Button -->
       <button
@@ -131,8 +127,8 @@ const logoSrc = "/images/home/logo-olive.svg";
             <li>
                 <a
                   href={href}
-                  class={`mobile-nav-link group relative flex items-center gap-4 text-primary-olive text-d-nav text-base font-medium transition-colors duration-300 py-3 ${currentPath === href ? "active" : ""}`}
-                  aria-current={currentPath === href ? "page" : undefined}
+                  class={`mobile-nav-link group relative flex items-center gap-4 text-primary-olive text-d-nav text-base font-medium transition-colors duration-300 py-3 ${(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "active" : ""; })()}`}
+                  aria-current={(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "page" : undefined; })()}
                 >
                   <span class={`relative inline-block pb-2`}>
                     {label}
@@ -164,14 +160,13 @@ const logoSrc = "/images/home/logo-olive.svg";
     if (!navbar) return;
 
     const currentScrollY = window.scrollY;
-    const shouldHide = currentScrollY > lastScrollY && currentScrollY > 100;
-
-    navbar.style.transform = shouldHide ? "translateY(-100%)" : "translateY(0)";
-    // Fondo lotion con opacidad cuando se sale de la posición inicial
+    // Nunca ocultar el navbar
+    navbar.style.transform = "translateY(0)";
+    // Fondo blanco cuando se sale de la posición inicial
     if (currentScrollY > 0) {
-      navbar.classList.add("bg-primary-lotion/80");
+      navbar.classList.add("scrolled");
     } else {
-      navbar.classList.remove("bg-primary-lotion/80");
+      navbar.classList.remove("scrolled");
     }
     lastScrollY = currentScrollY;
     ticking = false;
@@ -299,6 +294,9 @@ const logoSrc = "/images/home/logo-olive.svg";
         closeMobileMenu();
       }
     }, { passive: true });
+
+    // Configurar estado inicial del navbar (por si carga ya desplazado)
+    updateNavbar();
   }
 
   if (document.readyState === "loading") {
@@ -366,5 +364,10 @@ const logoSrc = "/images/home/logo-olive.svg";
   /* Prevenir scroll cuando el menú móvil está abierto */
   body.mobile-menu-open {
     overflow: hidden;
+  }
+
+  /* Fondo blanco cuando se hace scroll */
+  #navbar.scrolled {
+    @apply bg-primary-lotion;
   }
 </style>
