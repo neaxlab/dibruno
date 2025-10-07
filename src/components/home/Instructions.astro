@@ -38,7 +38,7 @@ const instructions = Object.fromEntries(
       url: p.handle ? `/shop/${p.handle}` : '#',
       image: '/images/products/dibrunoShampoo.png',
       alt: p.title,
-      recomendations: '',
+      // recomendations: '',
       instructions: [] as any[],
     }
   ])
@@ -101,10 +101,10 @@ const instructions = Object.fromEntries(
                 </div>
                 <div class="flex flex-col gap-10" id="instructions-content">
                 </div>
-                <div class="flex flex-col gap-6">
+                <!-- <div class="flex flex-col gap-6">
                     <h1 class="text-d-title-2">RECOMMENDATIONS:</h1>
                     <p class="text-d-products text-primary-granite font-normal" id="instructions-recomendations"></p>
-                </div>
+                </div> -->
                 <ButtonSlide
                     text="LEARN MORE ABOUT THE PRODUCT"
                     href="#"
@@ -195,10 +195,10 @@ const instructions = Object.fromEntries(
                     </div>
                 </div>
             `).join('');
-            const instructionsRecomendations = document.getElementById('instructions-recomendations');
-            if (instructionsRecomendations) {
-                instructionsRecomendations.innerHTML = how.recommendations || how.recomendations || '';
-            }
+            // const instructionsRecomendations = document.getElementById('instructions-recomendations');
+            // if (instructionsRecomendations) {
+            //     instructionsRecomendations.innerHTML = how.recommendations || how.recomendations || '';
+            // }
         };
 
         const init = () => {

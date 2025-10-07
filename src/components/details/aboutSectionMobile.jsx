@@ -7,6 +7,10 @@ const AboutSectionMobile = ({ product }) => {
         howToUse: false
     });
 
+    // Debug: Log howToUse data
+    console.log('AboutSectionMobile - product.howToUse:', product.howToUse);
+    console.log('AboutSectionMobile - product.howToUse?.steps:', product.howToUse?.steps);
+
     const toggleSection = (section) => {
         setOpenSections(prev => ({
             ...prev,

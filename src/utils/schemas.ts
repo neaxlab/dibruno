@@ -127,8 +127,21 @@ export const MetafieldMetaobjectResult = z.object({
     [key: string]: any;
   }> = [];
   
+  // Debug: Log fields to see what's available
+  console.log('MetafieldMetaobjectResult - fields:', fields);
+  
   // Buscar el campo step_2 en los campos del metaobject
   const step2Field = fields.step_2;
+  console.log('MetafieldMetaobjectResult - step2Field:', step2Field);
+  
+  // También buscar otros posibles campos de pasos
+  const stepsField = fields.steps || fields.step || fields.step_list || fields.step_list_2;
+  console.log('MetafieldMetaobjectResult - stepsField:', stepsField);
+  
+  // Buscar cualquier campo que contenga "step" en el nombre
+  const stepFields = Object.keys(fields).filter(key => key.toLowerCase().includes('step'));
+  console.log('MetafieldMetaobjectResult - stepFields:', stepFields);
+  
   if (step2Field) {
     try {
       // step_2 debería contener un JSON string con los IDs de los metaobjects
@@ -146,7 +159,50 @@ export const MetafieldMetaobjectResult = z.object({
     } catch (error) {
       console.warn('Error parsing step_2:', error);
     }
+  } else if (stepsField) {
+    try {
+      // Intentar parsear otros campos de pasos
+      const stepIds = JSON.parse(stepsField);
+      if (Array.isArray(stepIds)) {
+        steps = stepIds.map((stepId, index) => ({
+          id: stepId,
+          handle: `step-${index + 1}`,
+          title: `Step ${index + 1}`,
+          description: `Step ${index + 1} description`,
+          step_number: index + 1,
+        }));
+      }
+    } catch (error) {
+      console.warn('Error parsing steps field:', error);
+    }
+  } else if (stepFields.length > 0) {
+    // Buscar en todos los campos que contengan "step"
+    for (const fieldName of stepFields) {
+      try {
+        const fieldValue = fields[fieldName];
+        console.log(`Intentando parsear campo ${fieldName}:`, fieldValue);
+        
+        if (fieldValue && typeof fieldValue === 'string') {
+          const stepIds = JSON.parse(fieldValue);
+          if (Array.isArray(stepIds)) {
+            steps = stepIds.map((stepId, index) => ({
+              id: stepId,
+              handle: `step-${index + 1}`,
+              title: `Step ${index + 1}`,
+              description: `Step ${index + 1} description`,
+              step_number: index + 1,
+            }));
+            console.log(`✅ Pasos encontrados en campo ${fieldName}`);
+            break; // Salir del bucle si encontramos pasos
+          }
+        }
+      } catch (error) {
+        console.warn(`Error parsing field ${fieldName}:`, error);
+      }
+    }
   }
+  
+  console.log('MetafieldMetaobjectResult - final steps:', steps);
   
   return {
     ...data,

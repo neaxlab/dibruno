@@ -262,9 +262,9 @@ export const getProductByHandle = async (options: {
   const parsedProduct = ProductResult.parse(product);
 
   // Process steps with real content if they exist
-  // if (parsedProduct.howToUse?.steps && parsedProduct.howToUse.steps.length > 0) {
-  //   parsedProduct.howToUse.steps = await processStepsWithContent(parsedProduct.howToUse.steps, buyerIP);
-  // }
+  if (parsedProduct?.howToUse && (parsedProduct.howToUse as any).steps && (parsedProduct.howToUse as any).steps.length > 0) {
+    (parsedProduct.howToUse as any).steps = await processStepsWithContent((parsedProduct.howToUse as any).steps, buyerIP);
+  }
 
   return parsedProduct;
 };
@@ -310,8 +310,8 @@ export const getProductByTitle = async (options: {
   }
   const node = products.edges[0].node;
   const parsed = ProductResult.parse(node);
-  if (parsed?.howToUse?.steps && parsed.howToUse.steps.length > 0) {
-    parsed.howToUse.steps = await processStepsWithContent(parsed.howToUse.steps, buyerIP);
+  if (parsed?.howToUse && (parsed.howToUse as any).steps && (parsed.howToUse as any).steps.length > 0) {
+    (parsed.howToUse as any).steps = await processStepsWithContent((parsed.howToUse as any).steps, buyerIP);
   }
   return parsed;
 };

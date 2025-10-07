@@ -36,6 +36,10 @@ export default function AboutSection({ product, faqs = [] }) {
     const tabContainerRef = useRef(null);
     const tabSliderRef = useRef(null);
 
+    // Debug: Log howToUse data
+    console.log('AboutSection - product.howToUse:', product.howToUse);
+    console.log('AboutSection - product.howToUse?.steps:', product.howToUse?.steps);
+
     // Función para mover el slider al botón activo
     const moveSlider = (buttonIndex) => {
         if (!tabContainerRef.current || !tabSliderRef.current) return;
