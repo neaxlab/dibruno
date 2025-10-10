@@ -109,7 +109,7 @@ const CartDrawer: React.FC = () => {
       aria-modal="true"
       data-drawer="cart"
     >
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity animate-in fade-in duration-500 md:hidden" />
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity animate-in fade-in duration-500" />
 
       <div className="fixed inset-0 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -119,17 +119,17 @@ const CartDrawer: React.FC = () => {
             ref={clickOutsideRef}
             onKeyDown={onKeyDown}
           >
-            <div className={`pointer-events-auto w-screen max-w-[35dvw] max-h-screen bg-white transition-transform duration-500 ease-in-out transform ${isAnimating
+            <div className={`pointer-events-auto w-screen sm:min-w-[350px] min-w-[320px] sm:max-w-[35dvw] max-w-[90vw] max-h-screen bg-white transition-transform duration-500 ease-in-out transform ${isAnimating
               ? 'translate-x-0'
               : 'translate-x-full'
               }`}>
               <div className="flex flex-col min-h-full max-h-screen bg-primary-bright">
-                <div className="flex items-center justify-between p-5 border-b-[0.5px] border-[#BABABA]">
+                <div className="flex items-center justify-between p-4 sm:p-5 border-b-[0.5px] border-[#BABABA]">
                   <h2
-                    className="text-[24px] font-normal flex gap-4 items-center text-black"
+                    className="text-[20px] sm:text-[24px] font-normal flex gap-2 sm:gap-4 items-center text-black"
                     id="slide-over-title"
                   >
-                    <span className="text-[24px] font-normal">Cart ({cartData?.totalQuantity})</span>
+                    <span className="text-[20px] sm:text-[24px] font-normal">Cart ({cartData?.totalQuantity})</span>
                     {isUpdating && (
                       <svg
                         className="animate-spin -ml-1 mr-3 h-4 w-4"
@@ -178,24 +178,24 @@ const CartDrawer: React.FC = () => {
                         className={`gap-10 ${cartIsUpdatingClass}`}
                       >
                         {cartData.lines.nodes.map((item) => (
-                          <div key={item.id} className="flex py-8 px-6  gap-6 flex-row justify-between items-start border-b-[0.5px] border-[#BABABA]">
-                            <div className="flex items-center gap-6 flex-row">
-                              <div className="overflow-hidden w-[136px] h-[136px] flex-shrink-0 rounded-3xl">
+                          <div key={item.id} className="flex py-6 sm:py-8 px-4 sm:px-6 gap-4 sm:gap-6 flex-row justify-between items-start border-b-[0.5px] border-[#BABABA]">
+                            <div className="flex items-center gap-4 sm:gap-6 flex-row">
+                              <div className="overflow-hidden w-[100px] sm:w-[136px] h-[100px] sm:h-[136px] flex-shrink-0 rounded-2xl sm:rounded-3xl">
                                 <img
                                   src={item.merchandise.image?.url || ''}
                                   alt={item.merchandise.image?.altText || item.merchandise.product.title}
                                   className="object-cover object-center w-full h-full"
                                 />
                               </div>
-                              <div className="flex-1 flex flex-col justify-between items-start gap-6">
+                              <div className="flex-1 flex flex-col justify-between items-start gap-4 sm:gap-6">
                                 <div className="flex flex-col gap-2">
-                                  <h3 className="!text-[18px] sm:!text-[18px] font-medium text-d-secondary">
+                                  <h3 className="!text-[16px] sm:!text-[18px] font-medium text-d-secondary">
                                     {item.merchandise.product.title}
                                   </h3>
-                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive !text-[18px] sm:!text-[18px] font-light text-d-secondary" />
+                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive !text-[16px] sm:!text-[18px] font-light text-d-secondary" />
                                 </div>
                                 <div className="flex items-center justify-between w-full">
-                                  <div className="flex items-center gap-6 p-2 rounded-full border-[0.5px] border-[#67645E]">
+                                  <div className="flex items-center gap-4 sm:gap-6 p-2 rounded-full border-[0.5px] border-[#67645E]">
                                     <button
                                       onClick={() => decreaseQuantity(item.id, item.quantity)}
                                       type="button"
@@ -224,7 +224,7 @@ const CartDrawer: React.FC = () => {
                                     onClick={() => removeItem(item.id)}
                                     type="button"
                                     disabled={isUpdating}
-                                    className="text-[#717171] text-[16px] font-light leading-[100%] tracking-[0.32px]"
+                                    className="text-[#717171] text-[14px] sm:text-[16px] font-light leading-[100%] tracking-[0.32px]"
                                   >
                                     Remove
                                   </button>
@@ -237,11 +237,11 @@ const CartDrawer: React.FC = () => {
                       </div>
                     ) : (
                       <div className="flex flex-col gap-4 justify-center items-center flex-1 min-h-[400px]">
-                        <p className="text-[#949494] text-[24px] font-semibold leading-normal tracking-[0.48px] capitalize">Your Cart is Empty</p>
+                        <p className="text-[#949494] text-[20px] sm:text-[24px] font-semibold leading-normal tracking-[0.48px] capitalize">Your Cart is Empty</p>
                         <button
                           type="button"
                           onClick={() => { window.location.href = '/shop'; }}
-                          className="w-full justify-center items-center flex text-[#3B3B3B] text-[16px] font-semibold leading-normal tracking-[0.32px] underline decoration-solid capitalize"
+                          className="w-full justify-center items-center flex text-[#3B3B3B] text-[14px] sm:text-[16px] font-semibold leading-normal tracking-[0.32px] underline decoration-solid capitalize"
                         >
                           Browse products
                         </button>
@@ -251,14 +251,14 @@ const CartDrawer: React.FC = () => {
                 </div>
 
                 <div>
-                  <div className="p-6 flex flex-col gap-3">
+                  <div className="p-4 sm:p-6 flex flex-col gap-3">
                     <div className="flex justify-between items-center">
-                      <p className="text-[#3B3B3B] text-[24px] font-medium leading-[120%] tracking-[0.48px]">Subtotal</p>
+                      <p className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]">Subtotal</p>
                       <p>
                         <Money
                           price={cartData && cartData.lines?.nodes.length ? cartData.cost.subtotalAmount : { amount: '0.00', currencyCode: (cartData?.cost?.subtotalAmount?.currencyCode || 'USD') as string }}
                           showCurrency={true}
-                          className="text-[#3B3B3B] text-[24px] font-medium leading-[120%] tracking-[0.48px]"
+                          className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]"
                         />
                       </p>
 
@@ -289,7 +289,7 @@ const CartDrawer: React.FC = () => {
                           </svg>
                         )}
                       </div>
-                      <label htmlFor="terms-checkbox" className="text-[#3B3B3B] text-[16px] font-light leading-[120%] tracking-[0.32px]">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
+                      <label htmlFor="terms-checkbox" className="text-[#3B3B3B] text-[14px] sm:text-[16px] font-light leading-[120%] tracking-[0.32px]">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
                     </div>
                     <ButtonSlide
                       text={`SHOP NOW`}
