@@ -1,4 +1,26 @@
-<section class="w-full h-full flex flex-col justify-center items-center">
-    <h1 class="text-4xl font-bold">404</h1>
-    <p class="text-2xl">Page not found</p>
-</section>
+---
+import Layout from '@/layouts/Layout.astro';
+import ButtonSlide from '@/components/ui/buttons/ButtonSlide.tsx';
+---
+
+<Layout>
+<section class="w-full sm:max-w-[573px] mx-auto sm:h-3/4 h-full flex flex-col justify-center items-center sm:mt-24 mt-[102px] sm:mb-0 mb-[175px] sm:px-0 px-section-m-gap-x">
+        <h1 class="sm:text-[166px] text-[64px] text-primary-olive font-bold leading-[120%] tracking-[3.32px] text-center">404</h1>
+        <div class="flex flex-col justify-center items-center gap-10">
+            <h2 class="sm:text-[48px] text-[24px] text-primary-olive font-bold leading-[120%] tracking-[0.96px] text-center">Something is missing!</h2>
+            <p class="text-primary-olive sm:text-[24px] text-[18px] leading-[140%] tracking-[0.48px] font-normal text-center">The page you’re looking for doesn’t exist or another error occurred.</p>
+            <ButtonSlide 
+                text="GO TO HOME PAGE"
+                normalBackground="transparent"
+                normalColor="#3B3B3B"
+                hoverBackground="#3B3B3B"
+                hoverColor="#FAFAFA"
+                borderColor="#3B3B3B"
+                hoverBorderColor="#FAFAFA"
+                transitionDuration="0.5s"
+                href="/"
+                className="w-full sm:w-[337px] flex justify-center"
+            />
+        </div>
+    </section>
+</Layout>
