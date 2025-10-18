@@ -4,23 +4,23 @@ import ButtonSlide from "../ui/buttons/ButtonSlide"
 const explore = [
     {
         text: "SHOP",
-        href: "#"
+        href: "/shop"
     },  
     {
         text: "ABOUT",
-        href: "#"
+        href: "/about"
     },
     {
         text: "INGREDIENTS",
-        href: "#"
+        href: "/ingredients"
     },
     {
         text: "TESTIMONIALS",
-        href: "#"
+        href: "/testimonials"
     },
     {
         text: "FAQS",
-        href: "#"
+        href: "/faqs"
     },
     // {
         // text: "LEARN",
@@ -32,18 +32,15 @@ const follow = [
 
     {
         text: "INSTAGRAM",
-        href: "#"
+        href: "https://www.instagram.com/dibrunolab/?hl=en"
     },
     {
         text: "FACEBOOK",
-        href: "#"
+        href: "https://www.facebook.com/dibrunolab/?locale=es_LA"
     },
 ]
 
 const contact = [
-    {
-        text: "(+506) 142 89556",
-    },
     {
         text: "support@dibruno.us",
     }
@@ -79,7 +76,7 @@ const contact = [
                             {
                                 follow.map((item): {text: string, href: string} => (
                                     <li>
-                                        <AnimatedLink text={item.text} href={item.href} />
+                                        <AnimatedLink text={item.text} href={item.href} target="_blank" />
                                     </li>
                                 ))
                             }
