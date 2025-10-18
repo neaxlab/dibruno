@@ -88,19 +88,19 @@ export const socialMediaAbout: { image: string, icon: string, url: string, alt: 
     {
         image: "/images/about/social-media-1.png",
         icon: "/images/about/social-media-icon-2.png",
-        url: "#",
+        url: "https://www.instagram.com/dibrunolab/?hl=en",
         alt: "Instagram"
     },
     {
         image: "/images/about/social-media-2.png",
-        icon: "/images/about/social-media-icon-2.png",
-        url: "#",
-        alt: "Instagram"
+        icon: "/images/about/social-media-icon-1.png",
+        url: "https://www.facebook.com/dibrunolab/?locale=es_LA",
+        alt: "Facebook"
     },
     {
         image: "/images/about/social-media-3.png",
         icon: "/images/about/social-media-icon-2.png",
-        url: "#",
+        url: "https://www.instagram.com/dibrunolab/?hl=en",
         alt: "Instagram"
     }
 ]

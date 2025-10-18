@@ -8,12 +8,12 @@ import { socialMediaAbout } from '../../constants/home/testimonials';
     <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive sm:text-left text-center">JOIN US ON <div class="inline-block relative w-fit">SOCIAL<span class="absolute -bottom-1 left-0 w-full bg-[#94B1B7] h-1/2 z-[-1]"></span></div></h1>
     <div class="w-full h-full grid grid-cols-3 sm:gap-10 gap-4">
         {socialMediaAbout.map((socialMedia, index) => (
-            <div class="social-media-item w-full h-full">
+            <a href={socialMedia.url} target="_blank" class="social-media-item w-full h-full">
                 <img src={socialMedia.image} alt={socialMedia.alt} class="social-media-image" />
                 <div class="social-media-overlay">
                     <img src={socialMedia.icon} alt={socialMedia.alt} class="social-media-icon" />
                 </div>
-            </div>
+            </a>
         ))}
     </div>
 </section>
