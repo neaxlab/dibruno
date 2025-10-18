@@ -112,7 +112,7 @@ export default function ProductsCarousel() {
                                 <h3 className="sm:text-d-title-2 text-d-products text-primary-olive">{product.title}</h3>
                                 <div className="flex flex-row w-full justify-between items-center">
                                     <ButtonSlide
-                                        text={`BUY FOR $${product.variants?.nodes?.[0]?.price?.amount ?? ''}`}
+                                        text={`BUY FOR $${product.variants?.nodes?.[0]?.price?.amount ? parseFloat(product.variants.nodes[0].price.amount).toFixed(2) : ''}`}
                                         href={`/shop/${product.handle}`}
                                         normalBackground="transparent"
                                         normalColor="#3B3B3B"

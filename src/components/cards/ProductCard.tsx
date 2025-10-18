@@ -45,15 +45,15 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {product.variants.nodes[0].compareAtPrice ? (
                         <>
                             <span className="leading-[100%] font-medium text-[20px] tracking-[2%] ">
-                                {`$${product.variants.nodes[0].price.amount}`}
+                                {`$${parseFloat(product.variants.nodes[0].price.amount).toFixed(2)}`}
                             </span>
-                            <span className="text-primary-granite leading-[100%] font-light text-[14px] line-through tracking-[2%]">
-                                {product.variants.nodes[0].compareAtPrice.amount}
+                            <span className="text-primary-granite leading-[100%] font-light text-[14px] line-through tracking-[2%] ml-2">
+                                {parseFloat(product.variants.nodes[0].compareAtPrice.amount).toFixed(2)}
                             </span>
                         </>
                     ) : (
                         <span>
-                            {`$${product.variants.nodes[0].price.amount}`}
+                            {`$${parseFloat(product.variants.nodes[0].price.amount).toFixed(2)}`}
                         </span>
                     )}
                 </div>
