@@ -128,19 +128,15 @@ export const MetafieldMetaobjectResult = z.object({
   }> = [];
   
   // Debug: Log fields to see what's available
-  console.log('MetafieldMetaobjectResult - fields:', fields);
   
   // Buscar el campo step_2 en los campos del metaobject
   const step2Field = fields.step_2;
-  console.log('MetafieldMetaobjectResult - step2Field:', step2Field);
   
   // También buscar otros posibles campos de pasos
   const stepsField = fields.steps || fields.step || fields.step_list || fields.step_list_2;
-  console.log('MetafieldMetaobjectResult - stepsField:', stepsField);
   
   // Buscar cualquier campo que contenga "step" en el nombre
   const stepFields = Object.keys(fields).filter(key => key.toLowerCase().includes('step'));
-  console.log('MetafieldMetaobjectResult - stepFields:', stepFields);
   
   if (step2Field) {
     try {
@@ -202,7 +198,6 @@ export const MetafieldMetaobjectResult = z.object({
     }
   }
   
-  console.log('MetafieldMetaobjectResult - final steps:', steps);
   
   return {
     ...data,
