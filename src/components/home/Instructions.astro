@@ -5,20 +5,14 @@ import InstructionsCarousel from '../commons/instructionsCarousel';
 import { getProductByTitle } from '../../utils/shopify';
 
 // Orden y títulos exactos de Shopify
-// const productTitles = [
-//   'ColorVive Mist (Silverfree)',
-//   'ScalpCalm Shampoo (3% Apiscalp)',
-//   'ScalpSoothe Serum (3% Apiscalp)',
-//   'ShieldLite Mist Spray (3% Procapil)',
-//   'RootFlourish Mask (5% Procapil)'
-// ];
-
 const productTitles = [
-  'DiBruno Hair Regrowth Accelerator Leave-In',
-  'DiBruno Anti Hair Loss Alopecia Hair Mask 8 oz',
-  'DiBruno Anti Hair Loss Alopecia Shampoo 8oz',
-  'DiBruno The Hair Vitamin Oil 1 OZ',
-]
+  'ColorVive Mist (Silverfree)',
+  'ScalpCalm Shampoo (3% Apiscalp)',
+  'ScalpSoothe Serum (3% Apiscalp)',
+  'ShieldLite Mist Spray (3% Procapil)',
+  'RootFlourish Mask (5% Procapil)'
+];
+
 
 const buyerIP = Astro.request.headers.get('x-forwarded-for') || '127.0.0.1';
 const productsLite = await Promise.all(
@@ -54,7 +48,7 @@ const instructions = Object.fromEntries(
 <>
 <section class="sm:flex hidden max-w-screen-2xl mx-auto font-sans sm:pb-section-d-gap-y pt-4 pb-section-m-gap-y flex-col gap-10">
     <div class="w-full relative" id="instructions-container">
-        <img src="/images/home/how-to.png" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
+        <img src="/images/home/instructions.avif" alt="Instructions" class="w-full h-full object-cover" id="instructions-image" />
         
         <!-- Bullet 1 - Posición relativa a la imagen -->
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
@@ -85,14 +79,14 @@ const instructions = Object.fromEntries(
         </div>
         
         <!-- Bullet 5 - Posición relativa a la imagen -->
-        <!--
+        
         <div class="absolute flex flex-col gap-10 w-fit h-fit bullet cursor-pointer" 
              id="bullet-5"
              data-index="5">
             <Bullet />
         </div>
-        -->
-        <div class="fixed top-0 left-0 w-full h-full z-10 hidden ingredients">
+       
+        <div class="fixed top-10 left-0 w-full h-full z-10 hidden ingredients">
             <div class="w-full h-full bg-primary-olive opacity-20 ingredients-fill"></div>
             <div class="absolute top-0 right-0 flex flex-col gap-10 bg-primary-bright w-[684px] h-full text-primary-olive p-10 ingredients-panel">
                 <div class="flex flex-row justify-between items-center">
@@ -131,11 +125,11 @@ const instructions = Object.fromEntries(
         const instructions = (window as any).instructions || [];
 
         const bulletPositions = [
-            { top: 35, left: 31 },
-            { top: 40, left: 43.5 },
-            { top: 30, right: 40 },
-            { top: 55, right: 28.5 },
-            { top: 65, left: 48 }
+            { top: 15, left: 19.5 },
+            { top: 18.5, left: 32 },
+            { top: 18, right: 40 },
+            { top: 28, right: 28 },
+            { top: 22, left: 45 }
         ];
 
         const positionBullets = () => {
