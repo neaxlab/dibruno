@@ -1,6 +1,8 @@
 ---
 import AnimatedLink from "../ui/buttons/AnimatedLink"
 import ButtonSlide from "../ui/buttons/ButtonSlide"
+import SubscribeForm from "./SubscribeForm"
+import EmailLink from "./EmailLink"
 const explore = [
     {
         text: "SHOP",
@@ -90,9 +92,11 @@ const contact = [
                         <ul class="flex flex-col gap-4">
                             {
                                 contact.map((item): {text: string, href: string} => (
-                                    <li class="text-nowrap">
-                                        {item.text}
-                                    </li>
+                                    <EmailLink 
+                                        client:load
+                                        email={item.text} 
+                                        className="" 
+                                    />
                                 ))
                             }
                             
@@ -103,26 +107,12 @@ const contact = [
         </div>
         <div class="subscribe-w absolute sm:top-[640px] top-[370px] sm:right-16 bg-primary-bright px-8 sm:px-10 py-10 sm:mx-0 mx-auto sm:h-[577px] h-[400px] flex flex-col sm:gap-10 gap-6">
             <h2 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">
-                HEAR MORE <br /> FROM OUR
+                HEAR MORE <br /> FROM US
             </h2>
             <p class="text-d-secondary text-primary-olive text-lg">
                 Subscribe to receive special offers, giveaways, and be the first to know about new releases and news.
             </p>
-            <div class="flex flex-col gap-4">
-                <input type="email" placeholder="Enter your email" class="text-d-secondary text-primary-olive w-full h-10 border-0 border-b border-b-olive p-2 bg-primary-bright focus:outline-none focus:ring-0 focus:border-b-olive" />
-                <ButtonSlide
-                    text="SUBSCRIBE"
-                    href="#"
-                    normalBackground="transparent"
-                    normalColor="#3B3B3B"
-                    hoverBackground="#3B3B3B"
-                    hoverColor="#FAFAFA"
-                    borderColor="#3B3B3B"
-                    hoverBorderColor="#FAFAFA"
-                    transitionDuration="0.5s"
-                    className="w-full flex justify-center"
-                />
-            </div>  
+            <SubscribeForm client:load />  
         </div>
         <div class="flex sm:flex-row flex-col sm:justify-between align-start sm:align-center text-d-footer text-[#A9A9A9] pt-10 sm:px-section-d-gap-x  px-0 sm:my-10 my-0 gap-6">
             <span class="">

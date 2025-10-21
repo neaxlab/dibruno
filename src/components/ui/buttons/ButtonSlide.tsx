@@ -13,6 +13,8 @@ interface ButtonSlideProps {
   transitionDuration?: string;
   className?: string;
   disabled?: boolean;
+  type?: 'button' | 'submit';
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const ButtonSlide: React.FC<ButtonSlideProps> = ({
@@ -26,7 +28,9 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
   hoverBorderColor = "#3B3B3B",
   transitionDuration = "0.5s",
   className = "",
-  disabled = false
+  disabled = false,
+  type,
+  onClick
 }) => {
   // Estilos CSS personalizados usando variables CSS
   const styles = React.useMemo(() => ({
@@ -47,9 +51,25 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
     transitionDuration
   ]);
 
+  // Si tiene type, renderizar como botón, sino como enlace
+  if (type) {
+    return (
+      <button 
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+        style={styles}
+      >
+        <span>{text}</span>
+      </button>
+    );
+  }
+
   return (
     <a 
       href={disabled ? undefined : href}
+      onClick={onClick}
       className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       style={styles}
     >
