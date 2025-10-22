@@ -11,9 +11,11 @@ const navigationItems = [
   // { href: "/learn", label: "Learn" },
 ];
 
-const textColor = "text-primary-olive";
+// Colores dinámicos según la ruta
+const isShopRoute = currentPath.startsWith('/shop');
+const textColor = isShopRoute ? "text-primary-lotion" : "text-primary-olive";
 const bgColor = "bg-primary-olive";
-const logoSrc = "/images/home/logo-olive.svg";
+const logoSrc = isShopRoute ? "/images/home/logo-white.svg" : "/images/home/logo-olive.svg";
 ---
 
 <header
@@ -28,7 +30,7 @@ const logoSrc = "/images/home/logo-olive.svg";
       <img
         src={logoSrc}
         alt="Logo"
-        class="w-[150px] h-[30px] transition-all duration-300 sm:mx-16 mx-0"
+        class={`w-[150px] h-[30px] transition-all duration-300 sm:mx-16 mx-0 ${textColor}`}
         loading="eager"
       />
     </a>
@@ -48,13 +50,13 @@ const logoSrc = "/images/home/logo-olive.svg";
           >
             <span class="flex items-center gap-2">
               <span
-                class={`bullet w-0 h-0 rounded-full transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px] ${bgColor}`}
+                class="bullet w-0 h-0 rounded-full transition-all duration-300 group-hover:w-[6px] group-hover:h-[6px] group-[.active]:w-[6px] group-[.active]:h-[6px]"
                 aria-hidden="true"
               />
               <span>{label}</span>
             </span>
             <div
-              class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${bgColor}`}
+              class="underline absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100"
               aria-hidden="true"
             />
           </a>
@@ -65,7 +67,7 @@ const logoSrc = "/images/home/logo-olive.svg";
     <!-- Right Side Actions -->
     <div class="flex flex-row items-center gap-4 md:gap-10">
       <div class="sm:mr-16 mr-0">
-        <CartIcon client:load />
+        <CartIcon client:load isScrolled={false} />
       </div>
       
       <!-- Mobile Menu Button -->
@@ -160,16 +162,48 @@ const logoSrc = "/images/home/logo-olive.svg";
     if (!navbar) return;
 
     const currentScrollY = window.scrollY;
+    const isShop = window.location.pathname.startsWith('/shop');
+    
     // Nunca ocultar el navbar
     navbar.style.transform = "translateY(0)";
+    
     // Fondo blanco cuando se sale de la posición inicial
     if (currentScrollY > 0) {
       navbar.classList.add("scrolled");
+      
+      // En shop, cambiar a colores oscuros cuando se hace scroll
+      if (isShop) {
+        navbar.classList.add("shop-scrolled");
+        // Actualizar el CartIcon para que use color oscuro
+        updateCartIcon(true);
+      }
     } else {
       navbar.classList.remove("scrolled");
+      
+      // En shop, quitar los colores oscuros cuando se vuelve al inicio
+      if (isShop) {
+        navbar.classList.remove("shop-scrolled");
+        // Actualizar el CartIcon para que use color claro
+        updateCartIcon(false);
+      }
     }
+    
     lastScrollY = currentScrollY;
     ticking = false;
+  }
+
+  // Función para actualizar el CartIcon
+  function updateCartIcon(isScrolled: boolean) {
+    const cartButton = document.querySelector('.cart-button');
+    if (cartButton) {
+      if (isScrolled) {
+        cartButton.classList.remove('text-primary-lotion');
+        cartButton.classList.add('text-primary-olive');
+      } else {
+        cartButton.classList.remove('text-primary-olive');
+        cartButton.classList.add('text-primary-lotion');
+      }
+    }
   }
 
   function onScroll() {
@@ -369,5 +403,56 @@ const logoSrc = "/images/home/logo-olive.svg";
   /* Fondo blanco cuando se hace scroll */
   #navbar.scrolled {
     @apply bg-primary-lotion;
+  }
+
+  /* Colores oscuros cuando se hace scroll en shop */
+  #navbar.shop-scrolled {
+    @apply text-primary-olive;
+  }
+
+  #navbar.shop-scrolled .nav-link {
+    @apply text-primary-olive;
+  }
+
+  /* Cambiar logo en shop cuando se hace scroll */
+  #navbar.shop-scrolled img {
+    filter: brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  }
+
+  /* Estilos por defecto para páginas que no son shop */
+  #navbar .nav-link .bullet {
+    @apply bg-primary-olive;
+  }
+
+  #navbar .nav-link .underline {
+    @apply bg-primary-olive;
+  }
+
+  /* Colores iniciales para shop (claro) - solo en rutas shop */
+  body[data-page*="shop"] #navbar .cart-text {
+    @apply text-primary-lotion;
+  }
+
+  body[data-page*="shop"] #navbar .nav-link .bullet {
+    @apply bg-primary-lotion;
+  }
+
+  body[data-page*="shop"] #navbar .nav-link .underline {
+    @apply bg-primary-lotion;
+  }
+
+  /* Cambiar color del Cart en shop cuando se hace scroll */
+  #navbar.shop-scrolled .cart-text {
+    @apply text-primary-olive !important;
+  }
+
+  /* Cambiar color de los bullets en shop cuando se hace scroll */
+  #navbar.shop-scrolled .nav-link .bullet {
+    @apply bg-primary-olive !important;
+  }
+
+  /* Cambiar color de las rayas debajo en shop cuando se hace scroll */
+  #navbar.shop-scrolled .nav-link .underline {
+    @apply bg-primary-olive !important;
   }
 </style>

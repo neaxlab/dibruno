@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { initCart, cart, isCartDrawerOpen } from '@/stores/cart';
 
-const CartIcon: React.FC = () => {
+interface CartIconProps {
+  isScrolled?: boolean;
+}
+
+const CartIcon: React.FC<CartIconProps> = ({ isScrolled = false }) => {
   const [cartData, setCartData] = useState(cart.get());
   const [isHydrated, setIsHydrated] = useState(false);
+  
+  // Detectar si estamos en la ruta shop
+  const isShopRoute = typeof window !== 'undefined' && window.location.pathname.startsWith('/shop');
 
   useEffect(() => {
     initCart();
@@ -22,7 +29,11 @@ const CartIcon: React.FC = () => {
   return (
     <div>
       <button 
-        className="text-d-nav text-primary-olive hover:text-primary-granite transition-colors cursor-pointer"
+        className={`cart-button text-d-nav hover:text-primary-granite transition-colors cursor-pointer ${
+          isShopRoute 
+            ? (isScrolled ? 'text-primary-olive' : 'text-primary-lotion')
+            : 'text-primary-olive'
+        }`}
         onClick={openCart}
       >
         Cart {isHydrated && cartData && `(${cartData.totalQuantity})`}
