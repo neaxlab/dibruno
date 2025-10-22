@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const {
-	title = "DiBruno Lab | Organic & Vegan Hair Loss Treatment & Hair Growth",
-	description = "Dibruno Lab offers vegan, organic hair care solutions to stop hair loss, promote regrowth, and restore a healthy scalp. Science with conscience, for stronger, fuller hair.",
+	title = "DiBruno Lab – Vegan Hair Regrowth & Anti-Hair-Loss Solutions",
+	description = "Explore DiBruno Lab’s 100% vegan, organic formulas for hair regrowth and anti-hair-loss. Clinically proven, eco-friendly, cruelty-free – reclaim stronger, healthier hair.",
 } = Astro.props as Props;
 
 const FB_PIXEL_ID = '25194880230109237';
@@ -27,8 +27,22 @@ const fbPixelNoScriptHtml = `<noscript><img height="1" width="1" src="https://ww
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		
+		<!-- Open Graph / Facebook / WhatsApp -->
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
+		<meta property="og:image" content="/images/home/DiBrunoLab-OG.png"> 
+		<meta property="og:url" content={Astro.url.href}>
+		<meta property="og:type" content="website">
+	  
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content={title}>
+		<meta name="twitter:description" content={description}>
+		<meta name="twitter:image" content="/images/home/DiBrunoLab-TW.png">
 		<Fragment set:html={fbPixelHeadHtml} />
 	</head>
 	<body>
