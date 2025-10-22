@@ -1,0 +1,44 @@
+---
+import type { ShopPolicies } from "@/types/policies";
+
+interface Props {
+  policies: ShopPolicies;
+  policyType?: string;
+}
+
+const { policies, policyType } = Astro.props;
+
+const policySections = [
+  "privacyPolicy",
+  "refundPolicy",
+  "shippingPolicy",
+  "termsOfService",
+  "subscriptionPolicy",
+];
+
+// Si se especifica un tipo de política, mostrar solo esa
+const sectionsToShow = policyType ? [policyType] : policySections;
+---
+
+<div>
+  <div>
+     {
+       sectionsToShow.map((sectionKey) => {
+        const policy = policies[sectionKey as keyof ShopPolicies];
+
+        if (!policy || typeof policy === "string") return null;
+
+        return (
+          <div class="max-w-screen-2xl mx-auto pt-24">
+            <div>
+              <h2 class="text-d-title-1">{policy.title}</h2>
+            </div>
+            <div>
+              <div set:html={policy.body}></div>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>

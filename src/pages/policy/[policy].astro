@@ -1,0 +1,75 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import PoliciesSection from '@/components/policies/PoliciesSection.astro';
+import { getShopPolicies } from '@/utils/shopify';
+
+// Define the static paths for all policy types
+export async function getStaticPaths() {
+  const policyTypes = [
+    'privacy-policy',
+    'refund-policy', 
+    'shipping-policy',
+    'terms-of-service',
+    'subscription-policy'
+  ];
+
+  return policyTypes.map((policy) => ({
+    params: { policy }
+  }));
+}
+
+// Get the policy type from the URL slug
+const { params } = Astro;
+const policyType = params.policy;
+
+// Valid policy types
+const validPolicyTypes = [
+  'privacy-policy',
+  'refund-policy', 
+  'shipping-policy',
+  'terms-of-service',
+  'subscription-policy'
+];
+
+// Map URL slugs to policy keys
+const policyKeyMap: Record<string, string> = {
+  'privacy-policy': 'privacyPolicy',
+  'refund-policy': 'refundPolicy',
+  'shipping-policy': 'shippingPolicy', 
+  'terms-of-service': 'termsOfService',
+  'subscription-policy': 'subscriptionPolicy'
+};
+
+// Validate policy type
+if (!policyType || !validPolicyTypes.includes(policyType)) {
+  throw new Error(`Invalid policy type: ${policyType}`);
+}
+
+// Get buyer IP from request headers
+const buyerIP = Astro.request.headers.get('x-forwarded-for') || 
+                Astro.request.headers.get('x-real-ip') || 
+                '127.0.0.1';
+
+let policies;
+try {
+  policies = await getShopPolicies(buyerIP);
+} catch (error) {
+  console.error('Error fetching shop policies:', error);
+  // Fallback policies structure
+  policies = {
+    name: 'DiBruno Lab',
+    privacyPolicy: null,
+    refundPolicy: null,
+    shippingPolicy: null,
+    termsOfService: null,
+    subscriptionPolicy: null
+  };
+}
+
+// Get the policy key from the slug
+const policyKey = policyKeyMap[policyType];
+---
+
+<Layout>
+  <PoliciesSection policies={policies} policyType={policyKey} />
+</Layout>

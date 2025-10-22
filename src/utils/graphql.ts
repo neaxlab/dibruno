@@ -452,3 +452,41 @@ export const CollectionProductsQuery = `#graphql
     }
   }
 `;
+
+export const ShopPoliciesQuery = `#graphql
+  query {
+    shop {
+      name
+      privacyPolicy {
+        title
+        body
+        url
+        handle
+      }
+      refundPolicy {
+        title
+        body
+        url
+        handle
+      }
+      shippingPolicy {
+        title
+        body
+        url
+        handle
+      }
+      termsOfService {
+        title
+        body
+        url
+        handle
+      }
+      subscriptionPolicy {
+        title
+        body
+        url
+        handle
+      }
+    }
+  }
+`;

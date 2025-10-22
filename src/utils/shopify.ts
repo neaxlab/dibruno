@@ -14,6 +14,7 @@ import {
   CollectionProductsQuery,
   StepMetaobjectQuery,
   ProductsByQuery,
+  ShopPoliciesQuery,
 } from "./graphql";
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -498,4 +499,16 @@ export const getProductsByHandle = async (options: {
     limit,
     buyerIP
   });
+};
+
+// Get shop policies
+export const getShopPolicies = async (buyerIP: string = "127.0.0.1") => {
+  const data = await makeShopifyRequest(ShopPoliciesQuery, {}, buyerIP);
+  const { shop } = data;
+
+  if (!shop) {
+    throw new Error("No shop policies found");
+  }
+
+  return shop;
 };
