@@ -1,5 +1,128 @@
 ---
-// Componente de testimonios con 12 secciones
+import TestimonialsCarouselMobile from '../commons/testimonialsCarouselMobile';
+// Componente de testimonios con 10 secciones
+const testimonials = [
+//   [
+//     {
+//       url: "/images/testimonials/testimonialspage-1.png",
+//       alt: "Testimonio 1",
+//       class:""
+//     },
+//     {
+//       url: "/images/testimonials/testimonialspage-2.png",
+//       alt: "Testimonio 1b",
+//       class:""
+//     }
+//   ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-3.png",
+      alt: "Testimonio 2",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-4.png",
+      alt: "Testimonio 2b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-5.png",
+      alt: "Testimonio 3",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-6.png",
+      alt: "Testimonio 3b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-7.png",
+      alt: "Testimonio 4",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-8.png",
+      alt: "Testimonio 4b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-9.png",
+      alt: "Testimonio 5",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-10.png",
+      alt: "Testimonio 5b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-11.png",
+      alt: "Testimonio 6",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-12.png",
+      alt: "Testimonio 6b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-13.png",
+      alt: "Testimonio 7",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-14.png",
+      alt: "Testimonio 7b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-15.png",
+      alt: "Testimonio 8",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-16.png",
+      alt: "Testimonio 8b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-17.png",
+      alt: "Testimonio 9",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-18.png",
+      alt: "Testimonio 9b",
+      class:""
+    }
+  ],
+  [
+    {
+      url: "/images/testimonials/testimonialspage-19.png",
+      alt: "Testimonio 10",
+      class:""
+    },
+    {
+      url: "/images/testimonials/testimonialspage-20.png",
+      alt: "Testimonio 10b",
+      class:""
+    }
+  ]
+];
 ---
 
 <style>
@@ -264,96 +387,27 @@
         }
     </style>
 
-<div class="testimonials-page">
+<div class="w-full h-full sm:px-section-d-gap-x px-0 mx-auto">
     <!-- Sección sobrepuesta -->
     <div class="overlay-section">
-        <div class="overlay-content">
+        <div class="sm:overlay-content">
             <h1 class="overlay-title overlay-title-left">Every Strand</h1>
             <h1 class="overlay-title overlay-title-right">Tells a Story</h1>
         </div>
     </div>
 
-    <!-- Contenedor de las 11 secciones -->
-    <div class="sections-container">
-        <!-- Sección 1 - 100dvh -->
-        <section class="section full-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-1.png" alt="Testimonio 1">
-                <img src="/images/testimonials/testimonialspage-2.png" alt="Testimonio 1b" class="sm:w-[15%] w-full h-full object-cover sm:object-[0%_30%]">
+    <!-- Contenedor de las 10 secciones -->
+    <div class="sections-container sm:block hidden">
+        {testimonials.map((section, sectionIndex) => (
+            <div class={`w-full h-full flex sm:flex-row flex-col items-center ${sectionIndex === 0 ? `sm:mt-[557px] mt-[250px]` : `sm:mt-20 mt-10`}  ${sectionIndex % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
+                {section.map((testimonial) => (
+                    <img src={testimonial.url} alt={testimonial.alt} />
+                ))}
             </div>
-        </section>
+        ))}
+    </div>
+    <div class="sm:hidden block pb-section-m-gap-y pt-[250px]">
 
-        <!-- Sección 2 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-3.png" alt="Testimonio 2">
-                <img src="/images/testimonials/testimonialspage-4.png" alt="Testimonio 2b">
-            </div>
-        </section>
-
-        <!-- Sección 3 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-5.png" alt="Testimonio 3">
-                <img src="/images/testimonials/testimonialspage-6.png" alt="Testimonio 3b">
-            </div>
-        </section>
-
-        <!-- Sección 4 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-7.png" alt="Testimonio 4">
-                <img src="/images/testimonials/testimonialspage-8.png" alt="Testimonio 4b">
-            </div>
-        </section>
-
-        <!-- Sección 5 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-9.png" alt="Testimonio 5">
-                <img src="/images/testimonials/testimonialspage-10.png" alt="Testimonio 5b">
-            </div>
-        </section>
-
-        <!-- Sección 6 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-11.png" alt="Testimonio 6">
-                <img src="/images/testimonials/testimonialspage-12.png" alt="Testimonio 6b">
-            </div>
-        </section>
-
-        <!-- Sección 7 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-13.png" alt="Testimonio 7">
-                <img src="/images/testimonials/testimonialspage-14.png" alt="Testimonio 7b">
-            </div>
-        </section>
-
-        <!-- Sección 8 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-15.png" alt="Testimonio 8">
-                <img src="/images/testimonials/testimonialspage-16.png" alt="Testimonio 8b">
-            </div>
-        </section>
-
-        <!-- Sección 9 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-17.png" alt="Testimonio 9">
-                <img src="/images/testimonials/testimonialspage-18.png" alt="Testimonio 9b">
-            </div>
-        </section>
-
-        <!-- Sección 10 - 60dvh -->
-        <section class="section medium-height">
-            <div class="section-image">
-                <img src="/images/testimonials/testimonialspage-19.png" alt="Testimonio 10">
-                <img src="/images/testimonials/testimonialspage-20.png" alt="Testimonio 10b">
-            </div>
-        </section>
-
+        <TestimonialsCarouselMobile testimonialsMobile={testimonials} client:load />
     </div>
 </div>
