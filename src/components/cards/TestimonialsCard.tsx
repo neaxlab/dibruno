@@ -3,13 +3,13 @@ import { getDiscount } from '../../hooks/discounts';
 
 export default function TestimonialsCard({ testimonial }: { testimonial: Testimonial }) {
     return (
-        <article className="relative group flex flex-col gap-4 w-full max-w-[466px] h-[596px] text-primary-olive text-d-products hover:cursor-pointer">
-            <div className="relative w-full sm:h-[596px] h-[435px] overflow-hidden bg-primary-bright rounded-lg transition-all duration-300 ease-in-out">
-                <div className="w-full h-[596px] rounded-lg">
+        <article className="relative group flex flex-col gap-4 w-full max-w-[466px] sm:h-[596px] h-full text-primary-olive text-d-products hover:cursor-pointer">
+            <div className="relative w-full sm:h-[596px] h-full overflow-hidden bg-primary-bright rounded-lg transition-all duration-300 ease-in-out">
+                <div className="w-full sm:h-[596px] h-full rounded-lg">
                     <img
                         src={testimonial.image}
                         alt="TestimonialsCard"
-                        className="w-full h-[596px] object-cover"
+                        className="w-full sm:h-[596px] h-full object-cover"
                     />
                 </div>
             </div>

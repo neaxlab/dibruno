@@ -12,7 +12,7 @@ const instructionsData = Object.values(instructions);
 
 export default function TestimonialsCarousel() {
     return (
-        <section className="sm:hidden w-full h-full font-sans px-section-m-gap-x pb-section-m-gap-y">
+        <section className="sm:hidden w-full h-full font-sans">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
