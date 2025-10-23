@@ -11,7 +11,7 @@ try {
 } catch (error) {
     ip = null;
 }
-const limit = 3;
+const limit = 4;
 const after = null;
 
 const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ buyerIP: ip || "127.0.0.1", limit, after });

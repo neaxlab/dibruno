@@ -18,7 +18,7 @@ export default function ProductsCarousel({ products }: { products: any }) {
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
                 loop={false}
-                slidesPerView={1}
+                slidesPerView={1.2}
                 spaceBetween={12}
                 breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3, spaceBetween: 24, } }}
                 scrollbar={{ el: '.custom-scrollbar', draggable: true, hide: false }}

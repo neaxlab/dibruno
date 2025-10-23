@@ -23,7 +23,7 @@ export default function TestimonialsCarousel({ testimonialsMobile }: { testimoni
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
                 loop={false}
-                slidesPerView={1}
+                slidesPerView={1.2}
                 spaceBetween={12}
                 breakpoints={{ 640: { slidesPerView: 1, spaceBetween: 16 }, 1024: { slidesPerView: 3.2, spaceBetween: 24 } , 1536: { slidesPerView: 4.2, spaceBetween: 24 } }}
                 className='w-full h-full overflow-visible relative'
