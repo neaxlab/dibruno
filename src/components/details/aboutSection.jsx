@@ -121,7 +121,6 @@ export default function AboutSection({ product, faqs = [] }) {
         if (ingredientsPage >= totalPages - 1) return;
         setIngredientsPage((prev) => Math.min(totalPages - 1, prev + 1));
     };
-    console.log(product);
     return (
         <section className="w-full -font-sans px-section-d-gap-x pt-[200px] flex flex-col gap-10">
             <h1 className="text-d-title-1 text-primary-olive text-center">
