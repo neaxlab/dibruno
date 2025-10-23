@@ -1,36 +1,33 @@
-import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { useState } from 'react';
+import { Navigation, Pagination as SwiperPagination, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import {instructions} from '../../constants/home/instructions';
-const instructionsData = Object.values(instructions);
-
-import { getProductByTitle } from '../../utils/shopify';
-
-// Orden y títulos exactos de Shopify
-const productTitles = [
-  'ShieldMist Spray (5% Procapil)',
-  'RootPure Shampoo⁠ (5% Procapil)',
-  'VitaLush Serum (5% Procapil)',
-  'SproutMist Spray (5% Procapil)',
-  'RootFlourish Mask (5% Procapil)'
-];
+import Pagination from './pagination';
 
 
 
 export default function TestimonialsCarousel({ productsLite }: { productsLite: any[] }) {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [swiper, setSwiper] = useState<SwiperType | null>(null);  
+
     return (
         <section className="sm:hidden w-full h-full font-sans">
             <Swiper
-                modules={[Navigation, Pagination, Scrollbar]}
+                modules={[Navigation, SwiperPagination, Scrollbar]}
                 direction='horizontal'
                 loop={false}
                 slidesPerView={1}
                 spaceBetween={12}
                 className='w-full h-full overflow-visible relative'
+                onSwiper={setSwiper}
+                onSlideChange={(swiper) => {
+                    setActiveIndex(swiper.activeIndex);
+                }}
             >
                 {productsLite.map((product, index) => (
                     <SwiperSlide key={index}>
@@ -55,6 +52,9 @@ export default function TestimonialsCarousel({ productsLite }: { productsLite: a
                         </div>
                     </SwiperSlide>
                 ))}
+                <div className="w-full justify-center items-center z-10 pt-8 sm:!hidden !flex pb-20 pt-10">
+                    <Pagination totalSlides={productsLite.length} activeIndex={activeIndex} />
+                </div>
             </Swiper>
         </section>
     )
