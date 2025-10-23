@@ -299,12 +299,18 @@ export const MetafieldListMetaobjectResult = z.object({
   };
 });
 
+export const SEOResult = z.object({
+  title: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+});
+
 export const ProductResult = z
   .object({
     id: z.string(),
     title: z.string(),
     handle: z.string(),
     description: z.string().nullable().optional(),
+    seo: SEOResult.nullable().optional(),
     images: z.object({
       nodes: z.array(ImageResult),
     }),

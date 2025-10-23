@@ -4,15 +4,22 @@ import "../styles/global.css";
 import Navbar from "@/components/commons/navbar.astro";
 import Footer from "@/components/commons/footer.astro";
 import CartDrawer from "@/components/cart/CartDrawer.tsx";
+import SEO from "@/components/commons/SEO.astro";
 
 export interface Props {
 	title?: string;
 	description?: string;
+	canonicalUrl?: string;
+	productImage?: string;
+	productSchema?: any;
 }
 
 const {
 	title = "DiBruno Lab – Vegan Hair Regrowth & Anti-Hair-Loss Solutions",
-	description = "Explore DiBruno Lab’s 100% vegan, organic formulas for hair regrowth and anti-hair-loss. Clinically proven, eco-friendly, cruelty-free – reclaim stronger, healthier hair.",
+	description = "Explore DiBruno Lab's 100% vegan, organic formulas for hair regrowth and anti-hair-loss. Clinically proven, eco-friendly, cruelty-free – reclaim stronger, healthier hair.",
+	canonicalUrl,
+	productImage,
+	productSchema,
 } = Astro.props as Props;
 
 const FB_PIXEL_ID = '25194880230109237';
@@ -31,18 +38,39 @@ const fbPixelNoScriptHtml = `<noscript><img height="1" width="1" src="https://ww
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		
+		<!-- Canonical URL -->
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+		
 		<!-- Open Graph / Facebook / WhatsApp -->
 		<meta property="og:title" content={title}>
 		<meta property="og:description" content={description}>
-		<meta property="og:image" content="/images/home/DiBrunoLab-OG.png"> 
-		<meta property="og:url" content={Astro.url.href}>
-		<meta property="og:type" content="website">
+		<meta property="og:image" content={productImage || "/images/home/DiBrunoLab-OG.png"}> 
+		<meta property="og:url" content={canonicalUrl || Astro.url.href}>
+		<meta property="og:type" content={productSchema ? "product" : "website"}>
+		{productSchema && <meta property="og:price:amount" content={productSchema.offers?.price || ""} />}
+		{productSchema && <meta property="og:price:currency" content={productSchema.offers?.priceCurrency || ""} />}
 	  
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content={title}>
 		<meta name="twitter:description" content={description}>
-		<meta name="twitter:image" content="/images/home/DiBrunoLab-TW.png">
+		<meta name="twitter:image" content={productImage || "/images/home/DiBrunoLab-TW.png"}>
+
+		<!-- Datos estructurados Schema.org -->
+		{productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
+		
+		<!-- Meta tags SEO adicionales -->
+		<SEO 
+			title={title}
+			description={description}
+			image={productImage}
+			url={canonicalUrl}
+			type={productSchema ? "product" : "website"}
+			price={productSchema?.offers?.price}
+			currency={productSchema?.offers?.priceCurrency}
+			availability={productSchema?.offers?.availability}
+		/>
+		
 		<Fragment set:html={fbPixelHeadHtml} />
 	</head>
 	<body data-page={Astro.url.pathname}>

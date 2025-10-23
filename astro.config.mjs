@@ -9,6 +9,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://dibrunolab.com', // Reemplaza con tu dominio real
     adapter: vercel(),
     integrations: [tailwind(), react()],
     vite: {

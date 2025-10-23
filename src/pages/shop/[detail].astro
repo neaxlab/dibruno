@@ -4,6 +4,7 @@ import Layout from '@/layouts/Layout.astro';
 import Banner from '@/components/details/banner.astro';
 import ChatWithUS from '@/components/faqs/chatWithUS.astro';
 import { getProductByHandle, getProductRecommendations } from "@/utils/shopify";
+import { generateProductMeta, generateProductSchema } from "@/utils/seo";
 import AboutSection from '@/components/details/aboutSection.jsx';
 import AboutSectionMobile from '@/components/details/aboutSectionMobile.jsx';
 const { detail } = Astro.params;
@@ -30,9 +31,19 @@ if ((product.faq_s as any)?.faqs && (product.faq_s as any).faqs.length > 0) {
   const { processFAQsWithContent } = await import("@/utils/shopify");
   productFAQs = await processFAQsWithContent((product.faq_s as any).faqs, ip || "127.0.0.1");
 }
+
+// Generar datos SEO dinámicos usando la configuración centralizada
+const productMeta = generateProductMeta(product);
+const productSchema = generateProductSchema(product, productMeta);
 ---
 
-<Layout>
+<Layout 
+    title={productMeta.title}
+    description={productMeta.description}
+    canonicalUrl={productMeta.url}
+    productImage={productMeta.image}
+    productSchema={productSchema}
+>
     <Banner product={product} recommendations={recommendations} />
     <div class="w-full h-full sm:block hidden">
         <AboutSection product={product} faqs={productFAQs as any} client:load />

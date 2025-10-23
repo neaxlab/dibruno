@@ -1,0 +1,55 @@
+---
+export interface SEOProps {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  type?: 'website' | 'product' | 'article';
+  price?: string;
+  currency?: string;
+  availability?: string;
+  brand?: string;
+  category?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  url,
+  type = 'website',
+  price,
+  currency,
+  availability,
+  brand = 'DiBruno Lab',
+  category = 'Hair Care'
+} = Astro.props;
+---
+
+<!-- Meta tags adicionales para SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="DiBruno Lab" />
+<meta name="keywords" content="cabello, cuidado capilar, vegano, orgánico, anti-caída, crecimiento capilar, DiBruno Lab" />
+
+<!-- Open Graph adicionales -->
+<meta property="og:site_name" content="DiBruno Lab" />
+<meta property="og:locale" content="es_ES" />
+{type === 'product' && price && <meta property="product:price:amount" content={price} />}
+{type === 'product' && currency && <meta property="product:price:currency" content={currency} />}
+{type === 'product' && availability && <meta property="product:availability" content={availability} />}
+{type === 'product' && brand && <meta property="product:brand" content={brand} />}
+{type === 'product' && category && <meta property="product:category" content={category} />}
+
+<!-- Twitter adicionales -->
+<meta name="twitter:site" content="@DiBrunoLab" />
+<meta name="twitter:creator" content="@DiBrunoLab" />
+
+<!-- Meta tags para móviles -->
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="DiBruno Lab" />
+
+<!-- Meta tags para performance -->
+<meta name="format-detection" content="telephone=no" />
+<meta name="theme-color" content="#000000" />

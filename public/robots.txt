@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dibrunolab.com/sitemap.xml
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow all product pages
+Allow: /shop/
+Allow: /about
+Allow: /ingredients
+Allow: /testimonials
+Allow: /faqs
+
+# Crawl delay (optional)
+Crawl-delay: 1
