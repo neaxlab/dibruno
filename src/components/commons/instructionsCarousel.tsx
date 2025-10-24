@@ -52,7 +52,7 @@ export default function TestimonialsCarousel({ productsLite }: { productsLite: a
                         </div>
                     </SwiperSlide>
                 ))}
-                <div className="w-full justify-center items-center z-10 pt-8 sm:!hidden !flex pb-20 pt-10">
+                <div className="w-full justify-center items-center z-10 sm:!hidden !flex pb-20 pt-10 absolute top-[350px] left-0">
                     <Pagination totalSlides={productsLite.length} activeIndex={activeIndex} />
                 </div>
             </Swiper>
