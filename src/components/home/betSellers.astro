@@ -11,14 +11,14 @@ try {
 } catch (error) {
     ip = null;
 }
-const limit = 3;
+const limit = 4;
 const after = null;
 
 const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ buyerIP: ip || "127.0.0.1", limit, after });
 
 ---
 
-<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10 sm:px-0 px-section-m-gap-x">
+<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
     <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-center w-full">
         <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">Best Sellers</h2>
         <AnimatedLink 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Navigation, Pagination as SwiperPagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 
@@ -11,27 +11,33 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/effect-cards';
 
 import { ingredients } from '../../constants/ingredients/ingredients';
-import AnimatedLink from '../ui/buttons/AnimatedLink';
-import NavigationButton from './navigationDirection';
+import Pagination from './pagination';
+
 
 
 
 
 
 export default function TestimonialsCarousel() {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [swiper, setSwiper] = useState<SwiperType | null>(null);
     return (
         <section className="w-full h-full font-sans flex flex-col gap-12">
             <Swiper
                 grabCursor={true}
 
-                modules={[Navigation, Pagination,]}
+                modules={[Navigation, SwiperPagination,]}
                 direction='horizontal'
-                loop={true}
+                loop={false}
                 slidesPerView={1}
                 spaceBetween={12}
                 allowTouchMove={true}
                 breakpoints={{ 640: { allowTouchMove: false, }, }}
                 className='w-full h-full'
+                onSwiper={setSwiper}
+                onSlideChange={(swiper) => {
+                    setActiveIndex(swiper.activeIndex);
+                }}
             >
                 {ingredients.map((ingredient, index) => (
                     <SwiperSlide key={index}>
@@ -59,6 +65,9 @@ export default function TestimonialsCarousel() {
                         </div>
                     </SwiperSlide>
                 ))}
+                <div className="w-full justify-center items-center z-10 pt-8 sm:!hidden !flex">
+                    <Pagination totalSlides={3} activeIndex={activeIndex} />
+                </div>
             </Swiper>
 
         </section>

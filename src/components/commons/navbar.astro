@@ -12,10 +12,11 @@ const navigationItems = [
 ];
 
 // Colores dinámicos según la ruta
-const isShopRoute = currentPath.startsWith('/shop');
-const textColor = isShopRoute ? "text-primary-lotion" : "text-primary-olive";
+// Solo la página index de shop (/shop) debe tener colores claros
+const isShopIndexRoute = currentPath === '/shop';
+const textColor = isShopIndexRoute ? "text-primary-lotion" : "text-primary-olive";
 const bgColor = "bg-primary-olive";
-const logoSrc = isShopRoute ? "/images/home/logo-white.svg" : "/images/home/logo-olive.svg";
+const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home/logo-olive.svg";
 ---
 
 <header
@@ -162,7 +163,7 @@ const logoSrc = isShopRoute ? "/images/home/logo-white.svg" : "/images/home/logo
     if (!navbar) return;
 
     const currentScrollY = window.scrollY;
-    const isShop = window.location.pathname.startsWith('/shop');
+    const isShop = window.location.pathname === '/shop';
     
     // Nunca ocultar el navbar
     navbar.style.transform = "translateY(0)";
@@ -428,16 +429,16 @@ const logoSrc = isShopRoute ? "/images/home/logo-white.svg" : "/images/home/logo
     @apply bg-primary-olive;
   }
 
-  /* Colores iniciales para shop (claro) - solo en rutas shop */
-  body[data-page*="shop"] #navbar .cart-text {
+  /* Colores iniciales para shop (claro) - solo en la página index de shop */
+  body[data-page="/shop"] #navbar .cart-text {
     @apply text-primary-lotion;
   }
 
-  body[data-page*="shop"] #navbar .nav-link .bullet {
+  body[data-page="/shop"] #navbar .nav-link .bullet {
     @apply bg-primary-lotion;
   }
 
-  body[data-page*="shop"] #navbar .nav-link .underline {
+  body[data-page="/shop"] #navbar .nav-link .underline {
     @apply bg-primary-lotion;
   }
 

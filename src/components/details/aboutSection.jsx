@@ -20,10 +20,10 @@ const buttons = [
         text: "HOW TO USE",
         value: "howToUse",
     },
-    // {
-    //     text: "FAQS",
-    //     value: "faqs",
-    // },
+    {
+        text: "BENEFITS",
+        value: "benefits",
+    },
 ]
 
 
@@ -121,7 +121,6 @@ export default function AboutSection({ product, faqs = [] }) {
         if (ingredientsPage >= totalPages - 1) return;
         setIngredientsPage((prev) => Math.min(totalPages - 1, prev + 1));
     };
-
     return (
         <section className="w-full -font-sans px-section-d-gap-x pt-[200px] flex flex-col gap-10">
             <h1 className="text-d-title-1 text-primary-olive text-center">
@@ -301,6 +300,46 @@ export default function AboutSection({ product, faqs = [] }) {
                                 alt={product.howToUse?.image?.altText || product.fullImage?.altText || product.featuredImage?.altText || 'Imagen del producto'}
                                 className="w-full h-full max-w-[600px] object-cover justify-center items-center"
                             />
+                        </div>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide key={4} className="w-full h-full">
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content">
+                        <div
+                            className="w-full h-full flex flex-col gap-1 justify-center items-start"
+                        >
+                            {product.howToUse?.steps && product.howToUse.steps.length > 0 ? (
+                                <div className="flex flex-col gap-8 h-full text-primary-olive">
+                                    {product.howToUse.steps.map((step, index) => (
+                                        <div key={step.id || index} className="flex flex-row gap-6 items-start">
+                                            <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center">
+                                                <span className="text-[#D0CFCE] text-[88px] font-semibold leading-[100%] tracking-[1.76px]">
+                                                    {step.step_number}
+                                                </span>
+                                            </div>
+                                            <div className="flex-1">
+                                                {step.step_title && (
+                                                    <h3 className="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px] mb-2">
+                                                        {step.step_title}
+                                                    </h3>
+                                                )}
+                                                {step.step_description && (
+                                                    <p className="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
+                                                        {step.step_description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col gap-6 items-center justify-center py-16">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">Usage Instructions Coming Soon</h3>
+                                    <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
+                                        Detailed usage instructions will be available soon.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </SwiperSlide>
