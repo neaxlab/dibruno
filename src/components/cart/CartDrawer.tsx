@@ -240,7 +240,7 @@ const CartDrawer: React.FC = () => {
                         <p className="text-[#949494] text-[20px] sm:text-[24px] font-semibold leading-normal tracking-[0.48px] capitalize">Your Cart is Empty</p>
                         <button
                           type="button"
-                          onClick={() => { window.location.href = '/product'; }}
+                          onClick={() => { window.location.href = '/products'; }}
                           className="w-full justify-center items-center flex text-[#3B3B3B] text-[14px] sm:text-[16px] font-semibold leading-normal tracking-[0.32px] underline decoration-solid capitalize"
                         >
                           Browse products
@@ -293,7 +293,7 @@ const CartDrawer: React.FC = () => {
                     </div>
                     <ButtonSlide
                       text={`SHOP NOW`}
-                      href={cartData?.checkoutUrl || '/product'}
+                      href={cartData?.checkoutUrl || '/products'}
                       normalBackground="transparent"
                       normalColor="#3B3B3B"
                       hoverBackground="#3B3B3B"

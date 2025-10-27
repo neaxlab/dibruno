@@ -66,7 +66,7 @@ export const seoConfig = {
       description: 'Productos veganos y orgánicos para el cuidado del cabello',
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://www.dibrunolab.com/product?q={search_term_string}',
+        target: 'https://www.dibrunolab.com/products?q={search_term_string}',
         'query-input': 'required name=search_term_string'
       }
     }
@@ -122,7 +122,7 @@ export function generateProductMeta(product: any) {
     price,
     currency,
     availability,
-    url: generateCanonicalUrl(`/product/${product.handle}`)
+    url: generateCanonicalUrl(`/products/${product.handle}`)
   };
 }
 

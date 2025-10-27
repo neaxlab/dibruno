@@ -3,7 +3,7 @@ const currentPath = Astro.url.pathname;
 import CartIcon from "@/components/cart/CartIcon.tsx";
 
 const navigationItems = [
-  { href: "/product", label: "Shop" },
+  { href: "/products", label: "Shop" },
   { href: "/about", label: "About" },
   { href: "/ingredients", label: "Our Ingredients" },
   { href: "/testimonials", label: "Testimonials" },
@@ -12,8 +12,8 @@ const navigationItems = [
 ];
 
 // Colores dinámicos según la ruta
-// Solo la página index de shop (/product) debe tener colores claros
-const isShopIndexRoute = currentPath === '/product';
+// Solo la página index de shop (/products) debe tener colores claros
+const isShopIndexRoute = currentPath === '/products';
 const textColor = isShopIndexRoute ? "text-primary-lotion" : "text-primary-olive";
 const bgColor = "bg-primary-olive";
 const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home/logo-olive.svg";
@@ -163,7 +163,7 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     if (!navbar) return;
 
     const currentScrollY = window.scrollY;
-    const isShop = window.location.pathname === '/product';
+    const isShop = window.location.pathname === '/products';
     
     // Nunca ocultar el navbar
     navbar.style.transform = "translateY(0)";
@@ -430,15 +430,15 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
   }
 
   /* Colores iniciales para shop (claro) - solo en la página index de shop */
-  body[data-page="/product"] #navbar .cart-text {
+  body[data-page="/products"] #navbar .cart-text {
     @apply text-primary-lotion;
   }
 
-  body[data-page="/product"] #navbar .nav-link .bullet {
+  body[data-page="/products"] #navbar .nav-link .bullet {
     @apply bg-primary-lotion;
   }
 
-  body[data-page="/product"] #navbar .nav-link .underline {
+  body[data-page="/products"] #navbar .nav-link .underline {
     @apply bg-primary-lotion;
   }
 

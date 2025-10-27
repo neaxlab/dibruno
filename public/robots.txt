@@ -17,8 +17,8 @@ Disallow: /*/policies/
 Disallow: /*/policies/*
 
 # Allow shop and product pages
-Allow: /shop/
-Allow: /shop/*
+Allow: /products/
+Allow: /products/*
 
 # Allow main pages
 Allow: /about

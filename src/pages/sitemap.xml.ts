@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ request }) => {
         priority: seoConfig.sitemap.priority.static
       },
       {
-        url: '/product',
+        url: '/products',
         lastmod: new Date().toISOString(),
         changefreq: seoConfig.sitemap.changefreq.products,
         priority: seoConfig.sitemap.priority.products
@@ -92,7 +92,7 @@ export const GET: APIRoute = async ({ request }) => {
     const productUrls = products
       .filter((product): product is typeof product & { handle: string } => product !== null && !!product.handle)
       .map(product => ({
-        url: `/product/${product.handle}`,
+        url: `/products/${product.handle}`,
         lastmod: new Date().toISOString(),
         changefreq: seoConfig.sitemap.changefreq.products,
         priority: seoConfig.sitemap.priority.products
