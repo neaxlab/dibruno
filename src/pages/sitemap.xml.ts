@@ -1,5 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getProducts } from '@/utils/shopify';
+import { generateCanonicalUrl, seoConfig } from '@/utils/seo';
+
+export const prerender = false;
 
 export const GET: APIRoute = async ({ request }) => {
   try {
@@ -20,38 +23,68 @@ export const GET: APIRoute = async ({ request }) => {
       {
         url: '/',
         lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 1.0
+        changefreq: seoConfig.sitemap.changefreq.home,
+        priority: seoConfig.sitemap.priority.home
       },
       {
         url: '/about',
         lastmod: new Date().toISOString(),
-        changefreq: 'monthly',
-        priority: 0.8
+        changefreq: seoConfig.sitemap.changefreq.static,
+        priority: seoConfig.sitemap.priority.static
       },
       {
         url: '/shop',
         lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 0.9
+        changefreq: seoConfig.sitemap.changefreq.products,
+        priority: seoConfig.sitemap.priority.products
       },
       {
         url: '/ingredients',
         lastmod: new Date().toISOString(),
-        changefreq: 'monthly',
-        priority: 0.7
+        changefreq: seoConfig.sitemap.changefreq.static,
+        priority: seoConfig.sitemap.priority.static
       },
       {
         url: '/testimonials',
         lastmod: new Date().toISOString(),
-        changefreq: 'monthly',
-        priority: 0.6
+        changefreq: seoConfig.sitemap.changefreq.static,
+        priority: seoConfig.sitemap.priority.static
       },
       {
         url: '/faqs',
         lastmod: new Date().toISOString(),
-        changefreq: 'monthly',
-        priority: 0.6
+        changefreq: seoConfig.sitemap.changefreq.static,
+        priority: seoConfig.sitemap.priority.static
+      },
+      {
+        url: '/policy/privacy-policy',
+        lastmod: new Date().toISOString(),
+        changefreq: 'yearly',
+        priority: 0.4
+      },
+      {
+        url: '/policy/refund-policy',
+        lastmod: new Date().toISOString(),
+        changefreq: 'yearly',
+        priority: 0.4
+      },
+      {
+        url: '/policy/shipping-policy',
+        lastmod: new Date().toISOString(),
+        changefreq: 'yearly',
+        priority: 0.4
+      },
+      {
+        url: '/policy/terms-of-service',
+        lastmod: new Date().toISOString(),
+        changefreq: 'yearly',
+        priority: 0.4
+      },
+      {
+        url: '/policy/subscription-policy',
+        lastmod: new Date().toISOString(),
+        changefreq: 'yearly',
+        priority: 0.4
       }
     ];
 
@@ -61,8 +94,8 @@ export const GET: APIRoute = async ({ request }) => {
       .map(product => ({
         url: `/shop/${product.handle}`,
         lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 0.8
+        changefreq: seoConfig.sitemap.changefreq.products,
+        priority: seoConfig.sitemap.priority.products
       }));
 
     // Combinar todas las URLs
@@ -72,7 +105,7 @@ export const GET: APIRoute = async ({ request }) => {
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allUrls.map(url => `  <url>
-    <loc>https://dibrunolab.com${url.url}</loc>
+    <loc>${generateCanonicalUrl(url.url)}</loc>
     <lastmod>${url.lastmod}</lastmod>
     <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>

@@ -1,8 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TestimonialsComponent from '../components/testimonials/testimonials.astro';
+import { getCurrentCanonicalUrl } from '@/utils/seo';
+
+const canonicalUrl = getCurrentCanonicalUrl(Astro.url.pathname);
 ---
 
-<Layout title="Testimonios - Di Bruno">
+<Layout title="Testimonios - Di Bruno" canonicalUrl={canonicalUrl}>
 	<TestimonialsComponent />
 </Layout>

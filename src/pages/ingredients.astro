@@ -2,8 +2,11 @@
 import Layout from '@/layouts/Layout.astro';
 import Banner from '@/components/ingredients/banner.astro';
 import IngredientsComponent from '@/components/ingredients/ingredients.astro';
+import { getCurrentCanonicalUrl } from '@/utils/seo';
+
+const canonicalUrl = getCurrentCanonicalUrl(Astro.url.pathname);
 ---
-<Layout>
+<Layout canonicalUrl={canonicalUrl}>
     <Banner />
     <IngredientsComponent />
 </Layout>

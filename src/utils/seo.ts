@@ -3,7 +3,7 @@ export const seoConfig = {
   // Información del sitio
   site: {
     name: 'DiBruno Lab',
-    url: 'https://dibrunolab.com',
+    url: 'https://www.dibrunolab.com',
     description: 'Productos veganos y orgánicos para el cuidado del cabello',
     logo: '/images/home/logo.svg',
     twitterHandle: '@DiBrunoLab',
@@ -50,8 +50,8 @@ export const seoConfig = {
     organization: {
       '@type': 'Organization',
       name: 'DiBruno Lab',
-      url: 'https://dibrunolab.com',
-      logo: 'https://dibrunolab.com/images/home/logo.svg',
+      url: 'https://www.dibrunolab.com',
+      logo: 'https://www.dibrunolab.com/images/home/logo.svg',
       description: 'Productos veganos y orgánicos para el cuidado del cabello',
       sameAs: [
         'https://www.instagram.com/dibrunolab',
@@ -62,11 +62,11 @@ export const seoConfig = {
     website: {
       '@type': 'WebSite',
       name: 'DiBruno Lab',
-      url: 'https://dibrunolab.com',
+      url: 'https://www.dibrunolab.com',
       description: 'Productos veganos y orgánicos para el cuidado del cabello',
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://dibrunolab.com/shop?q={search_term_string}',
+        target: 'https://www.dibrunolab.com/shop?q={search_term_string}',
         'query-input': 'required name=search_term_string'
       }
     }
@@ -96,7 +96,14 @@ export const seoConfig = {
 
 // Función para generar URLs canónicas
 export function generateCanonicalUrl(path: string): string {
-  return `${seoConfig.site.url}${path}`;
+  // Normalizar el path: remover trailing slash para consistencia
+  const normalizedPath = path === '/' ? '/' : path.endsWith('/') ? path.slice(0, -1) : path;
+  return `${seoConfig.site.url}${normalizedPath}`;
+}
+
+// Función para obtener la URL canónica actual basada en la URL de Astro
+export function getCurrentCanonicalUrl(pathname: string): string {
+  return generateCanonicalUrl(pathname);
 }
 
 // Función para generar meta tags de producto

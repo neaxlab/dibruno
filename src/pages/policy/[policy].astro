@@ -3,6 +3,8 @@ import Layout from '@/layouts/Layout.astro';
 import PoliciesSection from '@/components/policies/PoliciesSection.astro';
 import { getShopPolicies } from '@/utils/shopify';
 
+export const prerender = false;
+
 // Define the static paths for all policy types
 export async function getStaticPaths() {
   const policyTypes = [
@@ -68,8 +70,11 @@ try {
 
 // Get the policy key from the slug
 const policyKey = policyKeyMap[policyType];
+
+import { getCurrentCanonicalUrl } from '@/utils/seo';
+const canonicalUrl = getCurrentCanonicalUrl(Astro.url.pathname);
 ---
 
-<Layout>
+<Layout canonicalUrl={canonicalUrl}>
   <PoliciesSection policies={policies} policyType={policyKey} />
 </Layout>

@@ -3,9 +3,9 @@ import Layout from '@/layouts/Layout.astro';
 import Banner from '@/components/shop/banner.astro';
 import Categories from '@/components/shop/categories.astro';
 import Products from '@/components/shop/products.astro';
-export const prerender = false;
-
 import { getProductsPaginated, getProductsByHandle, getCollections } from "@/utils/shopify";
+import { getCurrentCanonicalUrl } from '@/utils/seo';
+export const prerender = false;
 
 // Obtener IP del cliente de forma segura
 let ip = null;
@@ -33,9 +33,11 @@ const products = await getProductsByHandle({
     buyerIP: ip || "127.0.0.1",
     limit 
 });
+
+const canonicalUrl = getCurrentCanonicalUrl(Astro.url.pathname);
 ---
 
-<Layout>
+<Layout canonicalUrl={canonicalUrl}>
     <Banner />
     <Categories ip={ip} collections={collections} selectedCategory={validCategory} />
     <Products products={products} />
