@@ -1,8 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Banner from '@/components/shop/banner.astro';
-import Categories from '@/components/shop/categories.astro';
-import Products from '@/components/shop/products.astro';
+import Banner from '@/components/product/banner.astro';
+import Categories from '@/components/product/categories.astro';
+import Products from '@/components/product/products.astro';
 import { getProductsPaginated, getProductsByHandle, getCollections } from "@/utils/shopify";
 import { getCurrentCanonicalUrl } from '@/utils/seo';
 export const prerender = false;

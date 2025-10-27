@@ -33,7 +33,7 @@ export default function TestimonialsCarousel({ productsLite }: { productsLite: a
                     <SwiperSlide key={index}>
                         <div className="relative h-max-[493px] w-full">
                             <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
-                            <a href={`/shop/${product.handle}`} className="absolute bottom-[65px] left-4 text-d-button text-[#FEFEFE] text-center border-[1.5px] border-[#FEFEFE] rounded-full pl-5 py-4" style={{width: 'calc(100% - 32px)'}}>
+                            <a href={`/product/${product.handle}`} className="absolute bottom-[65px] left-4 text-d-button text-[#FEFEFE] text-center border-[1.5px] border-[#FEFEFE] rounded-full pl-5 py-4" style={{width: 'calc(100% - 32px)'}}>
                                 LEARN MORE
                             </a>
                         </div>

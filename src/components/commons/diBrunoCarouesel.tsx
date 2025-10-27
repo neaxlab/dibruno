@@ -113,7 +113,7 @@ export default function ProductsCarousel() {
                                 <div className="flex flex-row w-full justify-between items-center">
                                     <ButtonSlide
                                         text={`BUY FOR $${product.variants?.nodes?.[0]?.price?.amount ? parseFloat(product.variants.nodes[0].price.amount).toFixed(2) : ''}`}
-                                        href={`/shop/${product.handle}`}
+                                        href={`/product/${product.handle}`}
                                         normalBackground="transparent"
                                         normalColor="#3B3B3B"
                                         hoverBackground="#3B3B3B"

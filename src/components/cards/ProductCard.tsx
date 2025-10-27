@@ -13,7 +13,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     return (
         <article className="flex flex-col sm:w-[397px] w-full text-primary-olive text-d-products">
             <div className="relative overflow-hidden bg-primary-bright z-10 group flex flex-col">
-                <a href={`/shop/${product.handle}`} className="w-full h-[500px]">
+                <a href={`/product/${product.handle}`} className="w-full h-[500px]">
                     <img src={product.featuredImage.url} alt={product.title} className="size-full object-cover cursor-pointer" />
                 </a>
                 {/* {product.discount && (

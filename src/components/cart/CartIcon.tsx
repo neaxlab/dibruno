@@ -9,8 +9,8 @@ const CartIcon: React.FC<CartIconProps> = ({ isScrolled = false }) => {
   const [cartData, setCartData] = useState(cart.get());
   const [isHydrated, setIsHydrated] = useState(false);
   
-  // Detectar si estamos en la ruta shop
-  const isShopRoute = typeof window !== 'undefined' && window.location.pathname.startsWith('/shop');
+  // Detectar si estamos en la ruta product
+  const isShopRoute = typeof window !== 'undefined' && window.location.pathname.startsWith('/product');
 
   useEffect(() => {
     initCart();

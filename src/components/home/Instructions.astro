@@ -29,7 +29,7 @@ const instructions = Object.fromEntries(
   productsLite.map((p, idx) => [
     String(idx + 1),
     {
-      url: p.handle ? `/shop/${p.handle}` : '#',
+      url: p.handle ? `/product/${p.handle}` : '#',
       image: '/images/products/dibrunoShampoo.png',
       alt: p.title,
       // recomendations: '',
@@ -233,7 +233,7 @@ const instructions = Object.fromEntries(
                         const productsLite = (window as any).productsLite || [];
                         const product = productsLite[index - 1];
                         if (button) {
-                            const href = (product && product.handle) ? `/shop/${product.handle}` : (instructionsData?.url || '#');
+                            const href = (product && product.handle) ? `/product/${product.handle}` : (instructionsData?.url || '#');
                             button.setAttribute('href', href);
                         }
                         
