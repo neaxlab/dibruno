@@ -245,6 +245,49 @@ export const processFAQsWithContent = async (faqs: any[], buyerIP: string = "127
 };
 
 
+// Process benefits (list of metaobject IDs under benefits.fields.benefit)
+export const processBenefitsWithContent = async (benefitIdsJson: string | undefined, buyerIP: string = "127.0.0.1") => {
+  if (!benefitIdsJson) return [];
+  let benefitIds: string[] = [];
+  try {
+    const parsed = JSON.parse(benefitIdsJson);
+    if (Array.isArray(parsed)) {
+      benefitIds = parsed as string[];
+    }
+  } catch (e) {
+    console.warn('Error parsing benefits field:', e);
+    return [];
+  }
+
+  const benefitPromises = benefitIds.map(async (id, index) => {
+    try {
+      const content = await getStepContent(id, buyerIP);
+      if (content) {
+        // Normalize to a generic benefit shape
+        return {
+          id: content.id,
+          handle: content.handle,
+          title: content.title || content.step_title || `Benefit ${index + 1}`,
+          description: content.description || content.step_description || '',
+          image: content.image_image || null,
+          raw: content,
+        };
+      }
+    } catch (error) {
+      console.warn(`Error fetching benefit content for ${id}:`, error);
+    }
+    return {
+      id,
+      handle: `benefit-${index + 1}`,
+      title: `Benefit ${index + 1}`,
+      description: '',
+      image: null,
+    };
+  });
+
+  return await Promise.all(benefitPromises);
+};
+
 // Get a product by its handle (slug)
 export const getProductByHandle = async (options: {
   handle: string;
@@ -265,6 +308,12 @@ export const getProductByHandle = async (options: {
   // Process steps with real content if they exist
   if (parsedProduct?.howToUse && (parsedProduct.howToUse as any).steps && (parsedProduct.howToUse as any).steps.length > 0) {
     (parsedProduct.howToUse as any).steps = await processStepsWithContent((parsedProduct.howToUse as any).steps, buyerIP);
+  }
+
+  // Process benefits list if benefits.fields.benefit exists
+  if (parsedProduct?.benefits && (parsedProduct.benefits as any).fields && (parsedProduct.benefits as any).fields.benefit) {
+    const items = await processBenefitsWithContent((parsedProduct.benefits as any).fields.benefit, buyerIP);
+    (parsedProduct.benefits as any).items = items;
   }
 
   return parsedProduct;
@@ -313,6 +362,10 @@ export const getProductByTitle = async (options: {
   const parsed = ProductResult.parse(node);
   if (parsed?.howToUse && (parsed.howToUse as any).steps && (parsed.howToUse as any).steps.length > 0) {
     (parsed.howToUse as any).steps = await processStepsWithContent((parsed.howToUse as any).steps, buyerIP);
+  }
+  if (parsed?.benefits && (parsed.benefits as any).fields && (parsed.benefits as any).fields.benefit) {
+    const items = await processBenefitsWithContent((parsed.benefits as any).fields.benefit, buyerIP);
+    (parsed.benefits as any).items = items;
   }
   return parsed;
 };

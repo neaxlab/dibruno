@@ -39,6 +39,11 @@ export default function AboutSection({ product, faqs = [] }) {
 
 
     // Función para mover el slider al botón activo
+    useEffect(() => {
+        // Debug: verificar beneficios y si trae imagen
+        console.log('Benefits metafield (desktop):', product?.benefits);
+    }, [product?.benefits]);
+
     const moveSlider = (buttonIndex) => {
         if (!tabContainerRef.current || !tabSliderRef.current) return;
 
@@ -304,43 +309,48 @@ export default function AboutSection({ product, faqs = [] }) {
                     </div>
                 </SwiperSlide>
                 <SwiperSlide key={4} className="w-full h-full">
-                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content">
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="benefits">
                         <div
-                            className="w-full h-full flex flex-col gap-1 justify-center items-start"
+                            className="w-full h-full flex flex-col gap-4 justify-center items-start"
                         >
-                            {product.howToUse?.steps && product.howToUse.steps.length > 0 ? (
-                                <div className="flex flex-col gap-8 h-full text-primary-olive">
-                                    {product.howToUse.steps.map((step, index) => (
-                                        <div key={step.id || index} className="flex flex-row gap-6 items-start">
-                                            <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center">
-                                                <span className="text-[#D0CFCE] text-[88px] font-semibold leading-[100%] tracking-[1.76px]">
-                                                    {step.step_number}
-                                                </span>
-                                            </div>
-                                            <div className="flex-1">
-                                                {step.step_title && (
-                                                    <h3 className="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px] mb-2">
-                                                        {step.step_title}
-                                                    </h3>
-                                                )}
-                                                {step.step_description && (
-                                                    <p className="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
-                                                        {step.step_description}
-                                                    </p>
-                                                )}
-                                            </div>
+                            <h2 className="text-d-secondary font-light leading-none text-primary-granite">BENEFITS</h2>
+                            {product.benefits?.items && product.benefits.items.length > 0 ? (
+                                <div className="flex flex-col gap-6">
+                                    {product.benefits.items.map((b, idx) => (
+                                        <div key={b.id || idx} className="flex flex-col gap-2">
+                                            {b.title && (
+                                                <h3 className="text-[#3B3B3B] text-[24px] font-medium leading-[100%] tracking-[0.48px]">
+                                                    {b.title}
+                                                </h3>
+                                            )}
+                                            {b.description && (
+                                                <p className="text-[#67645E] font-geist text-[20px] font-normal leading-[140%] tracking-[0.4px]">
+                                                    {b.description}
+                                                </p>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
+                            ) : product.benefits?.content ? (
+                                <p className="text-d-products font-medium leading-[140%] text-primary-olive">{product.benefits.content}</p>
                             ) : (
-                                <div className="flex flex-col gap-6 items-center justify-center py-16">
-                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">Usage Instructions Coming Soon</h3>
-                                    <p className="text-d-secondary text-primary-granite/70 text-center max-w-sm">
-                                        Detailed usage instructions will be available soon.
+                                <div className="flex flex-col gap-6 items-start justify-center py-4">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-2">Benefits coming soon</h3>
+                                    <p className="text-d-secondary text-primary-granite/70">
+                                        Benefits information will be available soon.
                                     </p>
                                 </div>
                             )}
                         </div>
+                        {product.benefits?.image?.url ? (
+                            <div className="w-full h-full justify-center items-center flex">
+                                <img
+                                    src={product.benefits.image.url}
+                                    alt={product.benefits.image.altText || 'Imagen de beneficios'}
+                                    className="w-full h-full max-w-[600px] object-cover"
+                                />
+                            </div>
+                        ) : null}
                     </div>
                 </SwiperSlide>
                 {/**

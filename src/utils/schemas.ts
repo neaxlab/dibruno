@@ -328,7 +328,7 @@ export const ProductResult = z
       })),
     }),
     activeIngredients: MetafieldListMetaobjectResult.nullable(),
-    benefits: MetafieldResult.nullable(),
+    benefits: MetafieldMetaobjectResult.nullable(),
     faq_s: FAQMetaobjectResult.nullable(),
     about: AboutMetaobjectResult,
     howToUse: MetafieldMetaobjectResult.nullable(),

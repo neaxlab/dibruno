@@ -210,6 +210,41 @@ fragment productFragment on Product {
       }
     }
   }
+  benefits: metafield(namespace: "custom", key: "product_benefits") {
+    id
+    namespace
+    key
+    value
+    type
+    reference {
+      ... on Metaobject {
+        id
+        handle
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+                width
+                height
+              }
+            }
+            ... on Metaobject {
+              id
+              handle
+              fields {
+                key
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   treatment: metafield(namespace: "custom", key: "treatment") {
     value
     type

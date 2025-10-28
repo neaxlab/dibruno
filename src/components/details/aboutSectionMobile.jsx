@@ -4,9 +4,12 @@ const AboutSectionMobile = ({ product }) => {
     const [openSections, setOpenSections] = useState({
         about: false,
         ingredients: false,
-        howToUse: false
+        howToUse: false,
+        benefits: false,
     });
-
+    
+    // Debug: verificar beneficios y si trae imagen
+    console.log('Benefits metafield (mobile):', product?.benefits);
 
 
     const toggleSection = (section) => {
@@ -159,6 +162,68 @@ const AboutSectionMobile = ({ product }) => {
                                     <h3 className="text-d-primary font-medium text-primary-granite mb-1">Usage Instructions Coming Soon</h3>
                                     <p className="text-d-secondary text-primary-granite/70 text-center text-sm">
                                         Detailed usage instructions will be available soon.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Benefits Section */}
+            <div className="flex flex-col gap-[50px] border-b border-primary-olive py-5">
+                <div 
+                    className="flex flex-row items-center justify-between cursor-pointer accordion-trigger" 
+                    onClick={() => toggleSection('benefits')}
+                >
+                    <h2 className="text-d-primary font-medium leading-none text-primary-olive">
+                        Benefits
+                    </h2>
+                    <img 
+                        src="/images/about/arrow-down.svg" 
+                        alt="Arrow Down" 
+                        className={`accordion-arrow transition-transform duration-300 ${openSections.benefits ? 'rotate-180' : ''}`}
+                    />
+                </div>
+                <div className={`flex-col gap-10 ${openSections.benefits ? 'flex' : 'hidden'}`}>
+                    <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 tab-content" data-content="benefits">
+                        {product.benefits?.image?.url ? (
+                            <div className="w-full h-full justify-center items-center flex">
+                                <img
+                                    src={product.benefits.image.url}
+                                    alt={product.benefits.image.altText || 'Imagen de beneficios'}
+                                    className="w-full aspect-square object-cover"
+                                />
+                            </div>
+                        ) : null}
+                        <div className="w-full h-full flex flex-col gap-1 justify-center items-start">
+                            <h2 className="text-d-secondary font-light leading-none text-primary-granite">
+                                BENEFITS
+                            </h2>
+                            {product.benefits?.items && product.benefits.items.length > 0 ? (
+                                <div className="flex flex-col gap-4">
+                                    {product.benefits.items.map((b, idx) => (
+                                        <div key={b.id || idx} className="flex flex-col gap-1">
+                                            {b.title && (
+                                                <h3 className="text-[#3B3B3B] text-[18px] font-medium leading-[100%] tracking-[0.36px]">
+                                                    {b.title}
+                                                </h3>
+                                            )}
+                                            {b.description && (
+                                                <p className="text-[#67645E] font-geist text-[16px] font-normal leading-[140%] tracking-[0.32px]">
+                                                    {b.description}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : product.benefits?.content ? (
+                                <p className="text-d-secondary font-medium leading-[140%] text-primary-olive">{product.benefits.content}</p>
+                            ) : (
+                                <div className="flex flex-col gap-4 py-2">
+                                    <h3 className="text-d-primary font-medium text-primary-granite mb-1">Benefits Coming Soon</h3>
+                                    <p className="text-d-secondary text-primary-granite/70 text-sm">
+                                        Benefits information will be available soon.
                                     </p>
                                 </div>
                             )}
