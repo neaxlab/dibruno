@@ -41,6 +41,11 @@ export default function ProductCard({ product }: ProductCardProps) {
                     )}
                     <h4 className="text-d-secondary font-medium mt-[4px]">{product.title}</h4>
                 </div>
+                {product?.shortDescription?.value && (
+                    <p className="text-[14px] text-primary-granite mt-[8px] line-clamp-2">
+                        {product.shortDescription.value}
+                    </p>
+                )}
                 <div className="flex flex-row items-center mt-[12px]">
                     {product.variants.nodes[0].compareAtPrice ? (
                         <>

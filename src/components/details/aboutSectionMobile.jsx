@@ -9,7 +9,6 @@ const AboutSectionMobile = ({ product }) => {
     });
     
     // Debug: verificar beneficios y si trae imagen
-    console.log('Benefits metafield (mobile):', product?.benefits);
 
 
     const toggleSection = (section) => {

@@ -176,7 +176,6 @@ export const MetafieldMetaobjectResult = z.object({
     for (const fieldName of stepFields) {
       try {
         const fieldValue = fields[fieldName];
-        console.log(`Intentando parsear campo ${fieldName}:`, fieldValue);
         
         if (fieldValue && typeof fieldValue === 'string') {
           const stepIds = JSON.parse(fieldValue);
@@ -188,7 +187,6 @@ export const MetafieldMetaobjectResult = z.object({
               description: `Step ${index + 1} description`,
               step_number: index + 1,
             }));
-            console.log(`✅ Pasos encontrados en campo ${fieldName}`);
             break; // Salir del bucle si encontramos pasos
           }
         }
@@ -310,6 +308,7 @@ export const ProductResult = z
     title: z.string(),
     handle: z.string(),
     description: z.string().nullable().optional(),
+    shortDescription: MetafieldResult, // custom.short_description
     seo: SEOResult.nullable().optional(),
     images: z.object({
       nodes: z.array(ImageResult),

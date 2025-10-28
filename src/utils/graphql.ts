@@ -58,6 +58,10 @@ fragment productFragment on Product {
     title
     description
   }
+  shortDescription: metafield(namespace: "custom", key: "short_description") {
+    value
+    type
+  }
   images (first: 10) {
     nodes {
       url

@@ -41,7 +41,6 @@ export default function AboutSection({ product, faqs = [] }) {
     // Función para mover el slider al botón activo
     useEffect(() => {
         // Debug: verificar beneficios y si trae imagen
-        console.log('Benefits metafield (desktop):', product?.benefits);
     }, [product?.benefits]);
 
     const moveSlider = (buttonIndex) => {
