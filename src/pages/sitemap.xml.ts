@@ -15,8 +15,14 @@ export const GET: APIRoute = async ({ request }) => {
       ip = "127.0.0.1";
     }
 
-    // Obtener todos los productos
-    const products = await getProducts({ limit: 250, buyerIP: ip });
+    // Obtener todos los productos con fallback seguro
+    let products: any[] = [];
+    try {
+      products = await getProducts({ limit: 250, buyerIP: ip });
+    } catch (e) {
+      console.error('Sitemap: error al obtener productos, usando solo URLs estáticas.', e);
+      products = [];
+    }
     
     // URLs estáticas del sitio
     const staticUrls = [
@@ -119,7 +125,22 @@ ${allUrls.map(url => `  <url>
       }
     });
   } catch (error) {
-    console.error('Error generating sitemap:', error);
-    return new Response('Error generating sitemap', { status: 500 });
+    // Nunca devolver 500: enviar al menos las URLs estáticas
+    console.error('Sitemap: error inesperado, respondiendo con URLs estáticas.', error);
+    const fallback = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${generateCanonicalUrl('/')}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`;
+    return new Response(fallback, {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Cache-Control': 'public, max-age=600'
+      }
+    });
   }
 };
