@@ -289,7 +289,7 @@ const CartDrawer: React.FC = () => {
                           </svg>
                         )}
                       </div>
-                      <label htmlFor="terms-checkbox" className="text-[#3B3B3B] text-[14px] sm:text-[16px] font-light leading-[120%] tracking-[0.32px]">I agree to the <a href="/terms-of-service" className="text-primary-olive underline">Terms and Policies</a></label>
+                      <label htmlFor="terms-checkbox" className="text-[#3B3B3B] text-[14px] sm:text-[16px] font-light leading-[120%] tracking-[0.32px]">I agree to the <a href="/policy/terms-of-service" className="text-primary-olive underline">Terms of Service</a></label>
                     </div>
                     <ButtonSlide
                       text={`SHOP NOW`}
