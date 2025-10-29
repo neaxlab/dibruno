@@ -179,7 +179,7 @@ export default function AboutSection({ product, faqs = [] }) {
                             <p
                                 className="text-d-products font-medium leading-[140%] text-primary-olive"
                             >
-                                {product.about?.description || product.description || 'Descripción no disponible'}
+                                {product.description || product.about?.description || 'Descripción no disponible'}
                             </p>
                         </div>
                     </div>
