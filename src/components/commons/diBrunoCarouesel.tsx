@@ -70,7 +70,7 @@ export default function ProductsCarousel() {
                 }}
                 allowTouchMove={true}
                 breakpoints={{ 640: { allowTouchMove: false, }, }}
-                className='w-full h-full relative sm:!flex !hidden'
+                className='w-full h-full relative sm:!flex !hidden rounded'
             >
                 {['/images/home/sliderLeft1.png','/images/home/sliderLeft2.png'].map((imageSrc, index) => (
                     <SwiperSlide key={`left-image-${index}`}>
@@ -97,13 +97,13 @@ export default function ProductsCarousel() {
                 breakpoints={{ 640: { allowTouchMove: false, }, }}
                 scrollbar={{ el: '.custom-scrollbar', draggable: false, hide: false }}
                 onSwiper={setSwiper2}
-                className='w-full h-full relative'
+                className='w-full h-full relative rounded'
             >
                 {products.map((product, index) => (
                     <SwiperSlide key={`${product.handle}-${index}`}>
-                        <div className="w-full h-full p-8 bg-primary-bright flex flex-col justify-between items-center">
-                            <div className="w-full h-full flex justify-center items-center">
-                            <img src={product.featuredImage?.url} alt={product.title} className="h-full object-cover" />
+                        <div className="w-full h-full p-8 bg-primary-bright flex flex-col justify-between items-center overflow-hidden">
+                            <div className="w-full flex-1 min-h-0 flex justify-center items-center">
+                            <img src={product.featuredImage?.url} alt={product.title} className="max-h-full max-w-full object-contain" />
                             </div>
                             <div className="flex flex-col gap-6 w-full">
                                 <div className="w-full justify-center items-center z-10 sm:!hidden !flex">
