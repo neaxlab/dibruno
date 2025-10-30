@@ -1,40 +1,15 @@
+# Host: www.dibrunolab.com
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap principal
 Sitemap: https://www.dibrunolab.com/sitemap.xml
 
-# Disallow admin areas (if any)
+# Allow .well-known for verification and security
+Allow: /.well-known/
+
+# Disallow admin areas (if any exist on headless)
 Disallow: /admin/
 Disallow: /api/
 
-# Disallow Shopify URLs (checkout, cart, account, policies with IDs)
-Disallow: /checkout
-Disallow: /cart
-Disallow: /account/
-Disallow: /.well-known/
-Disallow: /*/policies/
-Disallow: /*/policies/*
-
-# Allow shop and product pages
-Allow: /products/
-Allow: /products/*
-
-# Allow main pages
-Allow: /about
-Allow: /ingredients
-Allow: /testimonials
-Allow: /faqs
-Allow: /policy/privacy-policy
-Allow: /policy/refund-policy
-Allow: /policy/shipping-policy
-Allow: /policy/terms-of-service
-Allow: /policy/subscription-policy
-
-# Block numeric policy IDs and non-existent policy routes
-Disallow: /policies/
-Disallow: /*/policies/contact-information
-Disallow: /*/policies/*.html*
-
-# Crawl delay (optional)
-Crawl-delay: 1
+# Note: Products, collections, and all content pages are allowed by default
