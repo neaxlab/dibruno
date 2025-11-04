@@ -26,7 +26,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ className }) => {
         <a 
           id="whatsapp-message" 
           target="_blank" 
-          href="https://wa.me/573144583693?text=*Hola!%20Me%20interesa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20de*"
+          href="https://wa.me/17873150400"
           style={{
             borderRadius: '100px',
             background: 'linear-gradient(0deg, #1FAF38 -9900%, #60D669 100%)',
