@@ -192,7 +192,31 @@ const CartDrawer: React.FC = () => {
                                   <h3 className="!text-[16px] sm:!text-[18px] font-medium text-d-secondary">
                                     {item.merchandise.product.title}
                                   </h3>
-                                  <Money price={item.cost.amountPerQuantity} className="text-primary-olive !text-[16px] sm:!text-[18px] font-light text-d-secondary" />
+                                  {(() => {
+                                    const discountHandle = 'rootflourish-rootpure-growth-nourish-bundle';
+                                    const hasDiscount = item.merchandise.product.handle === discountHandle;
+                                    const discountPercent = 20;
+                                    const currentPrice = parseFloat(item.cost.amountPerQuantity.amount || '0');
+                                    const discountedPrice = hasDiscount && currentPrice > 0 ? currentPrice * (1 - discountPercent / 100) : currentPrice;
+                                    
+                                    if (hasDiscount && currentPrice > 0) {
+                                      return (
+                                        <div className="flex flex-row items-center gap-3 flex-wrap">
+                                          <Money 
+                                            price={{ amount: currentPrice.toFixed(2), currencyCode: item.cost.amountPerQuantity.currencyCode }} 
+                                            className="!text-[16px] sm:!text-[18px] font-light text-d-secondary line-through text-primary-granite opacity-60" 
+                                          />
+                                          <Money 
+                                            price={{ amount: discountedPrice.toFixed(2), currencyCode: item.cost.amountPerQuantity.currencyCode }} 
+                                            className="text-primary-olive !text-[16px] sm:!text-[18px] font-light text-d-secondary" 
+                                          />
+                                        </div>
+                                      );
+                                    }
+                                    return (
+                                      <Money price={item.cost.amountPerQuantity} className="text-primary-olive !text-[16px] sm:!text-[18px] font-light text-d-secondary" />
+                                    );
+                                  })()}
                                 </div>
                                 <div className="flex items-center justify-between w-full">
                                   <div className="flex items-center gap-4 sm:gap-6 p-2 rounded-full border-[0.5px] border-[#67645E]">

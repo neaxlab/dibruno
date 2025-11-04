@@ -1,10 +1,14 @@
 ---
 import BannerCarousel from "./bannerCarousel.jsx";
-import ButtonSlide from "../ui/buttons/ButtonSlide.tsx";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 const { product, recommendations } = Astro.props;
 
-// const images = details[detail as keyof typeof details].images
+const discountHandle = 'rootflourish-rootpure-growth-nourish-bundle';
+const hasDiscount = product?.handle === discountHandle;
+const discountPercent = 20;
+
+const originalPrice = parseFloat(product?.variants?.nodes?.[0]?.price?.amount || '0');
+const discountedPrice = hasDiscount && originalPrice > 0 ? originalPrice * 0.8 : originalPrice;
 ---
 
 <section
@@ -46,9 +50,23 @@ const { product, recommendations } = Astro.props;
                     }
                 </div>
             </div> -->
-            <span class="text-d-title-2 text-primary-olive"
-                >${parseFloat(product.variants.nodes[0].price.amount).toFixed(2)}</span
-            >
+            {hasDiscount ? (
+                <div class="flex flex-row items-center gap-3 flex-wrap">
+                    <span class="text-d-title-2 text-primary-olive line-through text-primary-granite opacity-60">
+                        ${originalPrice.toFixed(2)}
+                    </span>
+                    <span class="text-d-title-2 text-primary-olive">
+                        ${discountedPrice.toFixed(2)}
+                    </span>
+                    <div class="w-fit bg-primary-discount p-1.5 sm:p-2 text-d-products text-sm sm:text-2xl text-primary-lotion rounded-md">
+                        -{discountPercent}% OFF
+                    </div>
+                </div>
+            ) : (
+                <span class="text-d-title-2 text-primary-olive">
+                    ${originalPrice.toFixed(2)}
+                </span>
+            )}
             {product?.variants?.nodes?.[0] && (
                 <AddToCartButton
                     client:load
@@ -61,7 +79,7 @@ const { product, recommendations } = Astro.props;
         <div class="flex flex-col gap-4 p-3 bg-primary-lotion rounded-3xl">
             <h3 class="text-d-products text-primary-granite">Goes well with</h3>
             {Array.isArray(recommendations) && recommendations.length > 0 ? (
-                <div class="flex flex-row gap-6">
+                <div class="flex flex-col sm:flex-row gap-6">
                     {
                         recommendations.slice(0, 1).map((rec: any) => {
                             const imageUrl = rec?.featuredImage?.url || rec?.images?.nodes?.[0]?.url || "/images/placeholder.png";
@@ -70,9 +88,9 @@ const { product, recommendations } = Astro.props;
                             const price = rec?.variants?.nodes?.[0]?.price?.amount || "";
                             const handle = rec?.handle || "#";
                             return (
-                                <div class="flex flex-row gap-4 items-center justify-between w-full">
-                                    <div class="flex flex-row gap-4 items-center w-full">
-                                        <img src={imageUrl} alt={altText} class="size-16 object-cover" />
+                                <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between w-full">
+                                    <div class="flex flex-row sm:flex-row gap-4 items-center w-full">
+                                        <img src={imageUrl} alt={altText} class="size-24 sm:size-16 object-cover" />
                                         <div class="flex flex-col gap-2">
                                             <h4 class="text-d-products text-primary-granite">{title}</h4>
                                             {price && (
@@ -81,13 +99,15 @@ const { product, recommendations } = Astro.props;
                                         </div>
                                     </div>
                                     {rec?.variants?.nodes?.[0] && (
-                                        <AddToCartButton
-                                            client:load
-                                            variantId={rec.variants.nodes[0].id}
-                                            variantQuantityAvailable={rec.variants.nodes[0].quantityAvailable || 0}
-                                            variantAvailableForSale={rec.variants.nodes[0].availableForSale}
-                                            buttonText="ADD"
-                                        />
+                                        <div class="w-full sm:w-auto">
+                                            <AddToCartButton
+                                                client:load
+                                                variantId={rec.variants.nodes[0].id}
+                                                variantQuantityAvailable={rec.variants.nodes[0].quantityAvailable || 0}
+                                                variantAvailableForSale={rec.variants.nodes[0].availableForSale}
+                                                buttonText="ADD"
+                                            />
+                                        </div>
                                     )}
                                 </div>
                             );

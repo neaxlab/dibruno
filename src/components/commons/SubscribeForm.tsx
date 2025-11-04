@@ -55,8 +55,6 @@ const SubscribeForm: React.FC = () => {
       // Simulación de llamada API (remover cuando tengas la API real)
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      console.log('Email to subscribe:', email);
-      
       // Si todo va bien
       setStatus('success');
       setMessage('Thank you for subscribing! You will hear from us soon.');
