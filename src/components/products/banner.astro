@@ -1,19 +1,21 @@
 ---
 import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 import { getProductByHandle } from '@/utils/shopify';
+import { getProductDiscount } from '@/constants/discounts';
 
 const ip = Astro.request.headers.get('x-forwarded-for') || Astro.request.headers.get('x-real-ip') || '127.0.0.1';
 const handle = 'rootflourish-rootpure-growth-nourish-bundle';
 const product = await getProductByHandle({ handle, buyerIP: ip });
 
-const discountPercent = 20;
+const productDiscount = getProductDiscount(handle);
+const discountPercent = productDiscount?.discountPercent || 0;
 ---
 <section class="w-full h-full relative">
     <img src="/images/shop/banner.png" alt="Banner" class="w-full object-cover rounded-lg sm:block hidden" />
     <img src="/images/shop/banner-responsive.png" alt="Banner" class="w-full h-full object-cover rounded-lg sm:hidden block" />
     <div class="absolute sm:bottom-14 bottom-6 right-[50px] w-fit flex flex-col justify-start items-end sm:gap-4 gap-2">
         {
-            discountPercent && (
+            productDiscount && discountPercent > 0 && (
                 <div class="w-fit bg-primary-discount p-1.5 sm:p-2 text-d-products text-sm sm:text-2xl text-primary-lotion rounded-md">
                     -{discountPercent}% OFF
                 </div>

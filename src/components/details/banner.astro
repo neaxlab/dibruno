@@ -1,14 +1,15 @@
 ---
 import BannerCarousel from "./bannerCarousel.jsx";
 import AddToCartButton from "@/components/cart/AddToCartButton";
+import { getProductDiscount } from "@/constants/discounts";
 const { product, recommendations } = Astro.props;
 
-const discountHandle = 'rootflourish-rootpure-growth-nourish-bundle';
-const hasDiscount = product?.handle === discountHandle;
-const discountPercent = 20;
+const productDiscount = getProductDiscount(product?.handle || '');
+const hasDiscount = productDiscount !== null;
+const discountPercent = productDiscount?.discountPercent || 0;
 
 const originalPrice = parseFloat(product?.variants?.nodes?.[0]?.price?.amount || '0');
-const discountedPrice = hasDiscount && originalPrice > 0 ? originalPrice * 0.8 : originalPrice;
+const discountedPrice = hasDiscount && originalPrice > 0 ? originalPrice * (1 - discountPercent / 100) : originalPrice;
 ---
 
 <section

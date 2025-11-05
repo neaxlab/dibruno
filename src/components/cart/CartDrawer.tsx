@@ -9,6 +9,7 @@ import {
 import Money from './Money';
 import { useClickOutsideWithPriority } from '@/hooks/useClickOutsideWithPriority';
 import ButtonSlide from '@/components/ui/buttons/ButtonSlide';
+import { getProductDiscount } from '@/constants/discounts';
 
 const CartDrawer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -193,13 +194,12 @@ const CartDrawer: React.FC = () => {
                                     {item.merchandise.product.title}
                                   </h3>
                                   {(() => {
-                                    const discountHandle = 'rootflourish-rootpure-growth-nourish-bundle';
-                                    const hasDiscount = item.merchandise.product.handle === discountHandle;
-                                    const discountPercent = 20;
+                                    const productHandle = item.merchandise.product.handle;
+                                    const productDiscount = getProductDiscount(productHandle);
                                     const currentPrice = parseFloat(item.cost.amountPerQuantity.amount || '0');
-                                    const discountedPrice = hasDiscount && currentPrice > 0 ? currentPrice * (1 - discountPercent / 100) : currentPrice;
                                     
-                                    if (hasDiscount && currentPrice > 0) {
+                                    if (productDiscount && currentPrice > 0) {
+                                      const discountedPrice = currentPrice * (1 - productDiscount.discountPercent / 100);
                                       return (
                                         <div className="flex flex-row items-center gap-3 flex-wrap">
                                           <Money 
@@ -276,17 +276,61 @@ const CartDrawer: React.FC = () => {
 
                 <div>
                   <div className="p-4 sm:p-6 flex flex-col gap-3">
-                    <div className="flex justify-between items-center">
-                      <p className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]">Subtotal</p>
-                      <p>
-                        <Money
-                          price={cartData && cartData.lines?.nodes.length ? cartData.cost.subtotalAmount : { amount: '0.00', currencyCode: (cartData?.cost?.subtotalAmount?.currencyCode || 'USD') as string }}
-                          showCurrency={true}
-                          className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]"
-                        />
-                      </p>
+                    {(() => {
+                      const calculateSubtotals = () => {
+                        if (!cartData || !cartData.lines?.nodes.length) {
+                          return { originalSubtotal: 0, discountedSubtotal: 0, hasDiscount: false, currencyCode: 'USD' };
+                        }
 
-                    </div>
+                        let originalSubtotal = 0;
+                        let discountedSubtotal = 0;
+                        let hasDiscount = false;
+                        const currencyCode = cartData.cost.subtotalAmount?.currencyCode || 'USD';
+
+                        cartData.lines.nodes.forEach((item) => {
+                          const productHandle = item.merchandise.product.handle;
+                          const productDiscount = getProductDiscount(productHandle);
+                          const currentPrice = parseFloat(item.cost.amountPerQuantity.amount || '0');
+                          const quantity = item.quantity || 1;
+                          
+                          if (productDiscount && currentPrice > 0) {
+                            hasDiscount = true;
+                            const itemOriginalTotal = currentPrice * quantity;
+                            const itemDiscountedTotal = currentPrice * (1 - productDiscount.discountPercent / 100) * quantity;
+                            originalSubtotal += itemOriginalTotal;
+                            discountedSubtotal += itemDiscountedTotal;
+                          } else {
+                            const itemTotal = currentPrice * quantity;
+                            originalSubtotal += itemTotal;
+                            discountedSubtotal += itemTotal;
+                          }
+                        });
+
+                        return { originalSubtotal, discountedSubtotal, hasDiscount, currencyCode };
+                      };
+
+                      const { originalSubtotal, discountedSubtotal, hasDiscount, currencyCode } = calculateSubtotals();
+                      
+                      return (
+                        <div className="flex justify-between items-center">
+                          <p className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]">Subtotal</p>
+                          <div className="flex flex-row items-center gap-3">
+                            {hasDiscount && (
+                              <Money
+                                price={{ amount: originalSubtotal.toFixed(2), currencyCode }}
+                                showCurrency={true}
+                                className="text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px] line-through text-primary-granite opacity-60"
+                              />
+                            )}
+                            <Money
+                              price={{ amount: discountedSubtotal.toFixed(2), currencyCode }}
+                              showCurrency={true}
+                              className="text-[#3B3B3B] text-[20px] sm:text-[24px] font-medium leading-[120%] tracking-[0.48px]"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })()}
                     <div className="text-xs sm:text-d-tertiary font-light w-full text-primary-granite">
                       Shipping, taxes and discounts calculated at checkout
                     </div>
