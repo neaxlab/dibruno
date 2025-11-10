@@ -6,6 +6,7 @@ import Footer from "@/components/commons/footer.astro";
 import CartDrawer from "@/components/cart/CartDrawer.tsx";
 import SEO from "@/components/commons/SEO.astro";
 import WhatsAppButton from "@/components/commons/WhatsAppButton.tsx";
+import Analytics from '@vercel/analytics/astro'
 
 export interface Props {
 	title?: string;
@@ -74,6 +75,7 @@ const fbPixelNoScriptHtml = `<noscript>\n<img height="1" width="1" src="https://
 		
 		<Fragment set:html={fbPixelHeadHtml} />
 		<WhatsAppButton />
+		<Analytics />
 	</head>
 	<body data-page={Astro.url.pathname}>
 		<Fragment set:html={fbPixelNoScriptHtml} />
