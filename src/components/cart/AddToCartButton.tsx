@@ -51,6 +51,16 @@ const AddToCartButton: React.FC<Props> = ({
             };
 
             await addCartItem(item);
+            try {
+                const w = window as unknown as { fbTrackWithDefaults?: (e: string, d?: Record<string, any>) => void; fbq?: (...args: any[]) => void };
+                if (typeof w !== 'undefined') {
+                    if (typeof w.fbTrackWithDefaults === 'function') {
+                        w.fbTrackWithDefaults('AddToCart', {});
+                    } else if (typeof w.fbq === 'function') {
+                        w.fbq('track', 'AddToCart');
+                    }
+                }
+            } catch (_e) {}
         } catch (error) {
             console.error('Error adding item to cart:', error);
         } finally {
