@@ -19,15 +19,21 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
 ---
 
 <section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
-    <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-center w-full">
-        <h1 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">Best Sellers</h2>
-        <AnimatedLink 
-            text="EXPLORE ALL PRODUCTS"
-            className="text-d-button text-primary-granite"
-            animationDuration={0.5}
-            linePosition={-8}
-            href="/products"
-        />
+    <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-end w-full">
+        <h1 class="sm:text-[48px] sm:font-normal leading-[-0.96px] text-d-title-2 text-[#212121] font-secondary">Our Best Sellers</h2>
+        <div class="flex flex-row gap-4 items-center">
+            <AnimatedLink 
+                text="View All Products"
+                className="text-d-button text-[#212121] font-[300]"
+                animationDuration={0.5}
+                linePosition={-8}
+                href="/products"
+            />
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M7.21484 2.96484L10.2498 5.99985L7.21484 9.03485" stroke="black" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1.75 6H10.165" stroke="black" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
     </div>
     <div class="w-full h-full flex-row gap-6 mx-auto sm:flex hidden">
         {pageProducts.map((product: any) => (
