@@ -91,7 +91,7 @@ export default {
     extend: {
       fontSize: customFontSizes,
       fontFamily: {
-        sans: ["Geist", ...defaultTheme.fontFamily.sans],
+        sans: ["Altone Variable", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         "screen-2xl": "1240px",
