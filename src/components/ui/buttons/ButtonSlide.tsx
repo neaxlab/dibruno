@@ -70,7 +70,7 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
     <a 
       href={disabled ? undefined : href}
       onClick={onClick}
-      className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
+      className={`btn-slide text-d-button px-8 py-4 border-[1px] w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       style={styles}
     >
       <span>{text}</span>
