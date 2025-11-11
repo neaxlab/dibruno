@@ -5,7 +5,8 @@ import typographyPlugin from "@tailwindcss/typography";
 
 const colors = {
   primary: {
-    olive: "#3B3B3B",
+    // olive: "#3B3B3B",
+    olive: "#212121",
     granite: "#67645E",
     bright: "#EAEAEA",
     silver: "#CBCAC8",
