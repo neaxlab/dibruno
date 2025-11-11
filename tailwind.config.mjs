@@ -92,6 +92,7 @@ export default {
       fontSize: customFontSizes,
       fontFamily: {
         sans: ["Altone Variable", ...defaultTheme.fontFamily.sans],
+        secondary: ["Afacad", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         "screen-2xl": "1240px",
