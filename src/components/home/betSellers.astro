@@ -18,13 +18,13 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
 
 ---
 
-<section class="w-full sm:max-w-screen-2xl mx-auto font-sans sm:py-section-d-gap-y py-section-m-gap-y flex flex-col gap-10">
-    <div class="flex sm:flex-row flex-col sm:justify-between items-start sm:items-end w-full">
-        <h1 class="sm:text-[48px] sm:font-normal leading-[-0.96px] text-d-title-2 text-[#212121] font-secondary">Our Best Sellers</h2>
-        <div class="flex flex-row gap-4 items-center">
+<section class="w-full font-sans py-section-m-gap-y flex flex-col gap-11">
+    <div class="flex flex-row justify-between items-end w-full sm:px-8 px-4">
+        <h1 class="sm:text-[48px] sm:font-normal leading-[-0.96px] text-[24px] text-[#212121] font-secondary">Our Best Sellers</h2>
+        <div class="flex flex-row gap-4 items-center sm:pb-4 pb-2">
             <AnimatedLink 
                 text="View All Products"
-                className="text-d-button text-[#212121] font-[300]"
+                className="text-d-button text-[#212121] font-[300] sm:text-[16px] text-[14px] sm:tracking-[-0.32px] tracking-[-0.28px] "
                 animationDuration={0.5}
                 linePosition={-8}
                 href="/products"
@@ -35,10 +35,10 @@ const { products: pageProducts, pageInfo: info } = await getProductsPaginated({ 
             </svg>
         </div>
     </div>
-    <div class="w-full h-full flex-row gap-6 mx-auto sm:flex hidden">
+    <!-- <div class="w-full h-full flex-row mx-auto sm:flex hidden">
         {pageProducts.map((product: any) => (
             <ProductCard product={product} client:load />
         ))}
-    </div>
+    </div> -->
     <ProductsCarousel products={pageProducts} client:load />
 </section>

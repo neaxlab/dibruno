@@ -4,19 +4,22 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 
 <section class="flex sm:flex-row flex-col-reverse sm:gap-24 gap-6 sm:max-w-screen-2xl w-full mx-auto font-sans sm:pb-section-d-gap-y pb-section-m-gap-y max-h-screen-850">
     <div class="flex flex-col justify-between items-start w-full sm:gap-8 gap-6 h-fit">
-        <h2 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">
-            REAL INGREDIENTS <br /> 
-            REAL <div class="inline-block relative w-fit">RESULTS<span class="absolute -bottom-1 left-0 w-full bg-[#94B1B7] h-1/2 z-[-1]"></span></div>
+        <h2 class="sm:text-[72px] sm:font-normal leading-[-1.44px] text-d-title-2 text-primary-olive font-secondary">
+            Real Ingredients <br /> 
+            Real Results
         </h2>
-        <p class="sm:text-d-primary text-d-secondary text-primary-granite">
-            We’ve spent years perfecting organic, effective and innovative formulas for hair regrowth and healthier skin.
+        <p class="sm:text-base sm:font-[300] text-d-secondary text-[#2D2D2D]">
+            We’ve dedicated years to developing powerful, science-backed formulas that truly transform hair and skin health. Each product is carefully crafted using only vegan, cruelty-free, and naturally derived ingredients that have been tested for real results, not empty promises. 
         </p>
-        <div class="w-full flex flex-row gap-4 items-center p-4 rounded-full bg-[#D0DEE0]">
+        <p class="sm:text-base sm:font-[300] text-d-secondary text-[#2D2D2D]">
+            Our commitment to innovation and purity ensures that every formula supports stronger hair growth, revitalized scalp balance, and naturally radiant skin.
+        </p>
+        <!-- <div class="w-full flex flex-row gap-4 items-center p-4 rounded-full bg-[#D0DEE0]">
             <div class="size-fit p-2 bg-[#B8CDD2] rounded-full">
                 <img src="/images/home/vegan-products.svg" alt="Ingredients Results" class="size-6 object-cover" />
             </div>
             <p class="sm:text-d-primary text-d-secondary text-primary-granite w-[280px] sm:w-full">All our products are made from vegan and natural formulas.</p>
-        </div>
+        </div> -->
         <ButtonSlide
             text="OUR VALUES"
             href="/ingredients"
@@ -27,6 +30,7 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
             borderColor="#3B3B3B"
             hoverBorderColor="#FAFAFA"
             transitionDuration="0.5s"
+            className="sm: mt-8"
         />
     </div>
     <div class="w-full overflow-hidden flex justify-center items-center">

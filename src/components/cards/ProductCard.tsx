@@ -14,42 +14,39 @@ export default function ProductCard({ product }: ProductCardProps) {
     const productDiscount = getProductDiscount(product?.handle || '');
     
     return (
-        <article className="flex flex-col sm:w-[397px] w-full text-primary-olive text-d-products">
+        <article className="flex flex-col w-full text-primary-olive text-d-products">
             <div className="relative overflow-hidden bg-primary-bright z-10 group flex flex-col">
-                <a href={`/products/${product.handle}`} className="w-full h-[500px]">
-                    <img src={product.featuredImage.url} alt={product.title} className="size-full object-cover cursor-pointer" />
+                <a href={`/products/${product.handle}`} className="h-full max-h-[615px] relative block">
+                    <img src={product.featuredImage.url} alt={product.title} className="size-full max-h-[615px] object-cover cursor-pointer" />
+                    <div 
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                            background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.00) 60.49%, rgba(0, 0, 0, 0.06) 100%)'
+                        }}
+                    />
                 </a>
                 {productDiscount && (
                     <div className="absolute top-3 right-3 bg-primary-discount p-1.5 sm:p-2 text-d-products text-sm sm:text-2xl text-primary-lotion rounded-md z-20">
                         -{productDiscount.discountPercent}% OFF
                     </div>
                 )}
-                <div className="absolute bottom-0 left-0 w-full bg-[#F4F4F4] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex justify-center items-start p-6 flex-col">
-
-                    {product.variants?.nodes?.[0] && (
-                        <AddToCartButton
-                            variantId={product.variants.nodes[0].id}
-                            variantQuantityAvailable={product.variants.nodes[0].quantityAvailable || 0}
-                            variantAvailableForSale={product.variants.nodes[0].availableForSale}
-                        />
-                    )}
-                </div>
+                
             </div>
-            <div className="flex flex-col justify-start items-start mt-[12px]">
+            <div className="flex flex-col gap-3 justify-start items-start px-8 py-6 border-[0.75px] border-primary-silver">
                 <div className="flex flex-col">
                     {treatmentValue && (
-                        <span style={{ color: '#878787', fontSize: '14px', fontStyle: 'normal', fontWeight: 400, lineHeight: '120%', letterSpacing: '0.28px' }}>
+                        <span style={{ color: '#6F6F6F', fontSize: '16px', fontStyle: 'normal', fontWeight: 300, lineHeight: '100%', letterSpacing: '-0.32px' }}>
                             {treatmentValue}
                         </span>
                     )}
-                    <h4 className="text-d-secondary font-medium mt-[4px]">{product.title}</h4>
+                    <h4 className="font-secondary text-[#212121] text-[28px] font-normal leading-[100%] tracking-[-0.56px]">{product.title}</h4>
                 </div>
                 {product?.shortDescription?.value && (
-                    <p className="text-[14px] text-primary-granite mt-[8px] line-clamp-2">
+                    <p className="text-[14px] text-[#1D130A] font-light leading-[140%] tracking-[-0.28px]">
                         {product.shortDescription.value}
                     </p>
                 )}
-                <div className="flex flex-row items-center mt-[12px]">
+                <div className="flex flex-row items-center justify-between w-full">
                     {(() => {
                         const originalPrice = parseFloat(product.variants.nodes[0]?.price?.amount || '0');
                         
@@ -86,6 +83,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                             </span>
                         );
                     })()}
+                    <div className="flex flex-row items-center gap-2">
+                    <AddToCartButton
+                            variantId={product.variants.nodes[0].id}
+                            variantQuantityAvailable={product.variants.nodes[0].quantityAvailable || 0}
+                            variantAvailableForSale={product.variants.nodes[0].availableForSale}
+                        />
+                    </div>
                 </div>
             </div>
         </article>

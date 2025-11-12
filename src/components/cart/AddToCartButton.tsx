@@ -77,8 +77,8 @@ const AddToCartButton: React.FC<Props> = ({
     return (
         <button
             onClick={handleAddToCart}
-            className={`btn-slide text-d-products font-bold px-6 py-4 border-[1.5px] rounded-full w-full text-nowrap disabled:cursor-not-allowed disabled:opacity-60`}
-            style={styles}
+            className={`btn-slide text-d-products font-bold isabled:cursor-not-allowed disabled:opacity-60`}
+            // style={styles}
             disabled={isDisabled}
         >
             {isUpdating ? (
@@ -94,9 +94,28 @@ const AddToCartButton: React.FC<Props> = ({
                     />
                 </svg>
             ) : (
-                <span>
-                    {variantAvailableForSale ? buttonText : 'SOLD OUT'}
-                </span>
+                <div className="flex flex-row items-center gap-2 px-4 py-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <g clipPath="url(#clip0_2214_23011)">
+                                <mask id="mask0_2214_23011" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                                <path d="M24 0H0V24H24V0Z" fill="white"/>
+                                </mask>
+                                <g mask="url(#mask0_2214_23011)">
+                                <path d="M7.5 7.66952V6.69952C7.5 4.44952 9.31 2.23952 11.56 2.02952C14.24 1.76952 16.5 3.87952 16.5 6.50952V7.88952" stroke="black" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M8.99983 22H14.9998C19.0198 22 19.7398 20.39 19.9498 18.43L20.6998 12.43C20.9698 9.99 20.2698 8 15.9998 8H7.99983C3.72983 8 3.02983 9.99 3.29983 12.43L4.04983 18.43C4.25983 20.39 4.97983 22 8.99983 22Z" stroke="black" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M15.4951 12H15.5041" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M8.49414 12H8.50312" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </g>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2214_23011">
+                                <rect width="24" height="24" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p className="text-[14px] font-light leading-[140%] tracking-[-0.56px]">Add to bag</p>
+                        
+                    </div>
             )}
         </button>
     );

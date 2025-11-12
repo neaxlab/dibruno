@@ -51,6 +51,10 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
     transitionDuration
   ]);
 
+  // Determinar si className incluye clases de ancho para no aplicar w-fit por defecto
+  const hasWidthClass = className && /w-\[|w-full|w-fit|w-auto|w-screen|w-min|w-max|w-1\/|w-\d+/.test(className);
+  const baseWidthClass = hasWidthClass ? '' : 'w-fit';
+
   // Si tiene type, renderizar como botón, sino como enlace
   if (type) {
     return (
@@ -58,7 +62,7 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
         type={type}
         onClick={onClick}
         disabled={disabled}
-        className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+        className={`btn-slide text-d-button px-6 py-4 border-[1.5px] rounded-full ${baseWidthClass} text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
         style={styles}
       >
         <span>{text}</span>
@@ -70,7 +74,7 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
     <a 
       href={disabled ? undefined : href}
       onClick={onClick}
-      className={`btn-slide text-d-button px-8 py-4 border-[1px] w-fit text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
+      className={`btn-slide text-d-button px-8 py-4 border-[1px] ${baseWidthClass} text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       style={styles}
     >
       <span>{text}</span>
