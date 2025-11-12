@@ -1,20 +1,49 @@
 ---
+import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 const { margin } = Astro.props;
 ---
-<section class={`flex sm:flex-row font-sans  flex-col sm:gap-6 gap-0 sm:pb-0 pb-section-m-gap-y ${margin ? 'sm:max-w-screen-2xl mx-auto sm:mb-28 mt-0' : 'w-full sm:px-section-d-gap-x px-0 pt-4 sm:mt-20 mt-0'}`}>
-    <div class="relative text-primary-olive flex flex-col gap-6 z-10 sm:rounded-lg rounded-none justify-center items-center sm:h-full h-[352px] sm:w-[65%] w-full">
-        <img src="/images/home/custom-formula.png" alt="Chat with our experts" class="w-full h-full object-cover object-[100%_0%]" />
-        <div class="flex flex-col gap-6 absolute inset-0 z-10 justify-center items-center">
-            <h1 class="sm:text-d-title-1 text-d-title-2">
+<section class={`flex sm:flex-row font-sans  flex-col sm:gap-40 gap-0 justify-end items-center sm:px-8 px-4`}>
+    <div class="">
+            <h1 class="font-secondary text-[#212121] sm:text-[56px] text-[32px] font-normal leading-[100%] tracking-[-2.24px] mb-4">
                 DO YOU NEED A <br /> 
-                <div class="inline-block relative w-fit">
-                    CUSTOMIZED FORMULA?
-                    <span class="absolute -bottom-1 left-0 w-full !bg-[#94B1B7] h-1/2 z-[-1] "></span></div>
+                CUSTOMIZED FORMULA?
             </h1>
-            <a href="https://wa.me/17873150400" target="_blank" rel="noopener noreferrer" class="text-d-primary text-2xl text-primary-granite">Chat with our experts</a>
-        </div>
+            <p class="text-[#1D1B1B] text-base font-normal leading-[150%] tracking-[-0.32px] mb-8">
+                We analyze your hair needs and create a formula made just for you.
+            </p>
+            <div class="w-full justify-center items-center sm:justify-start sm:flex hidden">
+                <ButtonSlide
+                    text="Chat with our experts"
+                    href="https://wa.me/17873150400"
+                    target="_blank"
+                    normalBackground="transparent"
+                    normalColor="#3B3B3B"
+                    hoverBackground="#3B3B3B"
+                    hoverColor="#FAFAFA"
+                    borderColor="#3B3B3B"
+                    hoverBorderColor="#FAFAFA"
+                    transitionDuration="0.5s"
+            
+                />
+            </div>
     </div>
     <div class="sm:w-[35%] w-full h-full sm:rounded-lg rounded-none overflow-hidden">
         <img src="/images/home/custom-product.avif" alt="Chat with our experts" class="w-full h-full object-cover hover:scale-105 transition-all duration-300 ease-in-out" /> 
+    </div>
+    <div class="w-full justify-center items-center sm:justify-start sm:hidden flex">
+        <ButtonSlide
+            text="Chat with our experts"
+            href="https://wa.me/17873150400"
+            target="_blank"
+            normalBackground="transparent"
+            normalColor="#3B3B3B"
+            hoverBackground="#3B3B3B"
+            hoverColor="#FAFAFA"
+            borderColor="#3B3B3B"
+            hoverBorderColor="#FAFAFA"
+            transitionDuration="0.5s"
+            className="w-full justify-center items-center text-center mt-8 mb-28"
+    
+        />
     </div>
 </section>

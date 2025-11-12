@@ -15,6 +15,7 @@ interface ButtonSlideProps {
   disabled?: boolean;
   type?: 'button' | 'submit';
   onClick?: (e: React.MouseEvent) => void;
+  target?: string;
 }
 
 const ButtonSlide: React.FC<ButtonSlideProps> = ({
@@ -30,7 +31,8 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
   className = "",
   disabled = false,
   type,
-  onClick
+  onClick,
+  target = "_self"
 }) => {
   // Estilos CSS personalizados usando variables CSS
   const styles = React.useMemo(() => ({
@@ -73,6 +75,7 @@ const ButtonSlide: React.FC<ButtonSlideProps> = ({
   return (
     <a 
       href={disabled ? undefined : href}
+      target={target}
       onClick={onClick}
       className={`btn-slide text-d-button px-8 py-4 border-[1px] ${baseWidthClass} text-nowrap ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
       style={styles}
