@@ -56,7 +56,7 @@ export default function ProductsCarousel() {
     }
   };
     return (
-        <div className="w-full h-[745px] flex sm:flex-row flex-col gap-12">
+        <div className="w-full h-[745px] flex sm:flex-row flex-col gap-20 lg:px-48 sm:px-32 px-4">
             
             <Swiper
                 modules={[Navigation, Scrollbar]}
@@ -80,9 +80,9 @@ export default function ProductsCarousel() {
                         </div>
                     </SwiperSlide> 
                 ))}
-                <div className="absolute bottom-8 w-full flex justify-center items-center z-10">
+                {/* <div className="absolute bottom-8 w-full flex justify-center items-center z-10">
                     <Pagination totalSlides={2} activeIndex={activeIndex} />
-                </div>
+                </div> */}
             </Swiper>
             <Swiper
                 modules={[Navigation, Scrollbar]}
@@ -101,18 +101,24 @@ export default function ProductsCarousel() {
             >
                 {products.map((product, index) => (
                     <SwiperSlide key={`${product.handle}-${index}`}>
-                        <div className="w-full h-full p-8 bg-primary-bright flex flex-col justify-between items-center overflow-hidden">
-                            <div className="w-full flex-1 min-h-0 flex justify-center items-center">
-                            <img src={product.featuredImage?.url} alt={product.title} className="max-h-full max-w-full object-contain" />
+                        <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
+                            <div className="flex flex-col mb-12">
+                                <h1 className="mb-6 text-center secondary-font text-[#212121] sm:text-[48px] text-[32px] font-normal leading-[100%] tracking-[-0.96px]">Pure by nature</h1>
+                                <p className="text-center text-[#1D1B1B] sm:text-base text-sm font-normal leading-[130%] tracking-[-0.32px]">All our products are made with vegan and natural formulas that care for you and the planet.</p>
                             </div>
-                            <div className="flex flex-col gap-6 w-full">
-                                <div className="w-full justify-center items-center z-10 sm:!hidden !flex">
+                            <div className="w-full flex-1 min-h-0 flex justify-center items-center">
+                                <img src={product.featuredImage?.url} alt={product.title} className="w-full h-full object-contain" />
+                            </div>
+                            <div className="flex flex-col w-full">
+                                {/* <div className="w-full justify-center items-center z-10 sm:!hidden !flex">
                                     <Pagination totalSlides={2} activeIndex={activeIndex} />
-                                </div>
-                                <h3 className="sm:text-d-title-2 text-d-products text-primary-olive">{product.title}</h3>
-                                <div className="flex flex-row w-full justify-between items-center">
+                                </div> */}
+                                <span className="mt-6 text-center text-[#6F6F6F] text-base font-normal leading-[100%] tracking-[-0.32px]">{product?.treatment?.ingredients?.[0]?.handle}</span>
+                                <h3 className="mb-4 text-center secondary-font text-[#212121] sm:text-[28px] text-2xl font-normal leading-[100%] tracking-[-0.56px]">{product.title}</h3>
+                                <p className="text-center text-[14px] text-[#1D130A] font-light leading-[140%] tracking-[-0.28px]">{product.shortDescription.value}</p>
+                                <div className="flex flex-row w-full justify-center items-center mt-10">
                                     <ButtonSlide
-                                        text={`BUY FOR $${product.variants?.nodes?.[0]?.price?.amount ? parseFloat(product.variants.nodes[0].price.amount).toFixed(2) : ''}`}
+                                        text={`BUY NOW`}
                                         href={`/products/${product.handle}`}
                                         normalBackground="transparent"
                                         normalColor="#3B3B3B"
@@ -121,17 +127,18 @@ export default function ProductsCarousel() {
                                         borderColor="#3B3B3B"
                                         hoverBorderColor="#FAFAFA"
                                         transitionDuration="0.5s"
+                                        className="px-8 py-4"
                                     /> 
-                                    <span className="text-d-title-2 text-primary-olive sm:text-4xl">{`${index + 1}/2`}</span>
+                                    {/* <span className="text-d-title-2 text-primary-olive sm:text-4xl">{`${index + 1}/2`}</span> */}
                                 </div>
                             </div>
                         </div>
                     </SwiperSlide>
                 ))}
-                <div className="justify-between items-center z-10 absolute w-full translate-x-[-50%] left-1/2 translate-y-[-50%] top-1/2 p-8 sm:!flex !hidden">
+                {/* <div className="justify-between items-center z-10 absolute w-full translate-x-[-50%] left-1/2 translate-y-[-50%] top-1/2 p-8 sm:!flex !hidden">
                     <NavigationButton direction="prev" onClick={handlePrev} />
                     <NavigationButton direction="next" onClick={handleNext} />
-                </div>
+                </div> */}
             </Swiper>
             
         </div>
