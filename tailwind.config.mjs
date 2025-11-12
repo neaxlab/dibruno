@@ -56,8 +56,8 @@ const colors = {
 const screens = {
   sm: "640px",
   md: "768px",
-  lg: "1024px",
-  xl: "1280px",
+  lg: "1440px",
+  xl: "1728px",
   "2xl": "1920px",
   foo: {
     raw: "(max-height: 850px)",
@@ -96,7 +96,9 @@ export default {
         secondary: ["Afacad", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
-        "screen-2xl": "1240px",
+        "screen-xl": "1728px",
+        "screen-2xl": "1920px",
+        "screen-xl": "1440px",
       },
       width: {
         macbook: "1240px",

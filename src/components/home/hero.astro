@@ -3,7 +3,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 ---
 
 <section class="relative w-full sm:h-screen h-[613px] mx-auto font-sans overflow-hidden">
-    <img src="/images/home/banner.png" alt="Banner" class="h-[720px] sm:size-full object-cover  object-[7%_-50%] sm:object-center -translate-y-6 sm:translate-y-0" />
+    <img src="/images/home/banner.png" alt="Banner" class="sm:block hidden sm:size-full object-cover  object-[7%_-50%] sm:object-center -translate-y-6 sm:translate-y-0" />
+    <img src="/images/home/banner-responsive.png" alt="Banner" class="sm:hidden block size-full object-cover" />
     <!-- Gradientes para móvil -->
     <div class="absolute inset-0 sm:hidden pointer-events-none z-10">
         <!-- Gradiente de arriba hacia abajo (negro a transparente 40%) -->
@@ -17,8 +18,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
             style="background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.3), transparent);"
         ></div>
     </div>
-    <div class="absolute z-10 left-6 right-0 bottom-6 sm:top-1/2 sm:-translate-y-[70%] sm:right-60 sm:bottom-auto sm:left-auto flex flex-col gap-6 text-primary-lotion">
-        <h2 class="sm:text-[72px] sm:font-normal leading-[100%] text-d-title-2">
+    <div class="absolute z-10 left-0 right-0 bottom-6 sm:top-1/2 sm:-translate-y-[70%] sm:right-60 sm:bottom-auto sm:left-auto flex flex-col gap-6 text-primary-lotion px-[22px] sm:px-0">
+        <h2 class="xl:text-[72px] sm:text-[64px] text-[48px] text-center sm:text-left font-normal leading-[100%] text-d-title-2">
             Where<br /> Confidence <br /> Meets Care.
         </h2>
         <ButtonSlide 
@@ -31,6 +32,8 @@ import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
           borderColor="#FAFAFA"
           hoverBorderColor="#3B3B3B"
           transitionDuration="0.5s"
+          className="flex justify-center w-full sm:w-fit"
         />
     </div>
 </section>
+
