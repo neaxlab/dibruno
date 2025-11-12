@@ -2,38 +2,41 @@
 import ButtonSlide from '../ui/buttons/ButtonSlide.tsx';
 ---
 
-<section class="flex sm:flex-row flex-col-reverse sm:gap-24 gap-6 sm:max-w-screen-2xl w-full mx-auto font-sans sm:pb-section-d-gap-y pb-section-m-gap-y max-h-screen-850">
-    <div class="flex flex-col justify-between items-start w-full sm:gap-8 gap-6 h-fit">
-        <h2 class="sm:text-[72px] sm:font-normal leading-[-1.44px] text-d-title-2 text-primary-olive font-secondary">
+<section class="flex sm:flex-row flex-col sm:gap-28 gap-0 sm:px-8 px-4 w-full mx-auto font-sans pb-20 pt-10 max-h-screen-850">
+    <h2 class="sm:hidden block mb-6 text-[32px] text-center font-normal leading-[100%] tracking-[-0.64px] font-secondary">
+        Real Ingredients <br /> 
+        Real Results
+    </h2>
+    <div class="sm:hidden w-full overflow-hidden flex justify-center items-center mb-4">
+        <img src="/images/home/ingredients-home.png" alt="Ingredients Results" class="w-full object-cover" />
+    </div>
+    <div class="flex flex-col justify-between items-start w-full sm:gap-8 gap-6 h-fit sm:max-w-[38%]">
+        <h2 class="sm:block hidden sm:text-[72px] sm:font-normal leading-[100%] tracking-[-1.44px] text-d-title-2 text-primary-olive font-secondary">
             Real Ingredients <br /> 
             Real Results
         </h2>
-        <p class="sm:text-base sm:font-[300] text-d-secondary text-[#2D2D2D]">
+        <p class="sm:text-base sm:font-[300] text-sm text-d-secondary text-[#2D2D2D]">
             We’ve dedicated years to developing powerful, science-backed formulas that truly transform hair and skin health. Each product is carefully crafted using only vegan, cruelty-free, and naturally derived ingredients that have been tested for real results, not empty promises. 
         </p>
-        <p class="sm:text-base sm:font-[300] text-d-secondary text-[#2D2D2D]">
+        <p class="sm:text-base text-sm sm:font-[300] text-d-secondary text-[#2D2D2D]">
             Our commitment to innovation and purity ensures that every formula supports stronger hair growth, revitalized scalp balance, and naturally radiant skin.
         </p>
-        <!-- <div class="w-full flex flex-row gap-4 items-center p-4 rounded-full bg-[#D0DEE0]">
-            <div class="size-fit p-2 bg-[#B8CDD2] rounded-full">
-                <img src="/images/home/vegan-products.svg" alt="Ingredients Results" class="size-6 object-cover" />
-            </div>
-            <p class="sm:text-d-primary text-d-secondary text-primary-granite w-[280px] sm:w-full">All our products are made from vegan and natural formulas.</p>
-        </div> -->
-        <ButtonSlide
-            text="OUR VALUES"
-            href="/ingredients"
-            normalBackground="transparent"
-            normalColor="#3B3B3B"
-            hoverBackground="#3B3B3B"
-            hoverColor="#FAFAFA"
-            borderColor="#3B3B3B"
-            hoverBorderColor="#FAFAFA"
-            transitionDuration="0.5s"
-            className="sm: mt-8"
-        />
+        <div class="w-full flex justify-center items-center sm:justify-start">
+            <ButtonSlide
+                text="OUR VALUES"
+                href="/ingredients"
+                normalBackground="transparent"
+                normalColor="#3B3B3B"
+                hoverBackground="#3B3B3B"
+                hoverColor="#FAFAFA"
+                borderColor="#3B3B3B"
+                hoverBorderColor="#FAFAFA"
+                transitionDuration="0.5s"
+        
+            />
+        </div>
     </div>
-    <div class="w-full overflow-hidden flex justify-center items-center">
-        <img src="/images/home/ingredients-home.png" alt="Ingredients Results" class="w-full object-cover hover:scale-110 transition-all duration-500 -translate-y-10 sm:translate-y-0" />
+    <div class="sm:flex hidden w-full overflow-hidden justify-center items-center">
+        <img src="/images/home/ingredients-home.png" alt="Ingredients Results" class="w-full object-cover " />
     </div>
 </section>
