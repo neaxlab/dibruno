@@ -13,16 +13,50 @@ const navigationItems = [
 
 // Colores dinámicos según la ruta
 // Solo la página index de shop (/products) debe tener colores claros
-const isShopIndexRoute = currentPath === '/products';
-const textColor = isShopIndexRoute ? "text-primary-lotion" : "text-primary-olive";
+const isShopIndexRoute = currentPath === "/products";
+const textColor = isShopIndexRoute
+  ? "text-primary-lotion"
+  : "text-primary-olive";
 const bgColor = "bg-primary-olive";
-const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home/logo-olive.svg";
+const logoSrc = isShopIndexRoute
+  ? "/images/home/logo-white.svg"
+  : "/images/home/logo-olive.svg";
 ---
 
 <header
   id="navbar"
   class={`fixed top-0 left-0 right-0 w-full transition-all duration-300 ease-in-out z-50 ${textColor}`}
 >
+  <div
+    class={`flex-row justify-center items-center bg-[#C7E7D1] text-[#000000] w-full flex-shrink-0 py-[15px] text-[13px] leading-[-0.26px] text-center ${currentPath === "/" ? "flex" : "hidden"}`}
+  >
+    Free Shipping on Orders Over $150
+    <span class="flex ml-4 justify-center items-center gap-2">
+      <a href="/products" class="underline font-medium">Shop Now</a>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
+        fill="none"
+      >
+        <path
+          d="M7.21484 2.96484L10.2498 5.99985L7.21484 9.03485"
+          stroke="black"
+          stroke-width="0.75"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          d="M1.75 6H10.165"
+          stroke="black"
+          stroke-width="0.75"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </span>
+  </div>
   <div
     class={`w-full h-fit flex flex-row justify-between items-center px-4 py-5 text-d-nav ${textColor}`}
   >
@@ -46,8 +80,16 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         navigationItems.map(({ href, label }) => (
           <a
             href={href}
-            class={`nav-link group relative transition-colors duration-300 ${(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "active" : ""; })()}`}
-            aria-current={(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "page" : undefined; })()}
+            class={`nav-link group relative transition-colors duration-300 ${(() => {
+              const normalize = (p: string) => p.replace(/\/+$/, "") || "/";
+              const normalizedPath = normalize(currentPath);
+              return normalizedPath === href ? "active" : "";
+            })()}`}
+            aria-current={(() => {
+              const normalize = (p: string) => p.replace(/\/+$/, "") || "/";
+              const normalizedPath = normalize(currentPath);
+              return normalizedPath === href ? "page" : undefined;
+            })()}
           >
             <span class="flex items-center gap-2">
               <span
@@ -70,7 +112,7 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
       <div class="sm:mr-16 mr-0">
         <CartIcon client:load isScrolled={false} />
       </div>
-      
+
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-button"
@@ -78,9 +120,15 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         aria-label="Toggle mobile menu"
         aria-expanded="false"
       >
-        <span class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300" style="background-color: currentColor;"></span>
-        <span class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300" style="background-color: currentColor;"></span>
-        <span class="hamburger-line w-6 h-0.5 transition-all duration-300" style="background-color: currentColor;"></span>
+        <span
+          class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300"
+          style="background-color: currentColor;"></span>
+        <span
+          class="hamburger-line w-6 h-0.5 mb-1 transition-all duration-300"
+          style="background-color: currentColor;"></span>
+        <span
+          class="hamburger-line w-6 h-0.5 transition-all duration-300"
+          style="background-color: currentColor;"></span>
       </button>
     </div>
   </div>
@@ -91,7 +139,8 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
   id="mobile-menu-overlay"
   class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
   aria-hidden="true"
-></div>
+>
+</div>
 
 <!-- Mobile Menu -->
 <nav
@@ -116,8 +165,17 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         class="w-8 h-8 flex items-center justify-center"
         aria-label="Close mobile menu"
       >
-        <svg class="w-6 h-6 text-primary-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        <svg
+          class="w-6 h-6 text-primary-olive"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
@@ -128,19 +186,27 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         {
           navigationItems.map(({ href, label }) => (
             <li>
-                <a
-                  href={href}
-                  class={`mobile-nav-link group relative flex items-center gap-4 text-primary-olive text-d-nav text-base font-medium transition-colors duration-300 py-3 ${(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "active" : ""; })()}`}
-                  aria-current={(() => { const normalize = (p: string) => p.replace(/\/+$/,'') || '/'; const normalizedPath = normalize(currentPath); return normalizedPath === href ? "page" : undefined; })()}
-                >
-                  <span class={`relative inline-block pb-2`}>
-                    {label}
-                    <div
-                      class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${currentPath === href ? "opacity-100" : ""} bg-primary-olive`}
-                      aria-hidden="true"
-                    />
-                  </span>
-                </a>
+              <a
+                href={href}
+                class={`mobile-nav-link group relative flex items-center gap-4 text-primary-olive text-d-nav text-base font-medium transition-colors duration-300 py-3 ${(() => {
+                  const normalize = (p: string) => p.replace(/\/+$/, "") || "/";
+                  const normalizedPath = normalize(currentPath);
+                  return normalizedPath === href ? "active" : "";
+                })()}`}
+                aria-current={(() => {
+                  const normalize = (p: string) => p.replace(/\/+$/, "") || "/";
+                  const normalizedPath = normalize(currentPath);
+                  return normalizedPath === href ? "page" : undefined;
+                })()}
+              >
+                <span class={`relative inline-block pb-2`}>
+                  {label}
+                  <div
+                    class={`absolute bottom-0 left-0 w-full h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-[.active]:opacity-100 ${currentPath === href ? "opacity-100" : ""} bg-primary-olive`}
+                    aria-hidden="true"
+                  />
+                </span>
+              </a>
             </li>
           ))
         }
@@ -163,15 +229,15 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     if (!navbar) return;
 
     const currentScrollY = window.scrollY;
-    const isShop = window.location.pathname === '/products';
-    
+    const isShop = window.location.pathname === "/products";
+
     // Nunca ocultar el navbar
     navbar.style.transform = "translateY(0)";
-    
+
     // Fondo blanco cuando se sale de la posición inicial
     if (currentScrollY > 0) {
       navbar.classList.add("scrolled");
-      
+
       // En shop, cambiar a colores oscuros cuando se hace scroll
       if (isShop) {
         navbar.classList.add("shop-scrolled");
@@ -180,7 +246,7 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
       }
     } else {
       navbar.classList.remove("scrolled");
-      
+
       // En shop, quitar los colores oscuros cuando se vuelve al inicio
       if (isShop) {
         navbar.classList.remove("shop-scrolled");
@@ -188,21 +254,21 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         updateCartIcon(false);
       }
     }
-    
+
     lastScrollY = currentScrollY;
     ticking = false;
   }
 
   // Función para actualizar el CartIcon
   function updateCartIcon(isScrolled: boolean) {
-    const cartButton = document.querySelector('.cart-button');
+    const cartButton = document.querySelector(".cart-button");
     if (cartButton) {
       if (isScrolled) {
-        cartButton.classList.remove('text-primary-lotion');
-        cartButton.classList.add('text-primary-olive');
+        cartButton.classList.remove("text-primary-lotion");
+        cartButton.classList.add("text-primary-olive");
       } else {
-        cartButton.classList.remove('text-primary-olive');
-        cartButton.classList.add('text-primary-lotion');
+        cartButton.classList.remove("text-primary-olive");
+        cartButton.classList.add("text-primary-lotion");
       }
     }
   }
@@ -228,21 +294,23 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     const mobileMenu = document.getElementById("mobile-menu");
     const overlay = document.getElementById("mobile-menu-overlay");
     const menuButton = document.getElementById("mobile-menu-button");
-    
+
     if (mobileMenu && overlay && menuButton) {
       mobileMenu.classList.remove("translate-x-full");
       overlay.classList.remove("hidden");
       menuButton.setAttribute("aria-expanded", "true");
       isMobileMenuOpen = true;
-      
+
       // Animar el botón hamburguesa a X
       const lines = menuButton.querySelectorAll(".hamburger-line");
       if (lines.length >= 3) {
-        (lines[0] as HTMLElement).style.transform = "rotate(45deg) translate(5px, 5px)";
+        (lines[0] as HTMLElement).style.transform =
+          "rotate(45deg) translate(5px, 5px)";
         (lines[1] as HTMLElement).style.opacity = "0";
-        (lines[2] as HTMLElement).style.transform = "rotate(-45deg) translate(7px, -6px)";
+        (lines[2] as HTMLElement).style.transform =
+          "rotate(-45deg) translate(7px, -6px)";
       }
-      
+
       // Prevenir scroll del body
       document.body.style.overflow = "hidden";
     }
@@ -252,13 +320,13 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     const mobileMenu = document.getElementById("mobile-menu");
     const overlay = document.getElementById("mobile-menu-overlay");
     const menuButton = document.getElementById("mobile-menu-button");
-    
+
     if (mobileMenu && overlay && menuButton) {
       mobileMenu.classList.add("translate-x-full");
       overlay.classList.add("hidden");
       menuButton.setAttribute("aria-expanded", "false");
       isMobileMenuOpen = false;
-      
+
       // Restaurar el botón hamburguesa
       const lines = menuButton.querySelectorAll(".hamburger-line");
       if (lines.length >= 3) {
@@ -266,7 +334,7 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
         (lines[1] as HTMLElement).style.opacity = "1";
         (lines[2] as HTMLElement).style.transform = "none";
       }
-      
+
       // Restaurar scroll del body
       document.body.style.overflow = "";
     }
@@ -304,31 +372,45 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
 
     if (mobileMenuButton) {
-      mobileMenuButton.addEventListener("click", openMobileMenu, { passive: true });
+      mobileMenuButton.addEventListener("click", openMobileMenu, {
+        passive: true,
+      });
     }
 
     if (mobileMenuClose) {
-      mobileMenuClose.addEventListener("click", closeMobileMenu, { passive: true });
+      mobileMenuClose.addEventListener("click", closeMobileMenu, {
+        passive: true,
+      });
     }
 
     if (mobileMenuOverlay) {
-      mobileMenuOverlay.addEventListener("click", closeMobileMenu, { passive: true });
+      mobileMenuOverlay.addEventListener("click", closeMobileMenu, {
+        passive: true,
+      });
     }
 
     // Cerrar menú móvil al hacer scroll
-    window.addEventListener("scroll", () => {
-      if (isMobileMenuOpen) {
-        closeMobileMenu();
-      }
-      onScroll();
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (isMobileMenuOpen) {
+          closeMobileMenu();
+        }
+        onScroll();
+      },
+      { passive: true },
+    );
 
     // Cerrar menú móvil al redimensionar ventana
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        closeMobileMenu();
-      }
-    }, { passive: true });
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.innerWidth >= 768 && isMobileMenuOpen) {
+          closeMobileMenu();
+        }
+      },
+      { passive: true },
+    );
 
     // Configurar estado inicial del navbar (por si carga ya desplazado)
     updateNavbar();
@@ -346,7 +428,6 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     @apply relative inline-block;
   }
 
-
   .nav-link .bullet {
     @apply transform-gpu;
   }
@@ -359,8 +440,6 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
   .mobile-nav-link {
     @apply relative;
   }
-
- 
 
   .mobile-nav-link:focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-olive;
@@ -376,12 +455,12 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
     .nav-link {
       @apply text-sm;
     }
-    
+
     /* Asegurar que el menú móvil esté por encima de todo */
     #mobile-menu {
       @apply z-50;
     }
-    
+
     #mobile-menu-overlay {
       @apply z-40;
     }
@@ -417,7 +496,8 @@ const logoSrc = isShopIndexRoute ? "/images/home/logo-white.svg" : "/images/home
 
   /* Cambiar logo en shop cuando se hace scroll */
   #navbar.shop-scrolled img {
-    filter: brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    filter: brightness(0) saturate(100%) invert(23%) sepia(0%) saturate(0%)
+      hue-rotate(0deg) brightness(100%) contrast(100%);
   }
 
   /* Estilos por defecto para páginas que no son shop */
