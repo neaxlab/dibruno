@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 
             </div>
             <div className="flex flex-col gap-3 justify-start items-start sm:px-8 px-4 sm:py-6 py-6 border-[0.75px] border-primary-silver">
-                <div className="flex flex-col">
+                <div className="flex flex-col sm:min-h-[80px] min-h-[50px]">
                     {treatmentValue && (
                         <span className="text-[6F6F6F] sm:text-base text-sm font-light leading-[100%] tracking-[-0.32px]">
                             {treatmentValue}
@@ -53,14 +53,14 @@ export default function ProductCard({ product }: ProductCardProps) {
                         if (productDiscount && originalPrice > 0) {
                             const discountedPrice = originalPrice * (1 - productDiscount.discountPercent / 100);
                             return (
-                                <>
+                                <div className="flex flex-row items-center gap-2">
                                     <span className="text-primary-granite leading-[100%] font-light text-[14px] line-through tracking-[2%] opacity-60">
                                         {`$${originalPrice.toFixed(2)}`}
                                     </span>
                                     <span className="leading-[100%] font-medium text-[20px] tracking-[2%] ml-2">
                                         {`$${discountedPrice.toFixed(2)}`}
                                     </span>
-                                </>
+                                </div>
                             );
                         }
                         
