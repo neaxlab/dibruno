@@ -4,23 +4,23 @@ import SubscribeForm from "./SubscribeForm"
 import EmailLink from "./EmailLink"
 const explore = [
     {
-        text: "SHOP",
+        text: "Shop All",
         href: "/products"
     },  
     {
-        text: "ABOUT",
+        text: "About Us",
         href: "/about"
     },
     {
-        text: "INGREDIENTS",
+        text: "Our Ingredients",
         href: "/ingredients"
     },
     {
-        text: "TESTIMONIALS",
+        text: "Testimonials",
         href: "/testimonials"
     },
     {
-        text: "FAQS",
+        text: "FAQs",
         href: "/faqs"
     },
     // {
@@ -32,15 +32,15 @@ const explore = [
 const follow = [
 
     {
-        text: "INSTAGRAM",
+        text: "Instagram",
         href: "https://www.instagram.com/dibrunolab/?hl=en"
     },
     {
-        text: "FACEBOOK",
+        text: "Facebook",
         href: "https://www.facebook.com/dibrunolab/?locale=es_LA"
     },
     {
-        text: "TIKTOK",
+        text: "Tiktok",
         href: "https://www.tiktok.com/@dibruno.lab"
     },
 ]
@@ -52,87 +52,91 @@ const contact = [
     
 ]
 ---
-<footer class="relative w-full font-sans flex flex-col sm:gap-12 gap-36 sm:pt-[200px] pt-0">
+<footer class="relative w-full font-sans flex flex-col sm:gap-12 gap-4 sm:pt-[200px] pt-0">
     <img src="/images/home/footer.png" alt="Footer" class="hidden sm:block w-full h-full object-cover" />
     <img src="/images/home/footerResponsive.png" alt="Footer" class="block sm:hidden w-full h-full object-cover" />
     <div class="w-full h-full sm:px-16 px-4">
-        <div class="flex sm:flex-col flex-col-reverse gap-10 sm:w-[755px] w-full">
-            <img src="/images/home/logo.svg" alt="Logo" class="w-[187px] h-[31px]" />
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-40 sm:gap-x-8  gap-y-8 items-start">
-                <div class="w-full">
-                    <div class="flex flex-col text-d-footer text-primary-olive gap-5">
-                        <span class="text-primary-granite">EXPLORE</span>
-                        <ul class="flex flex-col gap-4">
-                            {
-                                explore.map((item): {text: string, href: string} => (
-                                    <li>
-                                        <AnimatedLink text={item.text} href={item.href} />
-                                    </li>
-                                ))
-                            }
-                            
-                        </ul>
+        <div class="flex  sm:flex-row flex-col-reverse justify-between">
+            
+            <div class="flex sm:flex-col flex-col-reverse gap-10 sm:w-[755px] w-full">
+                <img src="/images/home/logo.svg" alt="Logo" class="sm:block hidden w-[160px] h-[25px]" />
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-40 sm:gap-x-8  gap-y-8 items-start">
+                    <div class="w-full">
+                        <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                            <span class="text-nowrap font-secondary font-medium sm:text-base text-[18px] tracking-[-0.36px] text-[#000000]">Explore</span>
+                            <ul class="flex flex-col gap-4">
+                                {
+                                    explore.map((item): {text: string, href: string} => (
+                                        <li>
+                                            <AnimatedLink text={item.text} href={item.href} className="text-sm font-normal text-[#3B3B3B] text-nowrap" />
+                                        </li>
+                                    ))
+                                }
+                                
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="w-full">
-                    <div class="flex flex-col text-d-footer text-primary-olive gap-5">
-                        <span class="text-primary-granite">FOLLOW US</span>
-                        <ul class="flex flex-col gap-4">
-                            {
-                                follow.map((item): {text: string, href: string} => (
-                                    <li>
-                                        <AnimatedLink text={item.text} href={item.href} target="_blank" />
-                                    </li>
-                                ))
-                            }
-                            
-                        </ul>
+                    <div class="w-full">
+                        <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                            <span class="text-nowrap font-secondary font-medium sm:text-base text-[18px] tracking-[-0.36px] text-[#000000]">Contact Us</span>
+                            <ul class="flex flex-col gap-4">
+                                {
+                                    follow.map((item): {text: string, href: string} => (
+                                        <li>
+                                            <AnimatedLink text={item.text} href={item.href} target="_blank" className="text-sm font-normal text-[#3B3B3B] text-nowrap" />
+                                        </li>
+                                    ))
+                                }
+                                
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="w-full">
-                    <div class="flex flex-col text-d-footer text-primary-olive gap-5">
-                        <span class="text-primary-granite">CONTACT US</span>
-                        <ul class="flex flex-col gap-4">
-                            {
-                                contact.map((item): {text: string, href: string} => (
-                                    <EmailLink 
-                                        client:load
-                                        email={item.text} 
-                                        className="" 
-                                    />
-                                ))
-                            }
-                            
-                        </ul>
+                    <div class="w-full">
+                        <div class="flex flex-col text-d-footer text-primary-olive gap-5">
+                            <span class="text-nowrap font-secondary font-medium sm:text-base text-[18px] tracking-[-0.36px] text-[#000000]">Company Info</span>
+                            <ul class="flex flex-col gap-4">
+                                {
+                                    contact.map((item): {text: string, href: string} => (
+                                        <EmailLink 
+                                            client:load
+                                            email={item.text} 
+                                            className="text-sm font-normal text-[#3B3B3B]" 
+                                        />
+                                    ))
+                                }
+                                <div class="flex flex-col gap-4 ">
+                                    <AnimatedLink text="Terms of Service" href="/policy/terms-of-service" target="_blank" className="text-sm font-normal text-[#3B3B3B] text-nowrap" />
+                                    <AnimatedLink text="Privacy Policy" href="/policy/privacy-policy" target="_blank" className="text-sm font-normal text-[#3B3B3B] text-nowrap" />
+                                    <AnimatedLink text="Refund Policy" href="/policy/refund-policy" target="_blank" className="text-sm font-normal text-[#3B3B3B] text-nowrap" />
+                                </div>
+             
+                                
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="subscribe-w absolute sm:top-[640px] top-[370px] sm:right-16 bg-primary-bright px-8 sm:px-10 py-10 sm:mx-0 mx-auto sm:h-[577px] h-[400px] flex flex-col sm:gap-10 gap-6">
-            <h2 class="sm:text-d-title-1 text-d-title-2 text-primary-olive">
-                HEAR MORE <br /> FROM US
-            </h2>
-            <p class="text-d-secondary text-primary-olive text-lg">
-                Subscribe to receive special offers, giveaways, and be the first to know about new releases and news.
-            </p>
-            <SubscribeForm client:load />  
-        </div>
-        <div class="flex sm:flex-row flex-col sm:justify-between align-start sm:align-center text-d-footer text-[#A9A9A9] pt-10 sm:px-section-d-gap-x  px-0 sm:my-10 my-0 gap-6">
-            <span class="">
-                &copy; 2025 Di bruno All rights reserved.
-            </span>
-            <div class="flex sm:flex-row flex-col sm:gap-16 gap-2 ">
-                <a href="/policy/terms-of-service" class="hover:text-primary-olive">
-                    Terms of Service
-                </a>
-                <a href="/policy/privacy-policy" class="hover:text-primary-olive">
-                    Privacy Policy
-                </a>
-                <a href="/policy/refund-policy" class="hover:text-primary-olive">
-                    Refund Policy
-                </a>
+            <div class="subscribe-w flex flex-col sm:gap-10 gap-6 mb-6">
+                <h2 class="font-secondary font-medium sm:text-[40px] text-[28px] leading-[120%] tracking-[0.8px] text-[3B3B3B]">
+                    Hear More from Us
+                </h2>
+                <p class="text-d-secondary text-[#67645E] sm:text-base text-sm leading-[140%] font-light tracking-[-0.32px]">
+                    Subscribe to receive special offers, giveaways, and be the first to know about new releases and news.
+                </p>
+                <SubscribeForm client:load />  
             </div>
         </div>
+        
+        <div class="sm:flex hidden sm:flex-row flex-col sm:justify-center sm:align-center text-d-footer text-[#A9A9A9] pt-10 sm:px-section-d-gap-x  px-0 sm:my-10 my-0 gap-6">
+            <p class="text-sm font-normal text-[#838383]">
+                Powered by <a href="https://www.neastudio.xyz" target="_blank" class="hover:text-primary-olive">Nea Studio</a> &copy; 2025 Di bruno All rights reserved.</p>
+       
+        </div>
+    </div>
+    <div class="sm:hidden flex flex-col items-center justify-center gap-2 text-center text-sm font-normal text-[#3B3B3B] pt-6 pb-20 border-t-[0.75px] border-[#EAEAEA] mt-8">
+        <img src="/images/home/logo.svg" alt="Logo" class="w-[116px] h-[18px]" />
+        <p class="text-xs font-normal text-[#838383]">
+            Powered by <a href="https://www.neastudio.xyz" target="_blank" class="hover:text-primary-olive">Nea Studio</a> &copy; 2025 Di bruno All rights reserved.</p>
     </div>
 
 </footer>

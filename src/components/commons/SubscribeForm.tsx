@@ -87,7 +87,7 @@ const SubscribeForm: React.FC = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email" 
-          className="text-d-secondary text-primary-olive w-full h-10 border-0 border-b border-b-olive p-2 bg-primary-bright focus:outline-none focus:ring-0 focus:border-b-olive"
+          className="text-d-secondary text-transparent w-full h-10 border-0 border-b border-b-olive p-2 bg-[#FAFAFA] focus:outline-none focus:ring-0 focus:border-b-olive"
           disabled={status === 'loading'}
           aria-label="Email for subscription"
         />
@@ -117,7 +117,7 @@ const SubscribeForm: React.FC = () => {
         borderColor="#3B3B3B"
         hoverBorderColor="#FAFAFA"
         transitionDuration="0.5s"
-        className="w-full flex justify-center"
+        className="w-full flex justify-center rounded-none"
         disabled={status === 'loading'}
       />
     </form>
