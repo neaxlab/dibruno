@@ -134,7 +134,7 @@ export default function TestimonialsCarousel() {
     }, []);
 
     return (
-        <section className="w-full h-full relative max-h-[400px]">
+        <section className="w-full h-full relative min-h-[400px] sm:min-h-auto">
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar]}
                 direction='horizontal'
