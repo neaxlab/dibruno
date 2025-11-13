@@ -2,6 +2,6 @@ import type { Product } from "./products";
 
 
 export type Testimonial = {
-    image: string;
+    images: string[];
     product: Product;   
 }

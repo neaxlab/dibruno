@@ -3,15 +3,30 @@ import { getDiscount } from '../../hooks/discounts';
 
 export default function TestimonialsCard({ testimonial }: { testimonial: Testimonial }) {
     return (
-        <article className="relative group flex flex-col gap-4 w-full max-w-[466px] sm:h-[596px] h-full text-primary-olive text-d-products hover:cursor-pointer">
-            <div className="relative w-full sm:h-[596px] h-full overflow-hidden bg-primary-bright rounded-lg transition-all duration-300 ease-in-out">
+        <article className="flex flex-row gap-[1px] font-sans text-[#000000] text-base leading-[100%] tracking-[-0.346px] min-h-[400px]">
+            <div className="flex flex-col">
                 <div className="w-full sm:h-[596px] h-full rounded-lg">
                     <img
-                        src={testimonial.image}
+                        src={testimonial.images[0]}
                         alt="TestimonialsCard"
                         className="w-full sm:h-[596px] h-full object-cover"
                     />
                 </div>
+                <p className="w-full text-center bg-[#E7E7E7] py-3">
+                    BEFORE
+                </p>
+            </div>
+            <div className="flex flex-col">
+                <div className="w-full sm:h-[596px] h-full rounded-lg">
+                    <img
+                        src={testimonial.images[1]}
+                        alt="TestimonialsCard"
+                        className="w-full sm:h-[596px] h-full object-cover"
+                    />
+                </div>
+                <p className="w-full text-center bg-[#E7E7E7] py-3">
+                    AFTER
+                </p>
             </div>
             {/* Tarjeta de hover desactivada temporalmente (no se renderiza en ninguna vista)
                 <div className="absolute bottom-0 left-0 w-full hidden sm:block h-0 group-hover:h-[150px] bg-primary-lotion transition-all duration-300 ease-in-out overflow-hidden">
