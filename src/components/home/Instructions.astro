@@ -2,26 +2,26 @@
 import { Bullet } from '../ui/buttons/Bullet';
 import ButtonSlide from '../ui/buttons/ButtonSlide';
 import InstructionsCarousel from '../commons/instructionsCarousel';
-import { getProductByTitle } from '../../utils/shopify';
+import { getProductByHandle } from '../../utils/shopify';
 
-// Orden y títulos exactos de Shopify
-const productTitles = [
-  'ShieldMist Spray (5% Procapil)',
-  'RootPure Shampoo⁠ (5% Procapil)',
-  'VitaLush Serum (5% Procapil)',
-  'SproutMist Spray (5% Procapil)',
-  'RootFlourish Mask (5% Procapil)'
+// Orden y handlers de productos en Shopify
+const productHandles = [
+  'shieldmist-spray-anagen-protection',
+  'rootpure-shampoo-anagen-regrowth',
+  'vitalush-serum-anagen-growth',
+  'sproutmist-spray-anagen-growth',
+  'rootflourish-mask-anagen-growth'
 ];
 
 
 const buyerIP = Astro.request.headers.get('x-forwarded-for') || '127.0.0.1';
 const productsLite = await Promise.all(
-  productTitles.map(async (title) => {
+  productHandles.map(async (handle) => {
     try {
-      const p = await getProductByTitle({ title, buyerIP });
-      return { title: p?.title || title, handle: p?.handle || '', howToUse: p?.howToUse || null, image: p?.featuredImage?.url || '' };
+      const p = await getProductByHandle({ handle, buyerIP });
+      return { title: p?.title || '', handle: p?.handle || handle, howToUse: p?.howToUse || null, image: p?.featuredImage?.url || '' };
     } catch {
-      return { title, handle: '', howToUse: null };
+      return { title: '', handle, howToUse: null };
     }
   })
 );
