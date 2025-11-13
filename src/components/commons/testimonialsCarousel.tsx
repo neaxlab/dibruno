@@ -19,6 +19,13 @@ export default function TestimonialsCarousel() {
     const scrollbarRef = useRef<HTMLDivElement>(null);
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
+    const getStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    return { fullStars, hasHalfStar, emptyStars };
+};
 
     useEffect(() => {
         if (swiperRef.current && scrollbarRef.current) {

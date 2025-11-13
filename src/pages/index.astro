@@ -8,6 +8,7 @@ import Instructions from '@/components/home/Instructions.astro';
 import ProductCarousel from '@/components/home/ProductCarousel.astro';
 import ChatWithUS from '@/components/faqs/chatWithUS.astro';
 import { getCurrentCanonicalUrl } from '@/utils/seo';
+import Comments from '@/components/comments/comments.astro';
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 export const prerender = false;
@@ -23,4 +24,5 @@ const canonicalUrl = getCurrentCanonicalUrl(Astro.url.pathname);
 	<Instructions />
 	<ChatWithUS margin={true}/>
 	<Testimonials />
+	<Comments />
 </Layout>

@@ -1,0 +1,66 @@
+---
+import CommentsCarousel from './commentsCarousel.tsx';
+import { comments } from '../../constants/home/comments';
+
+const getStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    return { fullStars, hasHalfStar, emptyStars };
+};
+---
+<section class="sm:px-8 px-4 flex flex-col gap-16 font-sans pt-28 ">
+    <div class="flex flex-col gap-4 text-center">
+        <h2 class="font-secondary text-[48px] font-normal leading-[100%] tracking-[-0.96px] text-primary-olive">What people said about us</h2>
+        <p class="text-base leading-[140%] font-light tracking-[-0.32px] text-[#1D1D1D]">Real stories from people who trusted us and saw real results.</p>
+    </div>
+    <div class="grid-cols-4 gap-4 sm:grid hidden">
+        {comments.map((comment, index) => {
+            const { fullStars, hasHalfStar, emptyStars } = getStars(comment.rating);
+            const gradientId = `half-star-${index}`;
+            return (
+                <article class="flex flex-col p-8 bg-[#FFFFFF] justify-between gap-8">
+                    <span>
+                        <div class="flex flex-row items-center gap-4 mb-3">
+                            <div class="flex gap-1">
+                                {/* Estrellas completas */}
+                                {Array.from({ length: fullStars }).map(() => (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#1EC469"/>
+                                    </svg>
+                                ))}
+                                
+                                {/* Media estrella */}
+                                {hasHalfStar && (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="50%" stop-color="#1EC469"/>
+                                                <stop offset="50%" stop-color="#D8D8D8"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill={`url(#${gradientId})`}/>
+                                    </svg>
+                                )}
+                                
+                                {/* Estrellas vacías */}
+                                {Array.from({ length: emptyStars }).map(() => (
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#D8D8D8"/>
+                                    </svg>
+                                ))}
+                            </div>
+                            <p class="text-sm leading-[120%] tracking-[-0.26px] text-[#565656]">{comment.date}</p>
+                        </div>
+                        <p class="text-xl font-normal leading-[120%] tracking-[-0.4px] text-[#000000] mb-2">{comment.title}</p>
+                        <p class="text-sm leading-[150%] tracking-[-0.56px] text-[#1D1D1D]">{comment.comment}</p>
+                    </span>
+                    <h3 class="text-sm font-medium leading-[100%] tracking-[0.28px] text-[#000000]">{comment.name}</h3>
+                </article>
+            );
+        })}
+    </div>
+    
+    <CommentsCarousel comments={comments} client:load />
+</section>
