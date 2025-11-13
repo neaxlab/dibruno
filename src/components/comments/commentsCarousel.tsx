@@ -35,15 +35,15 @@ export default function CommentsCarousel({ comments }: { comments: { name: strin
                                 <div className="flex flex-row items-center gap-4 mb-3">
                                     <div className="flex gap-1">
                                         {/* Estrellas completas */}
-                                        {Array.from({ length: fullStars }).map(() => (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        {Array.from({ length: fullStars }).map((_, starIndex) => (
+                                            <svg key={`full-${index}-${starIndex}`} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#1EC469" />
                                             </svg>
                                         ))}
 
                                         {/* Media estrella */}
                                         {hasHalfStar && (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg key={`half-${index}`} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <defs>
                                                     <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
                                                         <stop offset="50%" stop-color="#1EC469" />
@@ -55,8 +55,8 @@ export default function CommentsCarousel({ comments }: { comments: { name: strin
                                         )}
 
                                         {/* Estrellas vacías */}
-                                        {Array.from({ length: emptyStars }).map(() => (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        {Array.from({ length: emptyStars }).map((_, starIndex) => (
+                                            <svg key={`empty-${index}-${starIndex}`} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#D8D8D8" />
                                             </svg>
                                         ))}
