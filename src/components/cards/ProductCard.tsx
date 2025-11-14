@@ -35,14 +35,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="flex flex-col gap-3 justify-start items-start sm:px-8 px-4 sm:py-6 py-6 border-[0.75px] border-primary-silver">
                 <div className="flex flex-col sm:min-h-[80px] min-h-[50px]">
                     {treatmentValue && (
-                        <span className="text-[6F6F6F] sm:text-base text-sm font-light leading-[100%] tracking-[-0.32px]">
+                        <span className="text-[#6F6F6F] sm:text-base text-sm font-normal leading-[100%] tracking-[-0.32px]">
                             {treatmentValue}
                         </span>
                     )}
                     <h4 className="font-secondary text-[#212121] sm:text-[28px] text-[20px] font-normal leading-[100%] tracking-[-0.56px]">{product.title}</h4>
                 </div>
                 {product?.shortDescription?.value && (
-                    <p className="sm:block hidden text-sm text-[#1D130A] font-light leading-[140%] tracking-[-0.28px]">
+                    <p className="sm:block hidden text-sm text-[#1D130A] font-normal leading-[140%] tracking-[-0.28px]">
                         {product.shortDescription.value}
                     </p>
                 )}

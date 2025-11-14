@@ -113,7 +113,7 @@ const AddToCartButton: React.FC<Props> = ({
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p className="text-[14px] font-light leading-[140%] tracking-[-0.56px]">Add to bag</p>
+                        <p className="text-sm font-normal leading-[140%] tracking-[-0.56px]">Add to bag</p>
                         
                     </div>
             )}

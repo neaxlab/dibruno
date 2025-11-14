@@ -115,7 +115,7 @@ export default function ProductsCarousel() {
                                 </div> */}
                                 <span className="mt-6 text-center text-[#6F6F6F] text-base font-normal leading-[100%] tracking-[-0.32px]">{product?.treatment?.ingredients?.[0]?.handle}</span>
                                 <h3 className="mb-4 text-center secondary-font text-[#212121] sm:text-[28px] text-2xl font-normal leading-[100%] tracking-[-0.56px]">{product.title}</h3>
-                                <p className="text-center text-[14px] text-[#1D130A] font-light leading-[140%] tracking-[-0.28px]">{product.shortDescription.value}</p>
+                                <p className="text-center text-[14px] text-[#1D130A] font-normal leading-[140%] tracking-[-0.28px]">{product.shortDescription.value}</p>
                                 <div className="flex flex-row w-full justify-center items-center mt-10">
                                     <ButtonSlide
                                         text={`BUY NOW`}
@@ -127,7 +127,7 @@ export default function ProductsCarousel() {
                                         borderColor="#3B3B3B"
                                         hoverBorderColor="#FAFAFA"
                                         transitionDuration="0.5s"
-                                        className="px-8 py-4"
+                                        className="px-8 py-4 font-normal"
                                     /> 
                                     {/* <span className="text-d-title-2 text-primary-olive sm:text-4xl">{`${index + 1}/2`}</span> */}
                                 </div>

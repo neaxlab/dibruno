@@ -29,14 +29,14 @@ const CartIcon: React.FC<CartIconProps> = ({ isScrolled = false }) => {
   return (
     <div>
       <button 
-        className={`cart-button text-d-nav hover:text-primary-granite transition-colors cursor-pointer ${
+        className={`cart-button text-sm font-medium hover:text-primary-granite transition-colors cursor-pointer ${
           isShopRoute 
             ? (isScrolled ? 'text-primary-olive' : 'text-primary-lotion')
             : 'text-primary-olive'
         }`}
         onClick={openCart}
       >
-        Cart {isHydrated && cartData && `(${cartData.totalQuantity})`}
+        Your Bag {isHydrated && cartData && `(${cartData.totalQuantity})`}
       </button>
     </div>
   );
